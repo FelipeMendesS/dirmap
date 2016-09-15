@@ -1,6 +1,5 @@
 import re
 
-
 class STGGraph (object):
 
     # Data that we need to use
@@ -16,7 +15,7 @@ class STGGraph (object):
     LEVEL_HIGH = 6
     LEVEL_LOW = 7
 
-    def __init__(self, parsedText):
+    def __init__(self, regular_inputs: list, outputs: list, choice_inputs: list, transitions: list):
         # Map to relate all variables to type (Input, output, choice and don't care)
         self.variable_map = {}
         # Map that shows graph and each node has its type in a tuple associated with the value
@@ -25,15 +24,13 @@ class STGGraph (object):
         # concatenation of the nodes names
         self.transition_variables = {}
         self.initial_condition = ()
-        if parsedText == "":
-            return
-        for input in parsedText.regular_inputs:
+        for input in regular_inputs:
             self.variable_map[input] = self.INPUT
-        for output in parsedText.outputs:
+        for output in outputs:
             self.variable_map[output] = self.OUTPUT
-        for choice in parsedText.choice_inputs:
+        for choice in choice_inputs:
             self.variable_map[choice] = self.CHOICE
-        for line in parsedText.transitions:
+        for line in transitions:
             # Deal better with possible spaces in the input file
             [vertices, variables] = line[0].split('|')
             transition_type = line[1]
@@ -58,7 +55,7 @@ class STGGraph (object):
             transition_conditions = (v, t)
             [origin_vertex, destination_vertex] = vertices.split('/')
             for origin in origin_vertex.split(','):
-                if not self.stg_graph.has_key(origin):
+                if not origin in self.stg_graph:
                     self.stg_graph[origin] = ([], 0)
                 for destination in destination_vertex.split(','):
                     self.stg_graph[origin][0].append(destination)

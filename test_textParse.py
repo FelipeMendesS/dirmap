@@ -3,18 +3,21 @@ from TextParse import TextParse
 
 
 class TestTextParse(TestCase):
+
+    PATH_TO_TESTS = "../Testes/"
+
     def test_check_file(self):
         return
 
     def test_read_file1(self):
-        parse_test = TextParse("testFile")
+        parse_test = TextParse(self.PATH_TO_TESTS + "testFile")
         parse_test.read_file()
         self.assertEqual(parse_test.regular_inputs, ["req", "ackline"])
         self.assertEqual(parse_test.outputs, ["ack", "sendline"])
         return
 
     def test_read_file2(self):
-        parse_test = TextParse("testFile2")
+        parse_test = TextParse(self.PATH_TO_TESTS + "testFile2")
         parse_test.read_file()
         self.assertEqual(parse_test.regular_inputs, ["ackin", "dack", "done", "dtc", "startdmasend"])
         return

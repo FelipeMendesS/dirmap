@@ -1,6 +1,7 @@
 import re
 from STGGraph import STGGraph
 
+
 class TextParse (object):
 
     SIMPLE_TRANSITION = 0
@@ -14,19 +15,20 @@ class TextParse (object):
         self.regular_inputs = []
         self.outputs = []
         self.choice_inputs = []
-        self.especification_name = ""
-        self.initial_condition = ()
+        self.specification_name = ""
+        self.initial_condition = []
         self.transitions = []
-        self.graph = STGGraph("")
+        self.graph = 0  # type: STGGraph
         # self.initial_state = bitarray
 
     def check_file(self):
         # Check if file is correct with basic checks
-        # Use all inputs, outputs and level signals declared and all transitions contain only declared inputs and outputs
+        # Use all inputs, outputs and level signals declared and all transitions contain only declared
+        # inputs and outputs
         # Contains initial value and ending. (Warning if contain anything after ending
         # Warning if doesn't contain specification name
-        if self.especification_name == "":
-            print "Warning: No name for this especification!"
+        if self.specification_name == "":
+            print("Warning: No name for this especification!")
         variable_check_map = dict.fromkeys(self.graph.variable_map.keys(), 0)
         for value in self.graph.transition_variables.values():
             for variable in value[0]:
@@ -34,16 +36,16 @@ class TextParse (object):
                     variable_check_map[variable] = 1
                 else:
                     raise Exception("Variable not declared: ", variable)
-        for key,value in variable_check_map.items():
+        for key, value in variable_check_map.items():
             if value != 1:
-                print "Warning! Variable", key, "declared but not used."
+                print("Warning! Variable", key, "declared but not used.")
 
     def read_file(self):
         # loop checking for each and all cases creating data structures with transitions, inputs, outputs and choices
         reached_end = 0
         for line in self.file_lines:
             if re.match(r"^\s*\.name\s+.*", line):
-                self.especification_name = line.lstrip(' .name')
+                self.specification_name = line.lstrip(' .name')
             elif re.match(r"^\s*\.inputs\s+.*", line):
                 self.regular_inputs.extend(line.lstrip(' .inputs ').split(' '))
                 continue
@@ -54,7 +56,6 @@ class TextParse (object):
             elif re.match(r"^\s*\.start\s+.*", line):
                 self.initial_condition = line.lstrip(' .start').split('(')
                 self.initial_condition[1] = re.match(r"\d*", self.initial_condition[1]).group().split()
-                self.initial_condition = tuple(self.initial_condition)
             elif re.match(r"^\s*\.end\s*$", line):
                 reached_end = 1
                 # TODO Check if there are other lines after ending, to warn user
@@ -76,5 +77,5 @@ class TextParse (object):
 
     def create_graph(self):
         # Create STG graph from file
-        self.graph = STGGraph(self)
+        self.graph = STGGraph(self.regular_inputs, self.outputs, self.choice_inputs, self.transitions)
         return

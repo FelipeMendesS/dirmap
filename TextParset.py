@@ -8,7 +8,7 @@ class TextParseTest(object):
         parse_test = tp.TextParse("testFile")
         parse_test.read_file()
         print parse_test.regular_inputs, parse_test.outputs, parse_test.choice_inputs
-        print parse_test.especification_name, parse_test.initial_condition
+        print parse_test.specification_name, parse_test.initial_condition
         print parse_test.transitions
         return
 
