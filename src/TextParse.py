@@ -1,5 +1,5 @@
 import re
-from STGGraph import STGGraph
+from estggraph import ESTGGraph
 
 
 class TextParse (object):
@@ -20,7 +20,7 @@ class TextParse (object):
         # Map with: (Key: Name of variable, Value: Initial value)
         self.initial_signal_values = {}  # type: dict
         self.transitions = []
-        self.graph = 0  # type: STGGraph
+        self.graph = 0  # type: ESTGGraph
 
     def check_file(self):
         # Check if file is correct with basic checks
@@ -87,6 +87,6 @@ class TextParse (object):
     def create_graph(self):
         # Create STG graph from file
         # Maybe change where the processing is made to make it a little bit cleaner
-        self.graph = STGGraph(self.regular_inputs, self.outputs, self.choice_inputs, self.transitions,
-                              self.initial_places, self.initial_signal_values)
+        self.graph = ESTGGraph(self.regular_inputs, self.outputs, self.choice_inputs, self.transitions,
+                               self.initial_places, self.initial_signal_values)
         return

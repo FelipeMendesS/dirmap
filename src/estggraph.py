@@ -1,7 +1,7 @@
 import re
 
 
-class STGGraph (object):
+class ESTGGraph (object):
 
     # Data that we need to use
     # Check if we can ave a choice to different concurrencies, at first won't be implemented. Can change data structures

@@ -1,10 +1,10 @@
 from unittest import TestCase
-from TextParse import TextParse
+from textparse import TextParse
 
 
 class TestTextParse(TestCase):
 
-    PATH_TO_TESTS = "../Testes/"
+    PATH_TO_TESTS = "../testFiles/"
 
     def test_check_file(self):
         return

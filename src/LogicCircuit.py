@@ -1,4 +1,2 @@
 class LogicCircuit(object):
-
-
-class
+    return
