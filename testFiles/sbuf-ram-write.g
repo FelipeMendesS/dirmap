@@ -1,0 +1,50 @@
+# sbuf-ram-write
+# HP controller, by K. Stevens
+# Meat state encoding 
+.inputs req precharged done wenin wsldin
+.outputs ack prbar wsen wen wsld y1_sbuframwrite y0_sbuframwrite
+.graph
+# 0
+req+ y0_sbuframwrite-
+precharged+ y0_sbuframwrite-
+done- y0_sbuframwrite-
+y0_sbuframwrite- prbar+
+# -> 1
+prbar+ precharged-
+
+# 1
+precharged- wen+
+# -> 2
+wen+ done+ wenin+
+
+# 2
+done+ y1_sbuframwrite-
+wenin+ y1_sbuframwrite-
+y1_sbuframwrite- wsen- wen- ack+
+# -> 3
+wen- wenin-
+wsen- wenin-
+ack+ req-
+
+# 3
+wenin- wsld+
+# -> 4
+wsld+ wsldin+
+
+# 4
+wsldin+ y0_sbuframwrite+
+y0_sbuframwrite+ wsld-
+# -> 5
+wsld- wsldin-
+
+# 5
+wsldin- y1_sbuframwrite+
+req- y1_sbuframwrite+
+y1_sbuframwrite+ wsen+ prbar- ack-
+# -> 0
+wsen+ done-
+prbar- precharged+
+ack- req+
+
+.marking { <wsen+,done-> <prbar-,precharged+> <ack-,req+> }
+.end

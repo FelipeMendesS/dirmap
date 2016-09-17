@@ -1,0 +1,16 @@
+.name not_sure_what_this_is
+.inputs  req 0 ackline 0
+.outputs ack 0 sendline 0
+.choice done 0
+p1 / p2| req+
+p2 / p3| sendline+
+p3/p4| #done-  , ackline+
+p4/p5| sendline-
+p5/p6| ackline-
+p6/p3|sendline+
+p3/p7|#done+ , ackline+
+p7/p8|sendline- , ack+
+p8 / p9 |req- , ackline-
+p9/p1 | ack-
+.start p1
+.end

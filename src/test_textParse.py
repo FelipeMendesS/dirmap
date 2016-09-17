@@ -27,6 +27,7 @@ class TestTextParse(TestCase):
         parse_test.read_file()
         parse_test.graph.check_consistency()
         self.assertEqual(parse_test.regular_inputs, ["ackin", "dack", "done", "dtc", "startdmasend"])
+        self.assertEqual(parse_test.outputs, ["dreq", "endmaint", "ready", "regout"])
 
     def test_read_file3(self):
         parse_test = TextParse(self.PATH_TO_TESTS + "testFile3")
