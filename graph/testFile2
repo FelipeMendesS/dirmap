@@ -1,0 +1,55 @@
+digraph {
+	p1
+		p1 -> p2 [label="startdmasend+"]
+	p3
+		p2 -> p3 [label="endmaint-"]
+	p4
+		p3 -> p4 [label="startdmasend-"]
+	p5
+		p4 -> p5 [label="dreq+"]
+	p6
+		p5 -> p6 [label="dack+"]
+	p7
+		p6 -> p7 [label="ready+"]
+	p8
+		p7 -> p8 [label="[done+]dtc+"]
+	p9
+		p8 -> p9 [label="ready-dreq-"]
+	p10
+		p9 -> p10 [label="dack-dtc-"]
+	p11
+		p10 -> p11 [label="regout+"]
+	p12
+		p11 -> p12 [label="ackin+"]
+	p13
+		p12 -> p13 [label="regout-"]
+	p14
+		p13 -> p14 [label="[empty+]ackin-"]
+	p1
+		p14 -> p1 [label="endmaint+"]
+		p13 -> p15 [label="[empty-]ackin-"]
+	p11
+		p15 -> p11 [label="regout+"]
+		p7 -> p25 [label="[done-]dtc+"]
+	p16
+		p25 -> p16 [label="ready-"]
+	p17
+		p16 -> p17 [label="dack-dtc-"]
+	p18
+		p17 -> p18 [label="regout+"]
+	p19
+		p18 -> p19 [label="dack*ackin+"]
+	p20
+		p19 -> p20 [label="dack*regout-"]
+	p21
+		p20 -> p21 [label="[empty-]dack*ackin-"]
+	p22
+		p21 -> p22 [label="dack*regout+"]
+	p23
+		p22 -> p23 [label="dack*ackin+"]
+	p20
+		p23 -> p20 [label="dack*regout-"]
+		p20 -> p24 [label="[empty+]dack+ackin-"]
+	p7
+		p24 -> p7 [label="ready+"]
+}

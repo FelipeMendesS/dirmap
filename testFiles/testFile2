@@ -14,9 +14,10 @@ p9/p10|dack-,dtc-
 p10/p11|regout+
 p11/p12|ackin+
 p12/p13|regout-
-p13/p14|#empty-,ackin-
+p13/p14|#empty+,ackin-
+p13/p15|#empty-, ackin-
 p14/p1|endmaint+
-p15/p11|ackin+
+p15/p11|regout+
 p7/p25|#done-, dtc+
 p25/p16|ready-
 p16/p17|dack-,dtc-

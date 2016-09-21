@@ -52,12 +52,18 @@ class TextParse (object):
                 aux = line.strip()[7:].split()
                 for i in range(round(len(aux)/2)):
                     self.regular_inputs.append(aux[i * 2])
-                    self.initial_signal_values[aux[i * 2]] = int(aux[i * 2 + 1])
+                    if not aux[i * 2 + 1] == "*":
+                        self.initial_signal_values[aux[i * 2]] = int(aux[i * 2 + 1])
+                    else:
+                        self.initial_signal_values[aux[i * 2]] = aux[i * 2 + 1]
             elif re.match(r"^\s*\.outputs(\s+\w+\s+[01*])+", line):
                 aux = line.strip()[8:].split()
                 for i in range(round(len(aux)/2)):
                     self.outputs.append(aux[i * 2])
-                    self.initial_signal_values[aux[i * 2]] = int(aux[i * 2 + 1])
+                    if not aux[i * 2 + 1] == "*":
+                        self.initial_signal_values[aux[i * 2]] = int(aux[i * 2 + 1])
+                    else:
+                        self.initial_signal_values[aux[i * 2]] = aux[i * 2 + 1]
             elif re.match(r"^\s*\.choice(\s+\w+\s+[01*])+", line):
                 aux = line.strip()[7:].split()
                 for i in range(round(len(aux)/2)):
@@ -89,4 +95,3 @@ class TextParse (object):
         # Maybe change where the processing is made to make it a little bit cleaner
         self.graph = ESTGGraph(self.regular_inputs, self.outputs, self.choice_inputs, self.transitions,
                                self.initial_places, self.initial_signal_values)
-        return
