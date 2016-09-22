@@ -1,0 +1,21 @@
+digraph {
+	place1
+		place1 -> place2 [label="w8+"]
+	place3
+		place2 -> place3 [label="y0_sendrdone+"]
+	place4
+		place3 -> place4 [label="w8-"]
+	place5
+		place4 -> place5 [label="dones+"]
+	place6
+		place5 -> place6 [label="reqsend-"]
+	place7
+		place6 -> place7 [label="y0_sendrdone-"]
+	place1
+		place7 -> place1 [label="dones-"]
+		place7 -> place8 [label="dones-"]
+	place9
+		place8 -> place9 [label="reqsend+"]
+	place3
+		place9 -> place3 [label="y0_sendrdone+"]
+}

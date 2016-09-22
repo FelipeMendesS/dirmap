@@ -5,6 +5,7 @@ import pickle
 import hashlib
 from estggraph import ESTGGraph
 
+
 class GraphUtil(object):
 
     # Places with names starting with p concatenated with a number, in order of creation
@@ -19,7 +20,20 @@ class GraphUtil(object):
         name = ""
         # If not declared starts from the first transition.
         initial_markings = ""
-        place_name = "place"
+        initial_place_list = []
+        node_classification = {}
+        if converted_file_name == "":
+            if re.match(r"^.+\.g$", file_to_convert):
+                converted_file_name = file_to_convert[:-2]
+            else:
+                raise Exception("Give a file name for the output or choose a file with compatible extension!")
+        if os.path.isfile(path_to_descriptions + converted_file_name):
+            answer = input(converted_file_name + "file already exist. Do you want to ovewrite it?(s/n)")
+            if answer != "s":
+                raise FileExistsError("File already exist!")
+        if os.path.isfile(path_to_descriptions + converted_file_name) and not GraphUtil.__was_file_changed(
+                converted_file_name):
+            return
         with open(file_to_convert, 'r') as f:
             file_lines = f.read().splitlines()
         for line in file_lines:
@@ -47,44 +61,211 @@ class GraphUtil(object):
                     graph[source_transition].append(variable)
             elif re.match(r"\s*\.marking\s+", line):
                 initial_markings = line.strip(".marking {}")
-        if converted_file_name == "":
-            if re.match(r"^.+\.g$", file_to_convert):
-                converted_file_name = file_to_convert[:-2]
+        extended_graph, initial_place_list = GraphUtil.__get_extended_graph(initial_markings, graph)
+        GraphUtil.__classify_nodes(extended_graph, node_classification)
+        GraphUtil.__write_file(name, inputs, outputs, extended_graph, node_classification, converted_file_name, initial_place_list)
+        return inputs, outputs, graph, name, initial_markings, extended_graph, node_classification
+
+    @staticmethod
+    def __write_file(name, inputs, outputs, extended_graph, node_classification, converted_file_name, initial_places):
+        path_to_descriptions = "../testFiles/"
+        enter = "\n"
+        traversed_places = {}
+        concurrency_close_map = {}
+        with open(path_to_descriptions + converted_file_name, 'w') as f:
+            if name != "":
+                f.write(".name " + name + enter)
+            aux = [".inputs "]
+            for input_signal in inputs:
+                aux.extend([" ", input_signal, " *"])
+            aux_string = "".join(aux)
+            f.write(aux_string + enter)
+            aux = [".outputs "]
+            for output_signal in outputs:
+                aux.extend([" ", output_signal, " *"])
+            aux_string = "".join(aux)
+            f.write(aux_string + enter)
+            for place in initial_places:
+                GraphUtil.__recursive_transition_write(f, extended_graph, node_classification, place,
+                                                       concurrency_close_map, traversed_places)
+            aux = ".start "
+            for index, place in enumerate(initial_places):
+                if index == 0:
+                    aux += place
+                else:
+                    aux += " " + place
+            f.write(aux + enter)
+            f.write(".end")
+
+
+    @staticmethod
+    def __recursive_transition_write(file, extended_graph, node_classification, current_place, concurrency_close_map,
+                                     traversed_places):
+        enter = "\n"
+        traversed_places[current_place] = 1
+        for transition in extended_graph[current_place]:
+            if transition in node_classification:
+                if node_classification[transition][0] == ESTGGraph.CONCURRENCY_OPEN:
+                    aux = current_place + "/"
+                    for index, place in enumerate(extended_graph[transition]):
+                        if index == 0:
+                            aux += place
+                        else:
+                            aux += "," + place
+                    file.write(aux + "|" + transition + enter)
+                    for place in extended_graph[transition]:
+                        if place not in traversed_places:
+                            GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
+                                                                   concurrency_close_map, traversed_places)
+                elif node_classification[transition][0] == ESTGGraph.CONCURRENCY_CLOSE:
+                    if transition not in concurrency_close_map:
+                        concurrency_close_map[transition] = ([current_place], node_classification[transition][1] - 1)
+                    elif concurrency_close_map[transition][1] == 1:
+                        aux = current_place
+                        for place in concurrency_close_map[transition][0]:
+                            aux += "," + place
+                        aux += "/"
+                        for index, place in enumerate(extended_graph[transition]):
+                            if index == 0:
+                                aux += place
+                            else:
+                                aux += "," + place
+                        file.write(aux + "|" + transition + enter)
+                        for place in extended_graph[transition]:
+                            if place not in traversed_places:
+                                GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
+                                                                       concurrency_close_map, traversed_places)
             else:
-                raise Exception("Give a file name for the output or choose a file with compatible extension!")
-        if os.path.isfile(path_to_descriptions + converted_file_name):
-            answer = input(converted_file_name + "file already exist. Do you want to ovewrite it?(s/n)")
-            if answer != "s":
-                raise FileExistsError("File already exist!")
-        initial_transitions = []
-        place_relation = {}
-        place_count
-        if re.match(r"\w+[+-](\/[0-9]+)?", initial_markings):
-            initial_transitions.append(initial_markings)
-        elif GraphUtil.__is_place(initial_markings):
-            place_relation[initial_markings] =
-        extended_graph = GraphUtil.__get_extended_graph(initial_markings, graph)
-        return inputs, outputs, graph, name, initial_markings
+                aux = current_place + "/" + extended_graph[transition][0] + "|" + transition
+                file.write(aux + enter)
+                if extended_graph[transition][0] not in traversed_places:
+                    GraphUtil.__recursive_transition_write(file, extended_graph, node_classification,
+                                                           extended_graph[transition][0], concurrency_close_map,
+                                                           traversed_places)
 
     @staticmethod
     def __get_extended_graph(initial_markings, graph):
-        place_name = "place"
         extended_graph = {}
         place_relation = {}
         initial_transitions = []
-        place_count = 1
+        node_classification = {}
+        place_count = [1]
+        initial_places_list = []
+        initial_places_flag = False
         if re.match(r"\w+[+-](\/[0-9]+)?", initial_markings):
-            return
-        return {}
+            initial_transitions.append(initial_markings)
+            initial_places_list.append(GraphUtil.__get_place_name(place_count))
+            initial_places_flag = True
+        elif GraphUtil.__is_place(initial_markings):
+            place_relation[initial_markings] = GraphUtil.__get_place_name(place_count)
+            initial_transitions = graph[initial_markings]
+            extended_graph[GraphUtil.__get_place_name(place_count)] = initial_transitions
+            initial_places_list.append(GraphUtil.__get_place_name(place_count))
+            initial_places_flag = True
+            place_count[0] += 1
+        else:
+            # Assumption that we have only one place or several transitions
+            # TODO treat the case when we have places and transitions in here. Not that hard.
+            aux_markings = set()
+            transitions = initial_markings.split()
+            for transition in transitions:
+                aux_markings.add(transition.strip("<> ").split(',')[0])
+            initial_transitions = list(aux_markings)
+        for transition in initial_transitions:
+            for following_node in graph[transition]:
+                if GraphUtil.__is_place(following_node):
+                    if not initial_places_flag:
+                        initial_places_list.append(GraphUtil.__get_place_name(place_count))
+                    place_relation[following_node] = GraphUtil.__get_place_name(place_count)
+                    GraphUtil.__add_connection(extended_graph, transition, GraphUtil.__get_place_name(place_count))
+                    place_count[0] += 1
+                    GraphUtil.__aux_get_extended_graph(following_node, extended_graph, graph, place_count,
+                                                       node_classification, place_relation)
+                else:
+                    if not initial_places_flag:
+                        initial_places_list.append(GraphUtil.__get_place_name(place_count))
+                    GraphUtil.__add_connection(extended_graph, transition, GraphUtil.__get_place_name(place_count))
+                    GraphUtil.__add_connection(extended_graph, following_node, GraphUtil.__get_place_name(place_count),
+                                               False)
+                    place_count[0] += 1
+                    GraphUtil.__aux_get_extended_graph(following_node, extended_graph, graph, place_count,
+                                                       node_classification, place_relation)
+
+        return extended_graph, initial_places_list
 
     @staticmethod
-    def __aux_get_extended_graph(current_node, extended_graph, graph, place_count):
+    def __aux_get_extended_graph(current_node, extended_graph, graph, place_count, node_classification, place_relation):
+        if GraphUtil.__is_place(current_node):
+            for transition in graph[current_node]:
+                GraphUtil.__add_connection(extended_graph, transition, current_node, False)
+                if transition in extended_graph:
+                    continue
+                else:
+                    GraphUtil.__aux_get_extended_graph(transition, extended_graph, graph, place_count,
+                                                       node_classification, place_relation)
+        else:
+            for node in graph[current_node]:
+                if GraphUtil.__is_place(node):
+                    if node in place_relation:
+                        GraphUtil.__add_connection(extended_graph, current_node, node)
+                        continue
+                    else:
+                        place_relation[node] = GraphUtil.__get_place_name(place_count)
+                        GraphUtil.__add_connection(extended_graph, current_node,
+                                                   GraphUtil.__get_place_name(place_count))
+                        place_count[0] += 1
+                        GraphUtil.__aux_get_extended_graph(node, extended_graph, graph, place_count,
+                                                           node_classification, place_relation)
+                else:
+                    GraphUtil.__add_connection(extended_graph, current_node, GraphUtil.__get_place_name(place_count))
+                    GraphUtil.__add_connection(extended_graph, node, GraphUtil.__get_place_name(place_count), False)
+                    place_count[0] += 1
+                    if node in extended_graph:
+                        continue
+                    else:
+                        GraphUtil.__aux_get_extended_graph(node, extended_graph, graph, place_count,
+                                                           node_classification, place_relation)
+
+    @staticmethod
+    def __classify_nodes(extended_graph, node_classification):
+        transition_fanin_count = {}
+        for node in extended_graph.keys():
+            if GraphUtil.__is_place(node):
+                if len(extended_graph[node]) > 1:
+                    node_classification[node] = (ESTGGraph.CHOICE_OPEN, len(extended_graph[node]))
+                for transition in extended_graph[node]:
+                    if transition not in transition_fanin_count:
+                        transition_fanin_count[transition] = 1
+                    else:
+                        transition_fanin_count[transition] += 1
+            else:
+                if len(extended_graph[node]) > 1:
+                    node_classification[node] = (ESTGGraph.CONCURRENCY_OPEN, len(extended_graph[node]))
+        for transition in transition_fanin_count:
+            if transition_fanin_count[transition] > 1:
+                node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE, transition_fanin_count[transition])
 
 
+    @staticmethod
+    def __add_connection(extended_graph, transition, place, is_transition_parent=True):
+        if is_transition_parent:
+            if transition not in extended_graph:
+                extended_graph[transition] = [place]
+            else:
+                extended_graph[transition].append(place)
+        else:
+            if place not in extended_graph:
+                extended_graph[place] = [transition]
+            else:
+                extended_graph[place].append(transition)
+
+    @staticmethod
+    def __get_place_name(place_count):
+        return "place" + str(place_count[0])
 
     @staticmethod
     def __is_place(node):
-        if re.match(r"\w+", node):
+        if re.match(r"\w+$", node):
             return True
         return False
 
@@ -116,7 +297,7 @@ class GraphUtil(object):
     def print_graph(graph: ESTGGraph, file_name: str, view_flag: bool=False):
         path_to_graph = "../graph/"
         svg_extension = ".svg"
-        if os.path.isfile(path_to_graph + file_name) and not GraphUtil.__was_estg_changed(file_name):
+        if os.path.isfile(path_to_graph + file_name) and not GraphUtil.__was_file_changed(file_name):
             if view_flag:
                 gv.view(path_to_graph + file_name + svg_extension)
             return
@@ -143,7 +324,7 @@ class GraphUtil(object):
             g.view(path_to_graph + file_name + svg_extension)
 
     @staticmethod
-    def __was_estg_changed(file_name):
+    def __was_file_changed(file_name):
         path_to_descriptions = "../testFiles/"
         # Used as reference in
         # http://stackoverflow.com/questions/1912567/python-library-to-detect-if-a-file-has-changed-between-different-runs

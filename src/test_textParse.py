@@ -62,5 +62,12 @@ class TestTextParse(TestCase):
         return
 
     def test_stg_conversion(self):
-        inputs, outputs, graph, name, initial_markings = GraphUtil.stg_to_estg(self.PATH_TO_TESTS + "alloc-outbound.g")
+        inputs, outputs, graph, name, initial_markings, extended_graph, node_classification =\
+            GraphUtil.stg_to_estg(self.PATH_TO_TESTS + "sendr-done.g")
+        file = "sendr-done"
+        parse_test = TextParse(self.PATH_TO_TESTS + file)
+        parse_test.read_file()
+        GraphUtil.print_graph(parse_test.graph, file, True)
         print(graph)
+        print(extended_graph)
+        print(node_classification)

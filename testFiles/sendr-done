@@ -1,0 +1,12 @@
+.inputs  w8 * reqsend *
+.outputs  dones * y0_sendrdone *
+place1/place2|w8+
+place8/place9|reqsend+
+place9,place2/place3|y0_sendrdone+
+place3/place4|w8-
+place4/place5|dones+
+place5/place6|reqsend-
+place6/place7|y0_sendrdone-
+place7/place1,place8|dones-
+.start place1 place8
+.end

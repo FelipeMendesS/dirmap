@@ -174,5 +174,5 @@ class ESTGGraph (object):
     def label_decisions(self):
         for place in self.stg_graph.keys():
             if len(self.extended_graph[place]) > 1:
-                self.node_classification[place] = (self.CONDITIONAL_SIGNAL, 0)
+                self.node_classification[place] = (self.CONDITIONAL_SIGNAL, len(self.extended_graph[place]))
         return
