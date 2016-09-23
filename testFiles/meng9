@@ -5,5 +5,10 @@ pl1/pl2|Ao+
 pl2/pl3|Ri-
 pl3/pl4|Ao-
 pl4/pl1,pl5|Ri+
-.start pl1
+pl6/pl7|Ai+
+pl7/pl8|Ro-
+pl8/pl9|Ai-
+pl9,pl5/pl6|Ro+
+pl5,pl5/pl6|Ro+
+.start pl1 pl5
 .end

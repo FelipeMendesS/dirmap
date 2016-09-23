@@ -68,7 +68,7 @@ class TestTextParse(TestCase):
         files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
                  "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
                  "vbe10b", "wrdatab"]
-        # files = ["atod"]
+        # files = ["hybridf"]
         extension = ".g"
         for file in files:
             try:

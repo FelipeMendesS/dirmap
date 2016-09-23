@@ -116,7 +116,14 @@ class GraphUtil(object):
                                                                    concurrency_close_map, traversed_places)
                 elif node_classification[transition][0] == ESTGGraph.CONCURRENCY_CLOSE:
                     if transition not in concurrency_close_map:
-                        concurrency_close_map[transition] = ([current_place], node_classification[transition][1] - 1)
+                        concurrency_close_map[transition] = [[current_place], node_classification[transition][1] - 1]
+                        for place in extended_graph[transition]:
+                            if place not in traversed_places:
+                                GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
+                                                                       concurrency_close_map, traversed_places)
+                    elif concurrency_close_map[transition][1] != 1:
+                        concurrency_close_map[transition][0].append(current_place)
+                        concurrency_close_map[transition][1] -= 1
                     elif concurrency_close_map[transition][1] == 1:
                         aux = current_place
                         for place in concurrency_close_map[transition][0]:
@@ -128,10 +135,7 @@ class GraphUtil(object):
                             else:
                                 aux += "," + place
                         file.write(aux + "|" + GraphUtil.__get_pure_transition(transition) + enter)
-                        for place in extended_graph[transition]:
-                            if place not in traversed_places:
-                                GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
-                                                                       concurrency_close_map, traversed_places)
+
             else:
                 aux = current_place + "/" + extended_graph[transition][0] + "|" +\
                       GraphUtil.__get_pure_transition(transition)
@@ -158,8 +162,8 @@ class GraphUtil(object):
         initial_places_flag = False
         if re.match(r"\w+[+-](\/[0-9]+)?", initial_markings):
             initial_transitions.append(initial_markings)
-            initial_places_list.append(GraphUtil.__get_place_name(place_count))
-            initial_places_flag = True
+            # initial_places_list.append(GraphUtil.__get_place_name(place_count))
+            # initial_places_flag = True
         elif GraphUtil.__is_place(initial_markings):
             place_relation[initial_markings] = GraphUtil.__get_place_name(place_count)
             initial_transitions = graph[initial_markings]
@@ -232,6 +236,8 @@ class GraphUtil(object):
 
     @staticmethod
     def __classify_nodes(extended_graph, node_classification):
+        # TODO Luckily working but this is actually inaccurate. We have to consider the case when the transition is
+        # closing and opening concurrency simultaneously
         transition_fanin_count = {}
         for node in extended_graph.keys():
             if GraphUtil.__is_place(node):

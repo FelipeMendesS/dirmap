@@ -1,12 +1,13 @@
 .inputs  w8 * reqsend *
 .outputs  dones * y0_sendrdone *
 pl1/pl2|w8+
-pl8/pl9|reqsend+
-pl9,pl2/pl3|y0_sendrdone+
 pl3/pl4|w8-
 pl4/pl5|dones+
 pl5/pl6|reqsend-
 pl6/pl7|y0_sendrdone-
 pl7/pl1,pl8|dones-
+pl8/pl9|reqsend+
+pl9,pl2/pl3|y0_sendrdone+
+pl8/pl9|reqsend+
 .start pl1 pl8
 .end

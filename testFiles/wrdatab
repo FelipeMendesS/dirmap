@@ -1,5 +1,29 @@
 .name wrdatab
 .inputs  IOSTRB * Aack * Dack * Ack *
 .outputs  XRDY * Areq * Dreq * STRB * X * Y *
+pl2/pl3|IOSTRB-
+pl4/pl1|IOSTRB+
+pl6/pl7|Aack-
+pl8/pl9|Aack+
+pl10/pl11|Ack+
+pl12/pl13|Y-
+pl13,pl5,pl11/pl6,pl15,pl29|Areq-
+pl14,pl3/pl4,pl5|XRDY-
+pl16/pl17|Dack+
+pl18/pl19|Ack+
+pl20/pl21|Dack-
+pl21,pl15/pl16|Dreq+
+pl22/pl23,pl26|STRB-
+pl23/pl24|Ack-
+pl24/pl25|X+
+pl25,pl9/pl10,pl12|STRB+
+pl26,pl1/pl2,pl33|XRDY+
+pl27/pl28|Y+
+pl28,pl19/pl20,pl22|Dreq-
+pl29/pl30|STRB-
+pl30/pl31|Ack-
+pl31/pl32|X-
+pl32,pl17/pl18,pl27|STRB+
+pl33,pl7/pl8,pl14|Areq+
 .start pl1
 .end

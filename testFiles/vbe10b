@@ -2,5 +2,27 @@
 .inputs  R1 * R2 * R3 * R4 *
 .outputs  A1 * A2 * A3 * A4 * X0 * X1 * X2 *
 pl1/pl2|R1-
-.start pl1
+pl3/pl4|R1+
+pl31/pl32|X0+
+pl32,pl2/pl3,pl5|A1-
+pl6/pl7|R2-
+pl8/pl9|R2+
+pl9,pl5/pl6,pl27,pl29|A2+
+pl11/pl12|R3-
+pl13/pl14|R3+
+pl14,pl10/pl11,pl23,pl25|A3+
+pl16/pl17|R4-
+pl18/pl19|R4+
+pl19,pl15/pl16,pl21|A4+
+pl20,pl4/pl1,pl31|A1+
+pl21/pl22|X2-
+pl22,pl17/pl18,pl20|A4-
+pl23/pl24|X2+
+pl25/pl26|X1-
+pl26,pl12,pl24/pl13,pl15|A3-
+pl27/pl28|X1+
+pl29/pl30|X0-
+pl30,pl7,pl28/pl8,pl10|A2-
+pl31/pl32|X0+
+.start pl1 pl31
 .end
