@@ -11,7 +11,7 @@ class GraphUtil(object):
     # Places with names starting with p concatenated with a number, in order of creation
     # TODO Finish implementation of conversion method
     @staticmethod
-    def stg_to_estg(file_to_convert, converted_file_name=""):
+    def stg_to_estg(file_to_convert, converted_file_name="", overwrite_file_flag=False):
         path_to_descriptions = "../testFiles/"
         inputs = []
         outputs = []
@@ -27,12 +27,9 @@ class GraphUtil(object):
                 converted_file_name = file_to_convert[:-2]
             else:
                 raise Exception("Give a file name for the output or choose a file with compatible extension!")
-        if os.path.isfile(path_to_descriptions + converted_file_name):
-            answer = input(converted_file_name + "file already exist. Do you want to ovewrite it?(s/n)")
-            if answer != "s":
-                raise FileExistsError("File already exist!")
         if os.path.isfile(path_to_descriptions + converted_file_name) and not GraphUtil.__was_file_changed(
-                converted_file_name):
+                converted_file_name) and not overwrite_file_flag:
+            print("File already exists and it's not asked to be overwritten.")
             return
         with open(file_to_convert, 'r') as f:
             file_lines = f.read().splitlines()
@@ -261,7 +258,7 @@ class GraphUtil(object):
 
     @staticmethod
     def __get_place_name(place_count):
-        return "place" + str(place_count[0])
+        return "p" + str(place_count[0])
 
     @staticmethod
     def __is_place(node):
@@ -287,21 +284,25 @@ class GraphUtil(object):
                 continue
             key = marking + end_place + str(graph .transition_variables[marking + end_place])
             if key not in traversed_transitions:
-                g.edge(marking, end_place,
-                       GraphUtil.__transition_to_string(graph.transition_variables[marking + end_place]))
+                transition = GraphUtil.__get_transition_name(graph, marking, end_place)
+                g.node(transition, label="", xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                       shape="box", width="0.5", height="0.01")
+                g.edge(marking, transition, dir="none")
+                g.edge(transition, end_place)
                 traversed_transitions[key] = 1
             GraphUtil.__aux_print_graph(traversed_transitions, traversed_places, g, end_place, graph)
 
     # Only renders the svg file if it doesn't exist yet or if the description was changed after the last time.
     @staticmethod
-    def print_graph(graph: ESTGGraph, file_name: str, view_flag: bool=False):
+    def print_graph(graph: ESTGGraph, file_name: str, view_flag: bool=False, overwrite_graph: bool=False):
         path_to_graph = "../graph/"
         svg_extension = ".svg"
-        if os.path.isfile(path_to_graph + file_name) and not GraphUtil.__was_file_changed(file_name):
+        if os.path.isfile(path_to_graph + file_name) and not GraphUtil.__was_file_changed(file_name) and not \
+                overwrite_graph:
             if view_flag:
-                gv.view(path_to_graph + file_name + svg_extension)
+                gv.view(path_to_graph + file_name + svg_extension + svg_extension)
             return
-        g = gv.Digraph(format='svg')
+        g = gv.Digraph(format='svg', strict=True)
         initial_marking = graph.initial_places
         mark_traversed_transitions = {}
         mark_placed_places = {}
@@ -313,15 +314,28 @@ class GraphUtil(object):
                 if place not in mark_placed_places:
                     g.node(end_place)
                     mark_placed_places[place] = 1
-                key = place + end_place + str(graph .transition_variables[place + end_place])
+                key = place + end_place + str(graph.transition_variables[place + end_place])
                 if key not in mark_traversed_transitions:
-                    g.edge(place, end_place,
-                           GraphUtil.__transition_to_string(graph.transition_variables[place + end_place]))
+                    transition = GraphUtil.__get_transition_name(graph, place, end_place)
+                    g.node(transition, label="",
+                           xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                           shape="box", width= "0.5", height="0.001")
+                    g.edge(place, transition, dir="none")
+                    g.edge(transition, end_place)
                     mark_traversed_transitions[key] = 1
                 GraphUtil.__aux_print_graph(mark_traversed_transitions, mark_placed_places, g, end_place, graph)
         g.render(path_to_graph + file_name)
+        g.save(path_to_graph + file_name)
         if view_flag:
-            g.view(path_to_graph + file_name + svg_extension)
+            gv.view(path_to_graph + file_name + svg_extension)
+
+    @staticmethod
+    def __get_transition_name(graph: ESTGGraph, start_place: str, end_place: str):
+        for transition in graph.extended_graph[start_place]:
+            for place in graph.extended_graph[transition]:
+                if place == end_place:
+                    return transition
+        raise Exception("Two places not separated by a transition were expected to be.")
 
     @staticmethod
     def __was_file_changed(file_name):

@@ -1,21 +1,41 @@
-digraph {
-	place1
-		place1 -> place2 [label="w8+"]
-	place3
-		place2 -> place3 [label="y0_sendrdone+"]
-	place4
-		place3 -> place4 [label="w8-"]
-	place5
-		place4 -> place5 [label="dones+"]
-	place6
-		place5 -> place6 [label="reqsend-"]
-	place7
-		place6 -> place7 [label="y0_sendrdone-"]
-	place1
-		place7 -> place1 [label="dones-"]
-		place7 -> place8 [label="dones-"]
-	place9
-		place8 -> place9 [label="reqsend+"]
-	place3
-		place9 -> place3 [label="y0_sendrdone+"]
+strict digraph {
+	p1
+	transition1 [height=0.001 shape=point width=0.001 xlabel="w8+"]
+		p1 -> transition1 [dir=none]
+		transition1 -> p2
+	p3
+	transition3 [label="" height=0.01 shape=box xlabel="y0_sendrdone+"]
+		p2 -> transition3 [dir=none]
+		transition3 -> p3
+	p4
+	transition4 [label="" height=0.01 shape=box xlabel="w8-"]
+		p3 -> transition4 [dir=none]
+		transition4 -> p4
+	p5
+	transition5 [label="" height=0.01 shape=box xlabel="dones+"]
+		p4 -> transition5 [dir=none]
+		transition5 -> p5
+	p6
+	transition6 [label="" height=0.01 shape=box xlabel="reqsend-"]
+		p5 -> transition6 [dir=none]
+		transition6 -> p6
+	p7
+	transition7 [label="" height=0.01 shape=box xlabel="y0_sendrdone-"]
+		p6 -> transition7 [dir=none]
+		transition7 -> p7
+	p1
+	transition8 [label="" height=0.01 shape=box xlabel="dones-"]
+		p7 -> transition8 [dir=none]
+		transition8 -> p1
+	transition8 [label="" height=0.01 shape=box xlabel="dones-"]
+		p7 -> transition8 [dir=none]
+		transition8 -> p8
+	p9
+	transition2 [label="" height=0.01 shape=box xlabel="reqsend+"]
+		p8 -> transition2 [dir=none]
+		transition2 -> p9
+	p3
+	transition3 [label="" height=0.01 shape=box xlabel="y0_sendrdone+"]
+		p9 -> transition3 [dir=none]
+		transition3 -> p3
 }

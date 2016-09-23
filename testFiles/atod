@@ -1,0 +1,18 @@
+.inputs  la * da * za *
+.outputs  lr * dr * zr * x *
+p1/p2,p14|dr+
+p2/p3|da+
+p14/p15,p16|lr-
+p15,p3/p4|zr+
+p4/p5|za+
+p5/p6|x+
+p6/p7,p10|zr-
+p7/p8|za-
+p16/p17|la-
+p17,p10/p11|dr-
+p11/p12|da-
+p12/p13|x-
+p13,p8/p9|lr+
+p9/p1|la+
+.start p1
+.end
