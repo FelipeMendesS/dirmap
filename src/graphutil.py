@@ -109,7 +109,7 @@ class GraphUtil(object):
                             aux += place
                         else:
                             aux += "," + place
-                    file.write(aux + "|" + transition + enter)
+                    file.write(aux + "|" + GraphUtil.__get_pure_transition(transition) + enter)
                     for place in extended_graph[transition]:
                         if place not in traversed_places:
                             GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
@@ -127,18 +127,25 @@ class GraphUtil(object):
                                 aux += place
                             else:
                                 aux += "," + place
-                        file.write(aux + "|" + transition + enter)
+                        file.write(aux + "|" + GraphUtil.__get_pure_transition(transition) + enter)
                         for place in extended_graph[transition]:
                             if place not in traversed_places:
                                 GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
                                                                        concurrency_close_map, traversed_places)
             else:
-                aux = current_place + "/" + extended_graph[transition][0] + "|" + transition
+                aux = current_place + "/" + extended_graph[transition][0] + "|" +\
+                      GraphUtil.__get_pure_transition(transition)
                 file.write(aux + enter)
                 if extended_graph[transition][0] not in traversed_places:
                     GraphUtil.__recursive_transition_write(file, extended_graph, node_classification,
                                                            extended_graph[transition][0], concurrency_close_map,
                                                            traversed_places)
+
+    @staticmethod
+    def __get_pure_transition(transition):
+        if re.match(r"\s*\w+[+-](\/[0-9]+)", transition):
+            return transition.split("/")[0]
+        return transition
 
     @staticmethod
     def __get_extended_graph(initial_markings, graph):
@@ -194,7 +201,7 @@ class GraphUtil(object):
     def __aux_get_extended_graph(current_node, extended_graph, graph, place_count, node_classification, place_relation):
         if GraphUtil.__is_place(current_node):
             for transition in graph[current_node]:
-                GraphUtil.__add_connection(extended_graph, transition, current_node, False)
+                GraphUtil.__add_connection(extended_graph, transition, place_relation[current_node], False)
                 if transition in extended_graph:
                     continue
                 else:
@@ -204,7 +211,7 @@ class GraphUtil(object):
             for node in graph[current_node]:
                 if GraphUtil.__is_place(node):
                     if node in place_relation:
-                        GraphUtil.__add_connection(extended_graph, current_node, node)
+                        GraphUtil.__add_connection(extended_graph, current_node, place_relation[node])
                         continue
                     else:
                         place_relation[node] = GraphUtil.__get_place_name(place_count)
@@ -258,7 +265,7 @@ class GraphUtil(object):
 
     @staticmethod
     def __get_place_name(place_count):
-        return "p" + str(place_count[0])
+        return "pl" + str(place_count[0])
 
     @staticmethod
     def __is_place(node):
@@ -277,10 +284,18 @@ class GraphUtil(object):
     @staticmethod
     def __aux_print_graph(traversed_transitions: dict, traversed_places: dict, g: gv.Digraph, marking, graph: ESTGGraph):
         for end_place in graph.stg_graph[marking]:
-            if marking not in traversed_places:
-                g.node(end_place)
-                traversed_places[marking] = 1
+            if end_place not in traversed_places:
+                g.node(end_place, shape="circle", width=".5", fixedsize="true")
+                traversed_places[end_place] = 1
             elif end_place in traversed_places:
+                key = marking + end_place + str(graph .transition_variables[marking + end_place])
+                if key not in traversed_transitions:
+                    transition = GraphUtil.__get_transition_name(graph, marking, end_place)
+                    g.node(transition, label="", xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                           shape="box", width="0.5", height="0.01")
+                    g.edge(marking, transition, dir="none")
+                    g.edge(transition, end_place)
+                    traversed_transitions[key] = 1
                 continue
             key = marking + end_place + str(graph .transition_variables[marking + end_place])
             if key not in traversed_transitions:
@@ -308,12 +323,12 @@ class GraphUtil(object):
         mark_placed_places = {}
         for place in initial_marking:
             if place not in mark_placed_places:
-                g.node(place)
+                g.node(place, shape="circle", width=".5", fixedsize="true")
                 mark_placed_places[place] = 1
             for end_place in graph.stg_graph[place]:
-                if place not in mark_placed_places:
-                    g.node(end_place)
-                    mark_placed_places[place] = 1
+                if end_place not in mark_placed_places:
+                    g.node(end_place, shape="circle", width=".5", fixedsize="true")
+                    mark_placed_places[end_place] = 1
                 key = place + end_place + str(graph.transition_variables[place + end_place])
                 if key not in mark_traversed_transitions:
                     transition = GraphUtil.__get_transition_name(graph, place, end_place)

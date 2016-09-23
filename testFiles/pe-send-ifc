@@ -1,0 +1,9 @@
+.inputs  reqsend * treq * rdiq * adbldout * ackpkt *
+.outputs  tack * peack * adbld * y0_pesendifc * y1_pesendifc *
+pl1/pl2,pl54,pl56|y0_pesendifc-
+pl58/pl59,pl60,pl61|y1_pesendifc-
+pl59,pl2/pl3|reqsend+
+pl60,pl54/pl55|treq+
+pl61,pl56/pl57|rdiq+
+.start pl1 pl58
+.end

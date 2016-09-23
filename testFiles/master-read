@@ -1,0 +1,8 @@
+.name master_read
+.inputs  ari * pri * bprn * xack * di * pack *
+.outputs  aro * pro * breq * busy * mrdc * do * pdo * x *
+pl17/pl18|bprn-
+pl18/pl19|x+
+pl19/pl20,pl40,pl49,pl51|busy-
+.start pl1 pl17 pl41 pl43 pl45 pl47 pl49 pl51
+.end

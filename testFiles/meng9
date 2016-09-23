@@ -1,0 +1,9 @@
+.name meng_fig_9
+.inputs  Ai * Ri *
+.outputs  Ao * Ro *
+pl1/pl2|Ao+
+pl2/pl3|Ri-
+pl3/pl4|Ao-
+pl4/pl1,pl5|Ri+
+.start pl1
+.end

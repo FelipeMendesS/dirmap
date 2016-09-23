@@ -1,0 +1,34 @@
+strict digraph {
+	pl1 [fixedsize=true shape=circle width=.5]
+	pl2 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="b+"]
+		pl1 -> transition1 [dir=none]
+		transition1 -> pl2
+	pl3 [fixedsize=true shape=circle width=.5]
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="c+"]
+		pl2 -> transition2 [dir=none]
+		transition2 -> pl3
+	pl4 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
+		pl3 -> transition3 [dir=none]
+		transition3 -> pl4
+	pl5 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		pl4 -> transition4 [dir=none]
+		transition4 -> pl5
+	pl6 [fixedsize=true shape=circle width=.5]
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
+		pl5 -> transition5 [dir=none]
+		transition5 -> pl6
+	pl7 [fixedsize=true shape=circle width=.5]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
+		pl6 -> transition6 [dir=none]
+		transition6 -> pl7
+	pl8 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
+		pl7 -> transition7 [dir=none]
+		transition7 -> pl8
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
+		pl8 -> transition8 [dir=none]
+		transition8 -> pl1
+}

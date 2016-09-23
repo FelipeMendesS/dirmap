@@ -1,0 +1,6 @@
+.inputs  a * d *
+.outputs  b * c * x *
+pl1/pl2|b+
+pl2/pl3|a-
+.start pl1
+.end

@@ -2,6 +2,7 @@ from unittest import TestCase
 from textparse import TextParse
 from graphutil import GraphUtil
 import graphviz as gv
+import traceback
 
 
 class TestTextParse(TestCase):
@@ -64,11 +65,21 @@ class TestTextParse(TestCase):
     def test_stg_conversion(self):
         # inputs, outputs, graph, name, initial_markings, extended_graph, node_classification =\
         #     GraphUtil.stg_to_estg(self.PATH_TO_TESTS + "atod.g", overwrite_file_flag=False)
-        GraphUtil.stg_to_estg(self.PATH_TO_TESTS + "atod.g", overwrite_file_flag=False)
-        file = "atod"
-        parse_test = TextParse(self.PATH_TO_TESTS + file)
-        parse_test.read_file()
-        GraphUtil.print_graph(parse_test.graph, file, True, True)
+        files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
+                 "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
+                 "vbe10b", "wrdatab"]
+        # files = ["atod"]
+        extension = ".g"
+        for file in files:
+            try:
+                print(file)
+                GraphUtil.stg_to_estg(self.PATH_TO_TESTS + file + extension, overwrite_file_flag=True)
+                parse_test = TextParse(self.PATH_TO_TESTS + file)
+                parse_test.read_file()
+                GraphUtil.print_graph(parse_test.graph, file, view_flag=True, overwrite_graph=True)
+                print("Success")
+            except Exception as e:
+                traceback.print_exc()
         # print(graph)
         # print(extended_graph)
         # print(node_classification)

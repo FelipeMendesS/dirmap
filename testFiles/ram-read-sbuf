@@ -1,0 +1,4 @@
+.inputs  req * precharged * prnotin * wenin * wsldin *
+.outputs  ack * wsen * prnot * wen * wsld * y0_ramreadsbuf *
+.start pl1 pl29
+.end

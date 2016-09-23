@@ -1,0 +1,6 @@
+.name vbe10b
+.inputs  R1 * R2 * R3 * R4 *
+.outputs  A1 * A2 * A3 * A4 * X0 * X1 * X2 *
+pl1/pl2|R1-
+.start pl1
+.end

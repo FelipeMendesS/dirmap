@@ -1,79 +1,79 @@
 strict digraph {
-	p1
+	pl1 [fixedsize=true shape=circle width=.5]
+	pl2 [fixedsize=true shape=circle width=.5]
 	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="dr+"]
-		p1 -> transition1 [dir=none]
-		transition1 -> p2
-	p3
+		pl1 -> transition1 [dir=none]
+		transition1 -> pl2
+	pl3 [fixedsize=true shape=circle width=.5]
 	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="da+"]
-		p2 -> transition2 [dir=none]
-		transition2 -> p3
-	p4
+		pl2 -> transition2 [dir=none]
+		transition2 -> pl3
+	pl4 [fixedsize=true shape=circle width=.5]
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="zr+"]
-		p3 -> transition4 [dir=none]
-		transition4 -> p4
-	p5
+		pl3 -> transition4 [dir=none]
+		transition4 -> pl4
+	pl5 [fixedsize=true shape=circle width=.5]
 	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="za+"]
-		p4 -> transition5 [dir=none]
-		transition5 -> p5
-	p6
+		pl4 -> transition5 [dir=none]
+		transition5 -> pl5
+	pl6 [fixedsize=true shape=circle width=.5]
 	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="x+"]
-		p5 -> transition6 [dir=none]
-		transition6 -> p6
-	p7
+		pl5 -> transition6 [dir=none]
+		transition6 -> pl6
+	pl7 [fixedsize=true shape=circle width=.5]
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="zr-"]
-		p6 -> transition7 [dir=none]
-		transition7 -> p7
-	p8
+		pl6 -> transition7 [dir=none]
+		transition7 -> pl7
+	pl8 [fixedsize=true shape=circle width=.5]
 	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="za-"]
-		p7 -> transition8 [dir=none]
-		transition8 -> p8
-	p9
+		pl7 -> transition8 [dir=none]
+		transition8 -> pl8
+	pl9 [fixedsize=true shape=circle width=.5]
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="lr+"]
-		p8 -> transition13 [dir=none]
-		transition13 -> p9
-	p1
+		pl8 -> transition13 [dir=none]
+		transition13 -> pl9
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="la+"]
-		p9 -> transition14 [dir=none]
-		transition14 -> p1
-	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="dr+"]
-		p1 -> transition1 [dir=none]
-		transition1 -> p14
-	p15
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="lr-"]
-		p14 -> transition3 [dir=none]
-		transition3 -> p15
-	p4
-	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="zr+"]
-		p15 -> transition4 [dir=none]
-		transition4 -> p4
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="lr-"]
-		p14 -> transition3 [dir=none]
-		transition3 -> p16
-	p17
-	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="la-"]
-		p16 -> transition9 [dir=none]
-		transition9 -> p17
-	p11
-	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="dr-"]
-		p17 -> transition10 [dir=none]
-		transition10 -> p11
-	p12
-	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="da-"]
-		p11 -> transition11 [dir=none]
-		transition11 -> p12
-	p13
-	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
-		p12 -> transition12 [dir=none]
-		transition12 -> p13
-	p9
-	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="lr+"]
-		p13 -> transition13 [dir=none]
-		transition13 -> p9
+		pl9 -> transition14 [dir=none]
+		transition14 -> pl1
+	pl10 [fixedsize=true shape=circle width=.5]
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="zr-"]
-		p6 -> transition7 [dir=none]
-		transition7 -> p10
-	p11
+		pl6 -> transition7 [dir=none]
+		transition7 -> pl10
+	pl11 [fixedsize=true shape=circle width=.5]
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="dr-"]
-		p10 -> transition10 [dir=none]
-		transition10 -> p11
+		pl10 -> transition10 [dir=none]
+		transition10 -> pl11
+	pl12 [fixedsize=true shape=circle width=.5]
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="da-"]
+		pl11 -> transition11 [dir=none]
+		transition11 -> pl12
+	pl13 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
+		pl12 -> transition12 [dir=none]
+		transition12 -> pl13
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="lr+"]
+		pl13 -> transition13 [dir=none]
+		transition13 -> pl9
+	pl14 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="dr+"]
+		pl1 -> transition1 [dir=none]
+		transition1 -> pl14
+	pl15 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="lr-"]
+		pl14 -> transition3 [dir=none]
+		transition3 -> pl15
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="zr+"]
+		pl15 -> transition4 [dir=none]
+		transition4 -> pl4
+	pl16 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="lr-"]
+		pl14 -> transition3 [dir=none]
+		transition3 -> pl16
+	pl17 [fixedsize=true shape=circle width=.5]
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="la-"]
+		pl16 -> transition9 [dir=none]
+		transition9 -> pl17
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="dr-"]
+		pl17 -> transition10 [dir=none]
+		transition10 -> pl11
 }

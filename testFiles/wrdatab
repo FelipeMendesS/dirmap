@@ -1,0 +1,5 @@
+.name wrdatab
+.inputs  IOSTRB * Aack * Dack * Ack *
+.outputs  XRDY * Areq * Dreq * STRB * X * Y *
+.start pl1
+.end

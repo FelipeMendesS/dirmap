@@ -1,0 +1,5 @@
+.name hybridf
+.inputs  Ri * A1i * A2i *
+.outputs  Rx * Ax * Ao * R1o * R2o *
+.start pl1
+.end

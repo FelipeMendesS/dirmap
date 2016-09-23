@@ -1,0 +1,5 @@
+.inputs  req * precharged * done * wenin * wsldin *
+.outputs  ack * prbar * wsen * wen * wsld * y1_sbuframwrite * y0_sbuframwrite *
+pl1/pl2|precharged+
+.start pl1 pl30 pl32
+.end

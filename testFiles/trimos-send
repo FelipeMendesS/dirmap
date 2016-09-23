@@ -1,0 +1,4 @@
+.inputs  r1 * r2 * r3 *
+.outputs  a * b * c * t1 * t2 * t3 *
+.start pl1
+.end
