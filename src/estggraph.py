@@ -5,6 +5,10 @@ Transition = Tuple[List[str], List[int]]
 
 class ESTGGraph (object):
 
+    '''
+    Class that stores the ESTG graph and its properties in order to synthesize it.
+
+    '''
     # Data that we need to use
     # Check if we can have a choice to different concurrency, at first won't be implemented. Can change data structures
     # if needed.
@@ -13,7 +17,7 @@ class ESTGGraph (object):
     INPUT = 0
     OUTPUT = 1
     CONDITIONAL_SIGNAL = 2
-    #Transitions classifications
+    # Transitions classifications
     RISING_EDGE = 3
     FALLING_EDGE = 4
     DONT_CARE = 5
@@ -22,7 +26,7 @@ class ESTGGraph (object):
     # Node classifications
     CONCURRENCY_OPEN = 8
     CHOICE_OPEN = 9
-    CONCURRENCY_CLOSE = 10
+    CONCURRENCY_CLOSE_OR_HUB = 10
 
     SYMBOL_DICT = {
         3: ["", "+"],
@@ -49,7 +53,7 @@ class ESTGGraph (object):
         # Map of signals and their initial values
         self.initial_signal_values = initial_signal_values  # type: Dict[str, Union[int,str]]
         # Node classification to check concurrency and decisions
-        self.node_classification = {}  # type: Dict[str,Tuple[int, int]]
+        self.node_classification = {}  # type: Dict[str,Tuple[int, List[int]]]
         transition_count = 0
         for regular_input in regular_inputs:
             self.signal_map[regular_input] = self.INPUT
@@ -58,8 +62,7 @@ class ESTGGraph (object):
         for choice in choice_inputs:
             self.signal_map[choice] = self.CONDITIONAL_SIGNAL
         for line in transitions:
-            [vertices, variables] = map(str.strip, line[0].split('|'))
-            transition_type = line[1]
+            [vertices, variables] = map(str.strip, line.split('|'))
             v = []
             t = []
             for variable in map(str.strip, variables.split(',')):
@@ -81,12 +84,6 @@ class ESTGGraph (object):
             transition_conditions = (v, t)
             transition_count += 1
             transition_name = "transition" + str(transition_count)
-            if transition_type == 1:
-                count_aux = len(vertices.split('/')[1].strip().split(','))
-                self.node_classification[transition_name] = (self.CONCURRENCY_OPEN, count_aux)
-            elif transition_type == 3:
-                count_aux = len(vertices.split('/')[0].strip().split(','))
-                self.node_classification[transition_name] = (self.CONCURRENCY_CLOSE, count_aux)
             self.transitions_identification[transition_name] = transition_conditions
             [origin_vertex, destination_vertex] = map(str.strip, vertices.split('/'))
             for origin in map(str.strip, origin_vertex.split(',')):
@@ -101,7 +98,7 @@ class ESTGGraph (object):
                     self.stg_graph[origin].append(destination)
                     self.transition_variables[origin + destination] = transition_conditions
                     self.extended_graph[transition_name].append(destination)
-        self.label_decisions()
+            self.__classify_nodes()
 
     # Check if the graph is strongly connected
     def check_liveness(self):
@@ -171,8 +168,31 @@ class ESTGGraph (object):
         print("ESTG is output-persistent!")
         return
 
-    def label_decisions(self):
-        for place in self.stg_graph.keys():
-            if len(self.extended_graph[place]) > 1:
-                self.node_classification[place] = (self.CONDITIONAL_SIGNAL, len(self.extended_graph[place]))
-        return
+    def __classify_nodes(self):
+        transition_fanin_count = {}
+        for node in self.extended_graph.keys():
+            if ESTGGraph.__is_place(node):
+                if len(self.extended_graph[node]) > 1:
+                    self.node_classification[node] = (ESTGGraph.CHOICE_OPEN, [len(self.extended_graph[node])])
+                for transition in self.extended_graph[node]:
+                    if transition not in transition_fanin_count:
+                        transition_fanin_count[transition] = 1
+                    else:
+                        transition_fanin_count[transition] += 1
+            else:
+                if len(self.extended_graph[node]) > 1:
+                    self.node_classification[node] = (ESTGGraph.CONCURRENCY_OPEN, [len(self.extended_graph[node])])
+        for transition in transition_fanin_count:
+            if transition_fanin_count[transition] > 1 and transition not in self.node_classification:
+                self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB,
+                                                   [transition_fanin_count[transition]])
+            elif transition_fanin_count[transition] > 1:
+                aux = self.node_classification[transition][1]
+                aux.append(transition_fanin_count[transition])
+                self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB, aux)
+
+    @staticmethod
+    def __is_place(node):
+        if re.match(r"^transition[0-9]+$", node):
+            return False
+        return True

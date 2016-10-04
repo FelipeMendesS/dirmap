@@ -77,14 +77,11 @@ class TextParse (object):
                 break
             # Maybe add some flexibility for the spaces in these cases
             else:
-                if re.match(r"\w+\s*/\s*\w+\s*\|\s*\w+[+\-*](\s*,\s*\w+[+\-*])*", line):
-                    self.transitions.append((line, self.SIMPLE_TRANSITION))
-                elif re.match(r"\w+\s*/\s*\w+(\s*,\s*\w+)+\s*\|\s*\w+[+\-*](\s*,\s*\w+[+\-*])*", line):
-                    self.transitions.append((line, self.CONCURRENCY))
-                elif re.match(r"\w+\s*,\s*\w+\s*/\s*\w+\s*\|\s*\w+[+\-*](\s*,\s*\w+[+\-*])*", line):
-                    self.transitions.append((line, self.CONVERGENCE))
-                elif re.match(r"\w+\s*/\s*\w+\s*\|\s*#\w+[+\-*](\s*,\s*\w+[+\-*])*", line):
-                    self.transitions.append((line, self.DECISION))
+                if re.match(r"\w+\s*(,\s*\w+\s*)*/\s*\w*\s*(,\s*\w+\s*)*\|\s*#?\w+[+\-*](\s*,\s*#?\w+[+\-*])*", line):
+                    self.transitions.append(line)
+                elif not re.match("^\s*#.*$", line):
+                    raise Exception("Line not read: " + line)
+
         if reached_end == 0:
             raise Exception("No end statement")
         self.create_graph()

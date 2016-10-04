@@ -9,7 +9,11 @@ from estggraph import ESTGGraph
 class GraphUtil(object):
 
     # Places with names starting with p concatenated with a number, in order of creation
-    # TODO Finish implementation of conversion method
+    # TODO Known Issues: Initial places when not specified is not correctly considering cases of parallelism.
+    # -Double places in some specific transitions, even tripled. Maybe caused by the graph formation and not conversion
+    # -Initial places only considers initial transition and assumes all transitions coming from it are initial
+    # and this is simply not true for all cases. Adjust accordingly.
+    # -Repeated transition lines in the creation of the converted file. Not sure why.
     @staticmethod
     def stg_to_estg(file_to_convert, converted_file_name="", overwrite_file_flag=False):
         path_to_descriptions = "../testFiles/"
@@ -114,7 +118,7 @@ class GraphUtil(object):
                         if place not in traversed_places:
                             GraphUtil.__recursive_transition_write(file, extended_graph, node_classification, place,
                                                                    concurrency_close_map, traversed_places)
-                elif node_classification[transition][0] == ESTGGraph.CONCURRENCY_CLOSE:
+                elif node_classification[transition][0] == ESTGGraph.CONCURRENCY_CLOSE_OR_HUB:
                     if transition not in concurrency_close_map:
                         concurrency_close_map[transition] = [[current_place], node_classification[transition][1] - 1]
                         for place in extended_graph[transition]:
@@ -253,7 +257,7 @@ class GraphUtil(object):
                     node_classification[node] = (ESTGGraph.CONCURRENCY_OPEN, len(extended_graph[node]))
         for transition in transition_fanin_count:
             if transition_fanin_count[transition] > 1:
-                node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE, transition_fanin_count[transition])
+                node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB, transition_fanin_count[transition])
 
 
     @staticmethod

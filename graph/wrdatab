@@ -1,0 +1,191 @@
+strict digraph {
+	pl1 [fixedsize=true shape=circle width=.5]
+	pl2 [fixedsize=true shape=circle width=.5]
+	transition17 [label="" height=0.001 shape=box width=0.5 xlabel="XRDY+"]
+		pl1 -> transition17 [dir=none]
+		transition17 -> pl2
+	pl3 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="IOSTRB-"]
+		pl2 -> transition1 [dir=none]
+		transition1 -> pl3
+	pl4 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY-"]
+		pl3 -> transition8 [dir=none]
+		transition8 -> pl4
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="IOSTRB+"]
+		pl4 -> transition2 [dir=none]
+		transition2 -> pl1
+	pl5 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY-"]
+		pl3 -> transition8 [dir=none]
+		transition8 -> pl5
+	pl6 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl5 -> transition7 [dir=none]
+		transition7 -> pl6
+	pl7 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="Aack-"]
+		pl6 -> transition3 [dir=none]
+		transition3 -> pl7
+	pl8 [fixedsize=true shape=circle width=.5]
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="Areq+"]
+		pl7 -> transition24 [dir=none]
+		transition24 -> pl8
+	pl9 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="Aack+"]
+		pl8 -> transition4 [dir=none]
+		transition4 -> pl9
+	pl10 [fixedsize=true shape=circle width=.5]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl9 -> transition16 [dir=none]
+		transition16 -> pl10
+	pl11 [fixedsize=true shape=circle width=.5]
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="Ack+"]
+		pl10 -> transition5 [dir=none]
+		transition5 -> pl11
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl11 -> transition7 [dir=none]
+		transition7 -> pl6
+	pl15 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl11 -> transition7 [dir=none]
+		transition7 -> pl15
+	pl16 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq+"]
+		pl15 -> transition12 [dir=none]
+		transition12 -> pl16
+	pl17 [fixedsize=true shape=circle width=.5]
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="Dack+"]
+		pl16 -> transition9 [dir=none]
+		transition9 -> pl17
+	pl18 [fixedsize=true shape=circle width=.5]
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl17 -> transition23 [dir=none]
+		transition23 -> pl18
+	pl19 [fixedsize=true shape=circle width=.5]
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="Ack+"]
+		pl18 -> transition10 [dir=none]
+		transition10 -> pl19
+	pl20 [fixedsize=true shape=circle width=.5]
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq-"]
+		pl19 -> transition19 [dir=none]
+		transition19 -> pl20
+	pl21 [fixedsize=true shape=circle width=.5]
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="Dack-"]
+		pl20 -> transition11 [dir=none]
+		transition11 -> pl21
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq+"]
+		pl21 -> transition12 [dir=none]
+		transition12 -> pl16
+	pl22 [fixedsize=true shape=circle width=.5]
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq-"]
+		pl19 -> transition19 [dir=none]
+		transition19 -> pl22
+	pl23 [fixedsize=true shape=circle width=.5]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="STRB-"]
+		pl22 -> transition13 [dir=none]
+		transition13 -> pl23
+	pl24 [fixedsize=true shape=circle width=.5]
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="Ack-"]
+		pl23 -> transition14 [dir=none]
+		transition14 -> pl24
+	pl25 [fixedsize=true shape=circle width=.5]
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="X+"]
+		pl24 -> transition15 [dir=none]
+		transition15 -> pl25
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl25 -> transition16 [dir=none]
+		transition16 -> pl10
+	pl12 [fixedsize=true shape=circle width=.5]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl25 -> transition16 [dir=none]
+		transition16 -> pl12
+	pl13 [fixedsize=true shape=circle width=.5]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="Y-"]
+		pl12 -> transition6 [dir=none]
+		transition6 -> pl13
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl13 -> transition7 [dir=none]
+		transition7 -> pl6
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl13 -> transition7 [dir=none]
+		transition7 -> pl15
+	pl29 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl13 -> transition7 [dir=none]
+		transition7 -> pl29
+	pl30 [fixedsize=true shape=circle width=.5]
+	transition20 [label="" height=0.01 shape=box width=0.5 xlabel="STRB-"]
+		pl29 -> transition20 [dir=none]
+		transition20 -> pl30
+	pl31 [fixedsize=true shape=circle width=.5]
+	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="Ack-"]
+		pl30 -> transition21 [dir=none]
+		transition21 -> pl31
+	pl32 [fixedsize=true shape=circle width=.5]
+	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="X-"]
+		pl31 -> transition22 [dir=none]
+		transition22 -> pl32
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl32 -> transition23 [dir=none]
+		transition23 -> pl18
+	pl27 [fixedsize=true shape=circle width=.5]
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl32 -> transition23 [dir=none]
+		transition23 -> pl27
+	pl28 [fixedsize=true shape=circle width=.5]
+	transition18 [label="" height=0.01 shape=box width=0.5 xlabel="Y+"]
+		pl27 -> transition18 [dir=none]
+		transition18 -> pl28
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq-"]
+		pl28 -> transition19 [dir=none]
+		transition19 -> pl20
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="Dreq-"]
+		pl28 -> transition19 [dir=none]
+		transition19 -> pl22
+	pl26 [fixedsize=true shape=circle width=.5]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="STRB-"]
+		pl22 -> transition13 [dir=none]
+		transition13 -> pl26
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY+"]
+		pl26 -> transition17 [dir=none]
+		transition17 -> pl2
+	pl33 [fixedsize=true shape=circle width=.5]
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY+"]
+		pl26 -> transition17 [dir=none]
+		transition17 -> pl33
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="Areq+"]
+		pl33 -> transition24 [dir=none]
+		transition24 -> pl8
+	pl14 [fixedsize=true shape=circle width=.5]
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="Areq+"]
+		pl33 -> transition24 [dir=none]
+		transition24 -> pl14
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY-"]
+		pl14 -> transition8 [dir=none]
+		transition8 -> pl4
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="XRDY-"]
+		pl14 -> transition8 [dir=none]
+		transition8 -> pl5
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl17 -> transition23 [dir=none]
+		transition23 -> pl27
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl11 -> transition7 [dir=none]
+		transition7 -> pl29
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="STRB+"]
+		pl9 -> transition16 [dir=none]
+		transition16 -> pl12
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="Areq+"]
+		pl7 -> transition24 [dir=none]
+		transition24 -> pl14
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl5 -> transition7 [dir=none]
+		transition7 -> pl15
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Areq-"]
+		pl5 -> transition7 [dir=none]
+		transition7 -> pl29
+	transition17 [label="" height=0.001 shape=box width=0.5 xlabel="XRDY+"]
+		pl1 -> transition17 [dir=none]
+		transition17 -> pl33
+}
