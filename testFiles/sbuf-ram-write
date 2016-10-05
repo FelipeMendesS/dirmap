@@ -1,30 +1,28 @@
 .inputs  req * precharged * done * wenin * wsldin *
 .outputs  ack * prbar * wsen * wen * wsld * y1_sbuframwrite * y0_sbuframwrite *
-pl1/pl2|done-
-pl3/pl4|prbar+
-pl4/pl5|precharged-
-pl5/pl6,pl28|wen+
-pl6/pl7|done+
-pl8/pl9|wsen-
-pl10/pl11|wsld+
-pl11/pl12|wsldin+
-pl12/pl13|y0_sbuframwrite+
-pl13/pl14|wsld-
-pl14/pl15|wsldin-
-pl16/pl1|wsen+
-pl17/pl18,pl30|prbar-
-pl30,pl18/pl19,pl31|precharged+
-pl20/pl21,pl32|ack-
-pl33,pl2,pl19,pl31,pl22/pl3|y0_sbuframwrite-
-pl32,pl21/pl22,pl33|req+
-pl23/pl24|wen-
-pl24,pl9/pl10|wenin-
-pl25/pl26|ack+
-pl26/pl27|req-
-pl27,pl15/pl16,pl17,pl20|y1_sbuframwrite+
-pl28/pl29|wenin+
-pl29,pl7/pl8,pl23,pl25|y1_sbuframwrite-
-pl30,pl18/pl19,pl31|precharged+
-pl32,pl21/pl22,pl33|req+
-.start pl1 pl30 pl32
+PL1/PL2|precharged+
+PL3/PL4|prbar+
+PL4/PL5|precharged-
+PL5/PL6,PL28|wen+
+PL6/PL7|done+
+PL8/PL9|wsen-
+PL10/PL11|wsld+
+PL11/PL12|wsldin+
+PL12/PL13|y0_sbuframwrite+
+PL13/PL14|wsld-
+PL14/PL15|wsldin-
+PL16/PL17|wsen+
+PL17/PL18|done-
+PL19/PL1|prbar-
+PL20/PL21|ack-
+PL21/PL22|req+
+PL22,PL2,PL18/PL3|y0_sbuframwrite-
+PL23/PL24|wen-
+PL24,PL9/PL10|wenin-
+PL25/PL26|ack+
+PL26/PL27|req-
+PL27,PL15/PL16,PL19,PL20|y1_sbuframwrite+
+PL28/PL29|wenin+
+PL29,PL7/PL8,PL23,PL25|y1_sbuframwrite-
+.start PL1
 .end

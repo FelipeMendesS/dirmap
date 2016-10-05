@@ -9,194 +9,203 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1272)">
 <title>%3</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1272 181,-1272 181,4 -4,4"/>
-<!-- pl1 -->
-<g id="node1" class="node"><title>pl1</title>
+<!-- PL1 -->
+<g id="node1" class="node"><title>PL1</title>
 <ellipse fill="none" stroke="black" cx="149" cy="-1250" rx="18" ry="18"/>
-<text text-anchor="middle" x="149" y="-1246.3" font-family="Times,serif" font-size="14.00">pl1</text>
+<text text-anchor="middle" x="149" y="-1246.3" font-family="Times,serif" font-size="14.00">PL1</text>
 </g>
 <!-- transition1 -->
 <g id="node3" class="node"><title>transition1</title>
 <polygon fill="none" stroke="black" points="140,-1196 104,-1196 104,-1195 140,-1195 140,-1196"/>
 <text text-anchor="middle" x="94" y="-1199.8" font-family="Times,serif" font-size="14.00">dr+</text>
 </g>
-<!-- pl1&#45;&gt;transition1 -->
-<g id="edge1" class="edge"><title>pl1&#45;&gt;transition1</title>
-<path fill="none" stroke="black" d="M141.19,-1233.67C133.466,-1218.51 122.698,-1197.37 122.032,-1196.06"/>
+<!-- PL1&#45;&gt;transition1 -->
+<g id="edge1" class="edge"><title>PL1&#45;&gt;transition1</title>
+<path fill="none" stroke="black" d="M141.19,-1233.67C135.517,-1222.53 128.204,-1208.18 124.455,-1200.82"/>
+<polygon fill="none" stroke="black" points="125.861,-1199.72 122.032,-1196.06 122.743,-1201.31 125.861,-1199.72"/>
 </g>
-<!-- pl2 -->
-<g id="node2" class="node"><title>pl2</title>
+<!-- PL2 -->
+<g id="node2" class="node"><title>PL2</title>
 <ellipse fill="none" stroke="black" cx="49" cy="-1141" rx="18" ry="18"/>
-<text text-anchor="middle" x="49" y="-1137.3" font-family="Times,serif" font-size="14.00">pl2</text>
+<text text-anchor="middle" x="49" y="-1137.3" font-family="Times,serif" font-size="14.00">PL2</text>
 </g>
 <!-- transition2 -->
 <g id="node5" class="node"><title>transition2</title>
 <polygon fill="none" stroke="black" points="58,-1087 22,-1087 22,-1086 58,-1086 58,-1087"/>
 <text text-anchor="middle" x="11" y="-1090.8" font-family="Times,serif" font-size="14.00">da+</text>
 </g>
-<!-- pl2&#45;&gt;transition2 -->
-<g id="edge3" class="edge"><title>pl2&#45;&gt;transition2</title>
-<path fill="none" stroke="black" d="M46.1028,-1122.94C43.554,-1107.93 40.2162,-1088.27 40.01,-1087.06"/>
+<!-- PL2&#45;&gt;transition2 -->
+<g id="edge3" class="edge"><title>PL2&#45;&gt;transition2</title>
+<path fill="none" stroke="black" d="M46.1028,-1122.94C44.3107,-1112.39 42.1285,-1099.53 40.9191,-1092.41"/>
+<polygon fill="none" stroke="black" points="42.5725,-1091.7 40.01,-1087.06 39.1219,-1092.28 42.5725,-1091.7"/>
 </g>
-<!-- transition1&#45;&gt;pl2 -->
-<g id="edge2" class="edge"><title>transition1&#45;&gt;pl2</title>
+<!-- transition1&#45;&gt;PL2 -->
+<g id="edge2" class="edge"><title>transition1&#45;&gt;PL2</title>
 <path fill="none" stroke="black" d="M121.947,-1194.96C120.566,-1193.96 92.4297,-1173.53 71.5134,-1158.35"/>
 <polygon fill="black" stroke="black" points="73.5165,-1155.47 63.368,-1152.43 69.4039,-1161.14 73.5165,-1155.47"/>
 </g>
-<!-- pl14 -->
-<g id="node26" class="node"><title>pl14</title>
+<!-- PL14 -->
+<g id="node26" class="node"><title>PL14</title>
 <ellipse fill="none" stroke="black" cx="122" cy="-1141" rx="18" ry="18"/>
-<text text-anchor="middle" x="122" y="-1137.3" font-family="Times,serif" font-size="14.00">pl14</text>
+<text text-anchor="middle" x="122" y="-1137.3" font-family="Times,serif" font-size="14.00">PL14</text>
 </g>
-<!-- transition1&#45;&gt;pl14 -->
-<g id="edge27" class="edge"><title>transition1&#45;&gt;pl14</title>
+<!-- transition1&#45;&gt;PL14 -->
+<g id="edge27" class="edge"><title>transition1&#45;&gt;PL14</title>
 <path fill="none" stroke="black" d="M122,-1194.85C122,-1193.37 122,-1181.32 122,-1169.1"/>
 <polygon fill="black" stroke="black" points="125.5,-1169.02 122,-1159.02 118.5,-1169.02 125.5,-1169.02"/>
 </g>
-<!-- pl3 -->
-<g id="node4" class="node"><title>pl3</title>
+<!-- PL3 -->
+<g id="node4" class="node"><title>PL3</title>
 <ellipse fill="none" stroke="black" cx="35" cy="-1032" rx="18" ry="18"/>
-<text text-anchor="middle" x="35" y="-1028.3" font-family="Times,serif" font-size="14.00">pl3</text>
+<text text-anchor="middle" x="35" y="-1028.3" font-family="Times,serif" font-size="14.00">PL3</text>
 </g>
 <!-- transition12 -->
 <g id="node7" class="node"><title>transition12</title>
 <polygon fill="none" stroke="black" points="76,-960.5 40,-960.5 40,-959.5 76,-959.5 76,-960.5"/>
 <text text-anchor="middle" x="30.5" y="-964.3" font-family="Times,serif" font-size="14.00">zr+</text>
 </g>
-<!-- pl3&#45;&gt;transition12 -->
-<g id="edge5" class="edge"><title>pl3&#45;&gt;transition12</title>
-<path fill="none" stroke="black" d="M40.3345,-1014.76C46.9166,-994.732 57.3245,-963.056 57.9686,-961.096"/>
+<!-- PL3&#45;&gt;transition12 -->
+<g id="edge5" class="edge"><title>PL3&#45;&gt;transition12</title>
+<path fill="none" stroke="black" d="M40.3345,-1014.76C45.5282,-998.958 53.1039,-975.901 56.3853,-965.914"/>
+<polygon fill="none" stroke="black" points="58.0703,-966.392 57.9686,-961.096 54.7452,-965.299 58.0703,-966.392"/>
 </g>
-<!-- transition2&#45;&gt;pl3 -->
-<g id="edge4" class="edge"><title>transition2&#45;&gt;pl3</title>
+<!-- transition2&#45;&gt;PL3 -->
+<g id="edge4" class="edge"><title>transition2&#45;&gt;PL3</title>
 <path fill="none" stroke="black" d="M39.9857,-1085.85C39.846,-1084.37 38.7094,-1072.32 37.5566,-1060.1"/>
 <polygon fill="black" stroke="black" points="41.03,-1059.65 36.6061,-1050.02 34.0609,-1060.31 41.03,-1059.65"/>
 </g>
-<!-- pl4 -->
-<g id="node6" class="node"><title>pl4</title>
+<!-- PL4 -->
+<g id="node6" class="node"><title>PL4</title>
 <ellipse fill="none" stroke="black" cx="58" cy="-888" rx="18" ry="18"/>
-<text text-anchor="middle" x="58" y="-884.3" font-family="Times,serif" font-size="14.00">pl4</text>
+<text text-anchor="middle" x="58" y="-884.3" font-family="Times,serif" font-size="14.00">PL4</text>
 </g>
 <!-- transition3 -->
 <g id="node9" class="node"><title>transition3</title>
 <polygon fill="none" stroke="black" points="76,-816.5 40,-816.5 40,-815.5 76,-815.5 76,-816.5"/>
 <text text-anchor="middle" x="29.5" y="-820.3" font-family="Times,serif" font-size="14.00">za+</text>
 </g>
-<!-- pl4&#45;&gt;transition3 -->
-<g id="edge7" class="edge"><title>pl4&#45;&gt;transition3</title>
-<path fill="none" stroke="black" d="M58,-869.697C58,-849.615 58,-818.987 58,-817.092"/>
+<!-- PL4&#45;&gt;transition3 -->
+<g id="edge7" class="edge"><title>PL4&#45;&gt;transition3</title>
+<path fill="none" stroke="black" d="M58,-869.697C58,-854.165 58,-832.324 58,-822.348"/>
+<polygon fill="none" stroke="black" points="59.7501,-822.092 58,-817.092 56.2501,-822.092 59.7501,-822.092"/>
 </g>
-<!-- transition12&#45;&gt;pl4 -->
-<g id="edge6" class="edge"><title>transition12&#45;&gt;pl4</title>
+<!-- transition12&#45;&gt;PL4 -->
+<g id="edge6" class="edge"><title>transition12&#45;&gt;PL4</title>
 <path fill="none" stroke="black" d="M58,-958.949C58,-957.748 58,-935.429 58,-916.321"/>
 <polygon fill="black" stroke="black" points="61.5001,-916.191 58,-906.191 54.5001,-916.191 61.5001,-916.191"/>
 </g>
-<!-- pl5 -->
-<g id="node8" class="node"><title>pl5</title>
+<!-- PL5 -->
+<g id="node8" class="node"><title>PL5</title>
 <ellipse fill="none" stroke="black" cx="58" cy="-744" rx="18" ry="18"/>
-<text text-anchor="middle" x="58" y="-740.3" font-family="Times,serif" font-size="14.00">pl5</text>
+<text text-anchor="middle" x="58" y="-740.3" font-family="Times,serif" font-size="14.00">PL5</text>
 </g>
 <!-- transition4 -->
 <g id="node11" class="node"><title>transition4</title>
 <polygon fill="none" stroke="black" points="76,-690 40,-690 40,-689 76,-689 76,-690"/>
 <text text-anchor="middle" x="32.5" y="-693.8" font-family="Times,serif" font-size="14.00">x+</text>
 </g>
-<!-- pl5&#45;&gt;transition4 -->
-<g id="edge9" class="edge"><title>pl5&#45;&gt;transition4</title>
-<path fill="none" stroke="black" d="M58,-725.939C58,-710.929 58,-691.273 58,-690.059"/>
+<!-- PL5&#45;&gt;transition4 -->
+<g id="edge9" class="edge"><title>PL5&#45;&gt;transition4</title>
+<path fill="none" stroke="black" d="M58,-725.939C58,-715.385 58,-702.534 58,-695.412"/>
+<polygon fill="none" stroke="black" points="59.7501,-695.059 58,-690.059 56.2501,-695.059 59.7501,-695.059"/>
 </g>
-<!-- transition3&#45;&gt;pl5 -->
-<g id="edge8" class="edge"><title>transition3&#45;&gt;pl5</title>
+<!-- transition3&#45;&gt;PL5 -->
+<g id="edge8" class="edge"><title>transition3&#45;&gt;PL5</title>
 <path fill="none" stroke="black" d="M58,-814.949C58,-813.748 58,-791.429 58,-772.321"/>
 <polygon fill="black" stroke="black" points="61.5001,-772.191 58,-762.191 54.5001,-772.191 61.5001,-772.191"/>
 </g>
-<!-- pl6 -->
-<g id="node10" class="node"><title>pl6</title>
+<!-- PL6 -->
+<g id="node10" class="node"><title>PL6</title>
 <ellipse fill="none" stroke="black" cx="58" cy="-635" rx="18" ry="18"/>
-<text text-anchor="middle" x="58" y="-631.3" font-family="Times,serif" font-size="14.00">pl6</text>
+<text text-anchor="middle" x="58" y="-631.3" font-family="Times,serif" font-size="14.00">PL6</text>
 </g>
 <!-- transition5 -->
 <g id="node13" class="node"><title>transition5</title>
 <polygon fill="none" stroke="black" points="76,-581 40,-581 40,-580 76,-580 76,-581"/>
 <text text-anchor="middle" x="32" y="-584.8" font-family="Times,serif" font-size="14.00">zr&#45;</text>
 </g>
-<!-- pl6&#45;&gt;transition5 -->
-<g id="edge11" class="edge"><title>pl6&#45;&gt;transition5</title>
-<path fill="none" stroke="black" d="M58,-616.939C58,-601.929 58,-582.273 58,-581.059"/>
+<!-- PL6&#45;&gt;transition5 -->
+<g id="edge11" class="edge"><title>PL6&#45;&gt;transition5</title>
+<path fill="none" stroke="black" d="M58,-616.939C58,-606.385 58,-593.534 58,-586.412"/>
+<polygon fill="none" stroke="black" points="59.7501,-586.059 58,-581.059 56.2501,-586.059 59.7501,-586.059"/>
 </g>
-<!-- transition4&#45;&gt;pl6 -->
-<g id="edge10" class="edge"><title>transition4&#45;&gt;pl6</title>
+<!-- transition4&#45;&gt;PL6 -->
+<g id="edge10" class="edge"><title>transition4&#45;&gt;PL6</title>
 <path fill="none" stroke="black" d="M58,-688.848C58,-687.368 58,-675.319 58,-663.1"/>
 <polygon fill="black" stroke="black" points="61.5001,-663.025 58,-653.025 54.5001,-663.025 61.5001,-663.025"/>
 </g>
-<!-- pl7 -->
-<g id="node12" class="node"><title>pl7</title>
+<!-- PL7 -->
+<g id="node12" class="node"><title>PL7</title>
 <ellipse fill="none" stroke="black" cx="35" cy="-526" rx="18" ry="18"/>
-<text text-anchor="middle" x="35" y="-522.3" font-family="Times,serif" font-size="14.00">pl7</text>
+<text text-anchor="middle" x="35" y="-522.3" font-family="Times,serif" font-size="14.00">PL7</text>
 </g>
 <!-- transition6 -->
 <g id="node15" class="node"><title>transition6</title>
 <polygon fill="none" stroke="black" points="63,-472 27,-472 27,-471 63,-471 63,-472"/>
 <text text-anchor="middle" x="18" y="-475.8" font-family="Times,serif" font-size="14.00">za&#45;</text>
 </g>
-<!-- pl7&#45;&gt;transition6 -->
-<g id="edge13" class="edge"><title>pl7&#45;&gt;transition6</title>
-<path fill="none" stroke="black" d="M38.1641,-508.23C41.0022,-493.188 44.7568,-473.289 44.9887,-472.06"/>
+<!-- PL7&#45;&gt;transition6 -->
+<g id="edge13" class="edge"><title>PL7&#45;&gt;transition6</title>
+<path fill="none" stroke="black" d="M38.1641,-508.23C40.204,-497.419 42.7173,-484.098 44.0558,-477.004"/>
+<polygon fill="none" stroke="black" points="45.7812,-477.298 44.9887,-472.06 42.3419,-476.649 45.7812,-477.298"/>
 </g>
-<!-- transition5&#45;&gt;pl7 -->
-<g id="edge12" class="edge"><title>transition5&#45;&gt;pl7</title>
+<!-- transition5&#45;&gt;PL7 -->
+<g id="edge12" class="edge"><title>transition5&#45;&gt;PL7</title>
 <path fill="none" stroke="black" d="M57.934,-579.848C57.2621,-578.3 51.5707,-565.185 46.0263,-552.409"/>
 <polygon fill="black" stroke="black" points="49.0925,-550.682 41.9008,-542.902 42.671,-553.469 49.0925,-550.682"/>
 </g>
-<!-- pl10 -->
-<g id="node19" class="node"><title>pl10</title>
+<!-- PL10 -->
+<g id="node19" class="node"><title>PL10</title>
 <ellipse fill="none" stroke="black" cx="89" cy="-526" rx="18" ry="18"/>
-<text text-anchor="middle" x="89" y="-522.3" font-family="Times,serif" font-size="14.00">pl10</text>
+<text text-anchor="middle" x="89" y="-522.3" font-family="Times,serif" font-size="14.00">PL10</text>
 </g>
-<!-- transition5&#45;&gt;pl10 -->
-<g id="edge19" class="edge"><title>transition5&#45;&gt;pl10</title>
+<!-- transition5&#45;&gt;PL10 -->
+<g id="edge19" class="edge"><title>transition5&#45;&gt;PL10</title>
 <path fill="none" stroke="black" d="M58.0889,-579.848C59.0354,-578.23 67.3712,-563.978 75.1476,-550.683"/>
 <polygon fill="black" stroke="black" points="78.3164,-552.198 80.3442,-541.799 72.2741,-548.663 78.3164,-552.198"/>
 </g>
-<!-- pl8 -->
-<g id="node14" class="node"><title>pl8</title>
+<!-- PL8 -->
+<g id="node14" class="node"><title>PL8</title>
 <ellipse fill="none" stroke="black" cx="53" cy="-345" rx="18" ry="18"/>
-<text text-anchor="middle" x="53" y="-341.3" font-family="Times,serif" font-size="14.00">pl8</text>
+<text text-anchor="middle" x="53" y="-341.3" font-family="Times,serif" font-size="14.00">PL8</text>
 </g>
 <!-- transition10 -->
 <g id="node17" class="node"><title>transition10</title>
 <polygon fill="none" stroke="black" points="128,-110 92,-110 92,-109 128,-109 128,-110"/>
 <text text-anchor="middle" x="83.5" y="-113.8" font-family="Times,serif" font-size="14.00">lr+</text>
 </g>
-<!-- pl8&#45;&gt;transition10 -->
-<g id="edge15" class="edge"><title>pl8&#45;&gt;transition10</title>
-<path fill="none" stroke="black" d="M52.83,-326.826C53.0658,-291.523 56.6559,-208.846 83,-146 90.4903,-128.131 108.807,-111.098 109.944,-110.051"/>
+<!-- PL8&#45;&gt;transition10 -->
+<g id="edge15" class="edge"><title>PL8&#45;&gt;transition10</title>
+<path fill="none" stroke="black" d="M52.83,-326.826C53.0658,-291.523 56.6559,-208.846 83,-146 88.6177,-132.599 100.325,-119.667 106.308,-113.597"/>
+<polygon fill="none" stroke="black" points="107.586,-114.795 109.944,-110.051 105.143,-112.289 107.586,-114.795"/>
 </g>
-<!-- transition6&#45;&gt;pl8 -->
-<g id="edge14" class="edge"><title>transition6&#45;&gt;pl8</title>
+<!-- transition6&#45;&gt;PL8 -->
+<g id="edge14" class="edge"><title>transition6&#45;&gt;PL8</title>
 <path fill="none" stroke="black" d="M45.0058,-470.909C45.1735,-468.29 48.938,-409.468 51.2405,-373.491"/>
 <polygon fill="black" stroke="black" points="54.7566,-373.35 51.9026,-363.147 47.7709,-372.903 54.7566,-373.35"/>
 </g>
-<!-- pl9 -->
-<g id="node16" class="node"><title>pl9</title>
+<!-- PL9 -->
+<g id="node16" class="node"><title>PL9</title>
 <ellipse fill="none" stroke="black" cx="120" cy="-55" rx="18" ry="18"/>
-<text text-anchor="middle" x="120" y="-51.3" font-family="Times,serif" font-size="14.00">pl9</text>
+<text text-anchor="middle" x="120" y="-51.3" font-family="Times,serif" font-size="14.00">PL9</text>
 </g>
 <!-- transition7 -->
 <g id="node18" class="node"><title>transition7</title>
 <polygon fill="none" stroke="black" points="166,-1 130,-1 130,-0 166,-0 166,-1"/>
 <text text-anchor="middle" x="121" y="-4.8" font-family="Times,serif" font-size="14.00">la+</text>
 </g>
-<!-- pl9&#45;&gt;transition7 -->
-<g id="edge17" class="edge"><title>pl9&#45;&gt;transition7</title>
-<path fill="none" stroke="black" d="M128.099,-38.6702C136.11,-23.5064 147.276,-2.36987 147.966,-1.06364"/>
+<!-- PL9&#45;&gt;transition7 -->
+<g id="edge17" class="edge"><title>PL9&#45;&gt;transition7</title>
+<path fill="none" stroke="black" d="M128.099,-38.6702C133.982,-27.5343 141.567,-13.1772 145.454,-5.81843"/>
+<polygon fill="none" stroke="black" points="147.178,-6.30209 147.966,-1.06364 144.083,-4.66714 147.178,-6.30209"/>
 </g>
-<!-- transition10&#45;&gt;pl9 -->
-<g id="edge16" class="edge"><title>transition10&#45;&gt;pl9</title>
+<!-- transition10&#45;&gt;PL9 -->
+<g id="edge16" class="edge"><title>transition10&#45;&gt;PL9</title>
 <path fill="none" stroke="black" d="M110.029,-108.848C110.31,-107.359 112.61,-95.1645 114.931,-82.8654"/>
 <polygon fill="black" stroke="black" points="118.426,-83.2178 116.841,-72.7422 111.548,-81.9199 118.426,-83.2178"/>
 </g>
-<!-- transition7&#45;&gt;pl1 -->
-<g id="edge18" class="edge"><title>transition7&#45;&gt;pl1</title>
+<!-- transition7&#45;&gt;PL1 -->
+<g id="edge18" class="edge"><title>transition7&#45;&gt;PL1</title>
 <path fill="none" stroke="black" d="M148.083,-1.16876C149.784,-4.63533 177,-60.8528 177,-109 177,-1142 177,-1142 177,-1142 177,-1170.68 167.47,-1202.31 159.53,-1223.69"/>
 <polygon fill="black" stroke="black" points="156.263,-1222.44 155.921,-1233.03 162.792,-1224.96 156.263,-1222.44"/>
 </g>
@@ -205,59 +214,63 @@
 <polygon fill="none" stroke="black" points="128,-472 92,-472 92,-471 128,-471 128,-472"/>
 <text text-anchor="middle" x="83.5" y="-475.8" font-family="Times,serif" font-size="14.00">dr&#45;</text>
 </g>
-<!-- pl10&#45;&gt;transition14 -->
-<g id="edge20" class="edge"><title>pl10&#45;&gt;transition14</title>
-<path fill="none" stroke="black" d="M95.3007,-509.098C101.293,-493.975 109.47,-473.337 109.975,-472.062"/>
+<!-- PL10&#45;&gt;transition14 -->
+<g id="edge20" class="edge"><title>PL10&#45;&gt;transition14</title>
+<path fill="none" stroke="black" d="M95.3007,-509.098C99.6077,-498.228 105.043,-484.51 107.948,-477.179"/>
+<polygon fill="none" stroke="black" points="109.76,-477.355 109.975,-472.062 106.507,-476.066 109.76,-477.355"/>
 </g>
-<!-- pl11 -->
-<g id="node20" class="node"><title>pl11</title>
+<!-- PL11 -->
+<g id="node20" class="node"><title>PL11</title>
 <ellipse fill="none" stroke="black" cx="110" cy="-417" rx="18" ry="18"/>
-<text text-anchor="middle" x="110" y="-413.3" font-family="Times,serif" font-size="14.00">pl11</text>
+<text text-anchor="middle" x="110" y="-413.3" font-family="Times,serif" font-size="14.00">PL11</text>
 </g>
 <!-- transition8 -->
 <g id="node23" class="node"><title>transition8</title>
 <polygon fill="none" stroke="black" points="128,-345.5 92,-345.5 92,-344.5 128,-344.5 128,-345.5"/>
 <text text-anchor="middle" x="83" y="-349.3" font-family="Times,serif" font-size="14.00">da&#45;</text>
 </g>
-<!-- pl11&#45;&gt;transition8 -->
-<g id="edge22" class="edge"><title>pl11&#45;&gt;transition8</title>
-<path fill="none" stroke="black" d="M110,-398.697C110,-378.615 110,-347.987 110,-346.092"/>
+<!-- PL11&#45;&gt;transition8 -->
+<g id="edge22" class="edge"><title>PL11&#45;&gt;transition8</title>
+<path fill="none" stroke="black" d="M110,-398.697C110,-383.165 110,-361.324 110,-351.348"/>
+<polygon fill="none" stroke="black" points="111.75,-351.092 110,-346.092 108.25,-351.092 111.75,-351.092"/>
 </g>
-<!-- transition14&#45;&gt;pl11 -->
-<g id="edge21" class="edge"><title>transition14&#45;&gt;pl11</title>
+<!-- transition14&#45;&gt;PL11 -->
+<g id="edge21" class="edge"><title>transition14&#45;&gt;PL11</title>
 <path fill="none" stroke="black" d="M110,-470.848C110,-469.368 110,-457.319 110,-445.1"/>
 <polygon fill="black" stroke="black" points="113.5,-445.025 110,-435.025 106.5,-445.025 113.5,-445.025"/>
 </g>
-<!-- pl12 -->
-<g id="node22" class="node"><title>pl12</title>
+<!-- PL12 -->
+<g id="node22" class="node"><title>PL12</title>
 <ellipse fill="none" stroke="black" cx="110" cy="-273" rx="18" ry="18"/>
-<text text-anchor="middle" x="110" y="-269.3" font-family="Times,serif" font-size="14.00">pl12</text>
+<text text-anchor="middle" x="110" y="-269.3" font-family="Times,serif" font-size="14.00">PL12</text>
 </g>
 <!-- transition9 -->
 <g id="node25" class="node"><title>transition9</title>
 <polygon fill="none" stroke="black" points="128,-219 92,-219 92,-218 128,-218 128,-219"/>
 <text text-anchor="middle" x="86" y="-222.8" font-family="Times,serif" font-size="14.00">x&#45;</text>
 </g>
-<!-- pl12&#45;&gt;transition9 -->
-<g id="edge24" class="edge"><title>pl12&#45;&gt;transition9</title>
-<path fill="none" stroke="black" d="M110,-254.939C110,-239.929 110,-220.273 110,-219.059"/>
+<!-- PL12&#45;&gt;transition9 -->
+<g id="edge24" class="edge"><title>PL12&#45;&gt;transition9</title>
+<path fill="none" stroke="black" d="M110,-254.939C110,-244.385 110,-231.534 110,-224.412"/>
+<polygon fill="none" stroke="black" points="111.75,-224.059 110,-219.059 108.25,-224.059 111.75,-224.059"/>
 </g>
-<!-- transition8&#45;&gt;pl12 -->
-<g id="edge23" class="edge"><title>transition8&#45;&gt;pl12</title>
+<!-- transition8&#45;&gt;PL12 -->
+<g id="edge23" class="edge"><title>transition8&#45;&gt;PL12</title>
 <path fill="none" stroke="black" d="M110,-343.949C110,-342.748 110,-320.429 110,-301.321"/>
 <polygon fill="black" stroke="black" points="113.5,-301.191 110,-291.191 106.5,-301.191 113.5,-301.191"/>
 </g>
-<!-- pl13 -->
-<g id="node24" class="node"><title>pl13</title>
+<!-- PL13 -->
+<g id="node24" class="node"><title>PL13</title>
 <ellipse fill="none" stroke="black" cx="110" cy="-164" rx="18" ry="18"/>
-<text text-anchor="middle" x="110" y="-160.3" font-family="Times,serif" font-size="14.00">pl13</text>
+<text text-anchor="middle" x="110" y="-160.3" font-family="Times,serif" font-size="14.00">PL13</text>
 </g>
-<!-- pl13&#45;&gt;transition10 -->
-<g id="edge26" class="edge"><title>pl13&#45;&gt;transition10</title>
-<path fill="none" stroke="black" d="M110,-145.939C110,-130.929 110,-111.273 110,-110.059"/>
+<!-- PL13&#45;&gt;transition10 -->
+<g id="edge26" class="edge"><title>PL13&#45;&gt;transition10</title>
+<path fill="none" stroke="black" d="M110,-145.939C110,-135.385 110,-122.534 110,-115.412"/>
+<polygon fill="none" stroke="black" points="111.75,-115.059 110,-110.059 108.25,-115.059 111.75,-115.059"/>
 </g>
-<!-- transition9&#45;&gt;pl13 -->
-<g id="edge25" class="edge"><title>transition9&#45;&gt;pl13</title>
+<!-- transition9&#45;&gt;PL13 -->
+<g id="edge25" class="edge"><title>transition9&#45;&gt;PL13</title>
 <path fill="none" stroke="black" d="M110,-217.848C110,-216.368 110,-204.319 110,-192.1"/>
 <polygon fill="black" stroke="black" points="113.5,-192.025 110,-182.025 106.5,-192.025 113.5,-192.025"/>
 </g>
@@ -266,31 +279,33 @@
 <polygon fill="none" stroke="black" points="140,-1087 104,-1087 104,-1086 140,-1086 140,-1087"/>
 <text text-anchor="middle" x="97" y="-1090.8" font-family="Times,serif" font-size="14.00">lr&#45;</text>
 </g>
-<!-- pl14&#45;&gt;transition11 -->
-<g id="edge28" class="edge"><title>pl14&#45;&gt;transition11</title>
-<path fill="none" stroke="black" d="M122,-1122.94C122,-1107.93 122,-1088.27 122,-1087.06"/>
+<!-- PL14&#45;&gt;transition11 -->
+<g id="edge28" class="edge"><title>PL14&#45;&gt;transition11</title>
+<path fill="none" stroke="black" d="M122,-1122.94C122,-1112.39 122,-1099.53 122,-1092.41"/>
+<polygon fill="none" stroke="black" points="123.75,-1092.06 122,-1087.06 120.25,-1092.06 123.75,-1092.06"/>
 </g>
-<!-- pl15 -->
-<g id="node27" class="node"><title>pl15</title>
+<!-- PL15 -->
+<g id="node27" class="node"><title>PL15</title>
 <ellipse fill="none" stroke="black" cx="89" cy="-1032" rx="18" ry="18"/>
-<text text-anchor="middle" x="89" y="-1028.3" font-family="Times,serif" font-size="14.00">pl15</text>
+<text text-anchor="middle" x="89" y="-1028.3" font-family="Times,serif" font-size="14.00">PL15</text>
 </g>
-<!-- pl15&#45;&gt;transition12 -->
-<g id="edge30" class="edge"><title>pl15&#45;&gt;transition12</title>
-<path fill="none" stroke="black" d="M81.9656,-1015.12C73.1051,-995.108 58.9207,-963.079 58.0428,-961.097"/>
+<!-- PL15&#45;&gt;transition12 -->
+<g id="edge30" class="edge"><title>PL15&#45;&gt;transition12</title>
+<path fill="none" stroke="black" d="M81.9656,-1015.12C74.9049,-999.172 64.4634,-975.595 60.0687,-965.671"/>
+<polygon fill="none" stroke="black" points="61.6676,-964.96 58.0428,-961.097 58.4674,-966.377 61.6676,-964.96"/>
 </g>
-<!-- transition11&#45;&gt;pl15 -->
-<g id="edge29" class="edge"><title>transition11&#45;&gt;pl15</title>
+<!-- transition11&#45;&gt;PL15 -->
+<g id="edge29" class="edge"><title>transition11&#45;&gt;PL15</title>
 <path fill="none" stroke="black" d="M121.905,-1085.85C120.888,-1084.21 111.853,-1069.7 103.507,-1056.3"/>
 <polygon fill="black" stroke="black" points="106.471,-1054.44 98.2143,-1047.8 100.529,-1058.14 106.471,-1054.44"/>
 </g>
-<!-- pl16 -->
-<g id="node29" class="node"><title>pl16</title>
+<!-- PL16 -->
+<g id="node29" class="node"><title>PL16</title>
 <ellipse fill="none" stroke="black" cx="131" cy="-960" rx="18" ry="18"/>
-<text text-anchor="middle" x="131" y="-956.3" font-family="Times,serif" font-size="14.00">pl16</text>
+<text text-anchor="middle" x="131" y="-956.3" font-family="Times,serif" font-size="14.00">PL16</text>
 </g>
-<!-- transition11&#45;&gt;pl16 -->
-<g id="edge31" class="edge"><title>transition11&#45;&gt;pl16</title>
+<!-- transition11&#45;&gt;PL16 -->
+<g id="edge31" class="edge"><title>transition11&#45;&gt;PL16</title>
 <path fill="none" stroke="black" d="M122.007,-1085.91C122.195,-1083.29 126.43,-1024.47 129.021,-988.491"/>
 <polygon fill="black" stroke="black" points="132.538,-988.373 129.765,-978.147 125.556,-987.87 132.538,-988.373"/>
 </g>
@@ -299,21 +314,23 @@
 <polygon fill="none" stroke="black" points="149,-888.5 113,-888.5 113,-887.5 149,-887.5 149,-888.5"/>
 <text text-anchor="middle" x="105.5" y="-892.3" font-family="Times,serif" font-size="14.00">la&#45;</text>
 </g>
-<!-- pl16&#45;&gt;transition13 -->
-<g id="edge32" class="edge"><title>pl16&#45;&gt;transition13</title>
-<path fill="none" stroke="black" d="M131,-941.697C131,-921.615 131,-890.987 131,-889.092"/>
+<!-- PL16&#45;&gt;transition13 -->
+<g id="edge32" class="edge"><title>PL16&#45;&gt;transition13</title>
+<path fill="none" stroke="black" d="M131,-941.697C131,-926.165 131,-904.324 131,-894.348"/>
+<polygon fill="none" stroke="black" points="132.75,-894.092 131,-889.092 129.25,-894.092 132.75,-894.092"/>
 </g>
-<!-- pl17 -->
-<g id="node30" class="node"><title>pl17</title>
+<!-- PL17 -->
+<g id="node30" class="node"><title>PL17</title>
 <ellipse fill="none" stroke="black" cx="131" cy="-816" rx="18" ry="18"/>
-<text text-anchor="middle" x="131" y="-812.3" font-family="Times,serif" font-size="14.00">pl17</text>
+<text text-anchor="middle" x="131" y="-812.3" font-family="Times,serif" font-size="14.00">PL17</text>
 </g>
-<!-- pl17&#45;&gt;transition14 -->
-<g id="edge34" class="edge"><title>pl17&#45;&gt;transition14</title>
-<path fill="none" stroke="black" d="M131.908,-797.615C133.088,-773.475 135,-728.431 135,-690 135,-690 135,-690 135,-580 135,-531.501 110.775,-473.833 110.018,-472.043"/>
+<!-- PL17&#45;&gt;transition14 -->
+<g id="edge34" class="edge"><title>PL17&#45;&gt;transition14</title>
+<path fill="none" stroke="black" d="M131.908,-797.615C133.088,-773.475 135,-728.431 135,-690 135,-690 135,-690 135,-580 135,-539.079 117.754,-491.63 111.91,-476.726"/>
+<polygon fill="none" stroke="black" points="113.513,-476.023 110.018,-472.043 110.268,-477.334 113.513,-476.023"/>
 </g>
-<!-- transition13&#45;&gt;pl17 -->
-<g id="edge33" class="edge"><title>transition13&#45;&gt;pl17</title>
+<!-- transition13&#45;&gt;PL17 -->
+<g id="edge33" class="edge"><title>transition13&#45;&gt;PL17</title>
 <path fill="none" stroke="black" d="M131,-886.949C131,-885.748 131,-863.429 131,-844.321"/>
 <polygon fill="black" stroke="black" points="134.5,-844.191 131,-834.191 127.5,-844.191 134.5,-844.191"/>
 </g>

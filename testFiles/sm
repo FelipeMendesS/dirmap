@@ -1,14 +1,14 @@
 .inputs  s * m *
 .outputs  q *
-pl1/pl2|s+
-pl2/pl3|q+
-pl3/pl4|s-
-pl4/pl1|q-
-pl3/pl5|m+
-pl5/pl6|s-
-pl6/pl4|m-
-pl1/pl7|m+
-pl7/pl8|s+
-pl8/pl5|q+
-.start pl1
+PL1/PL2|s+
+PL2/PL3|q+
+PL3/PL4|s-
+PL4/PL1|q-
+PL3/PL5|m+
+PL5/PL6|s-
+PL6/PL4|m-
+PL1/PL7|m+
+PL7/PL8|s+
+PL8/PL5|q+
+.start PL1
 .end

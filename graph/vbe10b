@@ -1,196 +1,196 @@
 strict digraph {
-	pl1 [fixedsize=true shape=circle width=.5]
-	pl2 [fixedsize=true shape=circle width=.5]
+	PL1 [fixedsize=true shape=circle width=.5]
+	PL2 [fixedsize=true shape=circle width=.5]
 	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="R1-"]
-		pl1 -> transition1 [dir=none]
-		transition1 -> pl2
-	pl3 [fixedsize=true shape=circle width=.5]
+		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> PL2
+	PL3 [fixedsize=true shape=circle width=.5]
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="A1-"]
-		pl2 -> transition4 [dir=none]
-		transition4 -> pl3
-	pl4 [fixedsize=true shape=circle width=.5]
+		PL2 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> PL3
+	PL4 [fixedsize=true shape=circle width=.5]
 	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="R1+"]
-		pl3 -> transition2 [dir=none]
-		transition2 -> pl4
+		PL3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> PL4
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="A1+"]
-		pl4 -> transition14 [dir=none]
-		transition14 -> pl1
-	pl31 [fixedsize=true shape=circle width=.5]
+		PL4 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> PL1
+	PL31 [fixedsize=true shape=circle width=.5]
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="A1+"]
-		pl4 -> transition14 [dir=none]
-		transition14 -> pl31
-	pl32 [fixedsize=true shape=circle width=.5]
+		PL4 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> PL31
+	PL32 [fixedsize=true shape=circle width=.5]
 	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="X0+"]
-		pl31 -> transition3 [dir=none]
-		transition3 -> pl32
+		PL31 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> PL32
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="A1-"]
-		pl32 -> transition4 [dir=none]
-		transition4 -> pl3
-	pl5 [fixedsize=true shape=circle width=.5]
+		PL32 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> PL3
+	PL5 [fixedsize=true shape=circle width=.5]
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="A1-"]
-		pl32 -> transition4 [dir=none]
-		transition4 -> pl5
-	pl6 [fixedsize=true shape=circle width=.5]
+		PL32 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> PL5
+	PL6 [fixedsize=true shape=circle width=.5]
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl5 -> transition7 [dir=none]
-		transition7 -> pl6
-	pl7 [fixedsize=true shape=circle width=.5]
+		PL5 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL6
+	PL7 [fixedsize=true shape=circle width=.5]
 	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="R2-"]
-		pl6 -> transition5 [dir=none]
-		transition5 -> pl7
-	pl8 [fixedsize=true shape=circle width=.5]
+		PL6 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> PL7
+	PL8 [fixedsize=true shape=circle width=.5]
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl7 -> transition22 [dir=none]
-		transition22 -> pl8
-	pl9 [fixedsize=true shape=circle width=.5]
+		PL7 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL8
+	PL9 [fixedsize=true shape=circle width=.5]
 	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="R2+"]
-		pl8 -> transition6 [dir=none]
-		transition6 -> pl9
+		PL8 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> PL9
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl9 -> transition7 [dir=none]
-		transition7 -> pl6
-	pl27 [fixedsize=true shape=circle width=.5]
+		PL9 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL6
+	PL27 [fixedsize=true shape=circle width=.5]
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl9 -> transition7 [dir=none]
-		transition7 -> pl27
-	pl28 [fixedsize=true shape=circle width=.5]
+		PL9 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL27
+	PL28 [fixedsize=true shape=circle width=.5]
 	transition20 [label="" height=0.01 shape=box width=0.5 xlabel="X1+"]
-		pl27 -> transition20 [dir=none]
-		transition20 -> pl28
+		PL27 -> transition20 [arrowhead=onormal arrowsize=0.5]
+		transition20 -> PL28
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl28 -> transition22 [dir=none]
-		transition22 -> pl8
-	pl10 [fixedsize=true shape=circle width=.5]
+		PL28 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL8
+	PL10 [fixedsize=true shape=circle width=.5]
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl28 -> transition22 [dir=none]
-		transition22 -> pl10
-	pl11 [fixedsize=true shape=circle width=.5]
+		PL28 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL10
+	PL11 [fixedsize=true shape=circle width=.5]
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl10 -> transition10 [dir=none]
-		transition10 -> pl11
-	pl12 [fixedsize=true shape=circle width=.5]
+		PL10 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL11
+	PL12 [fixedsize=true shape=circle width=.5]
 	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="R3-"]
-		pl11 -> transition8 [dir=none]
-		transition8 -> pl12
-	pl13 [fixedsize=true shape=circle width=.5]
+		PL11 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> PL12
+	PL13 [fixedsize=true shape=circle width=.5]
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl12 -> transition19 [dir=none]
-		transition19 -> pl13
-	pl14 [fixedsize=true shape=circle width=.5]
+		PL12 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL13
+	PL14 [fixedsize=true shape=circle width=.5]
 	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="R3+"]
-		pl13 -> transition9 [dir=none]
-		transition9 -> pl14
+		PL13 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> PL14
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl14 -> transition10 [dir=none]
-		transition10 -> pl11
-	pl23 [fixedsize=true shape=circle width=.5]
+		PL14 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL11
+	PL23 [fixedsize=true shape=circle width=.5]
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl14 -> transition10 [dir=none]
-		transition10 -> pl23
-	pl24 [fixedsize=true shape=circle width=.5]
+		PL14 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL23
+	PL24 [fixedsize=true shape=circle width=.5]
 	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="X2+"]
-		pl23 -> transition17 [dir=none]
-		transition17 -> pl24
+		PL23 -> transition17 [arrowhead=onormal arrowsize=0.5]
+		transition17 -> PL24
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl24 -> transition19 [dir=none]
-		transition19 -> pl13
-	pl15 [fixedsize=true shape=circle width=.5]
+		PL24 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL13
+	PL15 [fixedsize=true shape=circle width=.5]
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl24 -> transition19 [dir=none]
-		transition19 -> pl15
-	pl16 [fixedsize=true shape=circle width=.5]
+		PL24 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL15
+	PL16 [fixedsize=true shape=circle width=.5]
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="A4+"]
-		pl15 -> transition13 [dir=none]
-		transition13 -> pl16
-	pl17 [fixedsize=true shape=circle width=.5]
+		PL15 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL16
+	PL17 [fixedsize=true shape=circle width=.5]
 	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="R4-"]
-		pl16 -> transition11 [dir=none]
-		transition11 -> pl17
-	pl18 [fixedsize=true shape=circle width=.5]
+		PL16 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> PL17
+	PL18 [fixedsize=true shape=circle width=.5]
 	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="A4-"]
-		pl17 -> transition16 [dir=none]
-		transition16 -> pl18
-	pl19 [fixedsize=true shape=circle width=.5]
+		PL17 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> PL18
+	PL19 [fixedsize=true shape=circle width=.5]
 	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="R4+"]
-		pl18 -> transition12 [dir=none]
-		transition12 -> pl19
+		PL18 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> PL19
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="A4+"]
-		pl19 -> transition13 [dir=none]
-		transition13 -> pl16
-	pl21 [fixedsize=true shape=circle width=.5]
+		PL19 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL16
+	PL21 [fixedsize=true shape=circle width=.5]
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="A4+"]
-		pl19 -> transition13 [dir=none]
-		transition13 -> pl21
-	pl22 [fixedsize=true shape=circle width=.5]
+		PL19 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL21
+	PL22 [fixedsize=true shape=circle width=.5]
 	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="X2-"]
-		pl21 -> transition15 [dir=none]
-		transition15 -> pl22
+		PL21 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> PL22
 	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="A4-"]
-		pl22 -> transition16 [dir=none]
-		transition16 -> pl18
-	pl20 [fixedsize=true shape=circle width=.5]
+		PL22 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> PL18
+	PL20 [fixedsize=true shape=circle width=.5]
 	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="A4-"]
-		pl22 -> transition16 [dir=none]
-		transition16 -> pl20
+		PL22 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> PL20
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="A1+"]
-		pl20 -> transition14 [dir=none]
-		transition14 -> pl1
+		PL20 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> PL1
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="A1+"]
-		pl20 -> transition14 [dir=none]
-		transition14 -> pl31
+		PL20 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> PL31
 	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="A4-"]
-		pl17 -> transition16 [dir=none]
-		transition16 -> pl20
+		PL17 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> PL20
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="A4+"]
-		pl15 -> transition13 [dir=none]
-		transition13 -> pl21
-	pl25 [fixedsize=true shape=circle width=.5]
+		PL15 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL21
+	PL25 [fixedsize=true shape=circle width=.5]
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl14 -> transition10 [dir=none]
-		transition10 -> pl25
-	pl26 [fixedsize=true shape=circle width=.5]
+		PL14 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL25
+	PL26 [fixedsize=true shape=circle width=.5]
 	transition18 [label="" height=0.01 shape=box width=0.5 xlabel="X1-"]
-		pl25 -> transition18 [dir=none]
-		transition18 -> pl26
+		PL25 -> transition18 [arrowhead=onormal arrowsize=0.5]
+		transition18 -> PL26
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl26 -> transition19 [dir=none]
-		transition19 -> pl13
+		PL26 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL13
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl26 -> transition19 [dir=none]
-		transition19 -> pl15
+		PL26 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL15
 	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="A3-"]
-		pl12 -> transition19 [dir=none]
-		transition19 -> pl15
+		PL12 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL15
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl10 -> transition10 [dir=none]
-		transition10 -> pl23
+		PL10 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL23
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="A3+"]
-		pl10 -> transition10 [dir=none]
-		transition10 -> pl25
-	pl29 [fixedsize=true shape=circle width=.5]
+		PL10 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL25
+	PL29 [fixedsize=true shape=circle width=.5]
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl9 -> transition7 [dir=none]
-		transition7 -> pl29
-	pl30 [fixedsize=true shape=circle width=.5]
+		PL9 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL29
+	PL30 [fixedsize=true shape=circle width=.5]
 	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="X0-"]
-		pl29 -> transition21 [dir=none]
-		transition21 -> pl30
+		PL29 -> transition21 [arrowhead=onormal arrowsize=0.5]
+		transition21 -> PL30
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl30 -> transition22 [dir=none]
-		transition22 -> pl8
+		PL30 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL8
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl30 -> transition22 [dir=none]
-		transition22 -> pl10
+		PL30 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL10
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="A2-"]
-		pl7 -> transition22 [dir=none]
-		transition22 -> pl10
+		PL7 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL10
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl5 -> transition7 [dir=none]
-		transition7 -> pl27
+		PL5 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL27
 	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="A2+"]
-		pl5 -> transition7 [dir=none]
-		transition7 -> pl29
+		PL5 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL29
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="A1-"]
-		pl2 -> transition4 [dir=none]
-		transition4 -> pl5
+		PL2 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> PL5
 }

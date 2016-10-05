@@ -1,26 +1,26 @@
 .inputs  req * ackctl * ackbus * nakbus *
 .outputs  ack * busctl * reqbus * y1_allocoutbound * y0_allocoutbound *
-pl1/pl2|req+
-pl2/pl3|busctl+
-pl3/pl4|ackctl+
-pl4/pl5|reqbus+
-pl5/pl6|ackbus+
-pl6/pl7|y1_allocoutbound+
-pl7/pl8|reqbus-
-pl8/pl9|ackbus-
-pl9/pl10|busctl-
-pl10/pl11|ackctl-
-pl11/pl12|ack+
-pl12/pl13|req-
-pl13/pl14|y1_allocoutbound-
-pl14/pl1|ack-
-pl5/pl15|nakbus+
-pl15/pl16|y0_allocoutbound+
-pl16/pl17|reqbus-
-pl17/pl18|nakbus-
-pl18/pl19|busctl-
-pl19/pl20|ackctl-
-pl20/pl21|y0_allocoutbound-
-pl21/pl3|busctl+
-.start pl1
+PL1/PL2|req+
+PL2/PL3|busctl+
+PL3/PL4|ackctl+
+PL4/PL5|reqbus+
+PL5/PL6|ackbus+
+PL6/PL7|y1_allocoutbound+
+PL7/PL8|reqbus-
+PL8/PL9|ackbus-
+PL9/PL10|busctl-
+PL10/PL11|ackctl-
+PL11/PL12|ack+
+PL12/PL13|req-
+PL13/PL14|y1_allocoutbound-
+PL14/PL1|ack-
+PL5/PL15|nakbus+
+PL15/PL16|y0_allocoutbound+
+PL16/PL17|reqbus-
+PL17/PL18|nakbus-
+PL18/PL19|busctl-
+PL19/PL20|ackctl-
+PL20/PL21|y0_allocoutbound-
+PL21/PL3|busctl+
+.start PL1
 .end

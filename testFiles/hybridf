@@ -1,21 +1,21 @@
 .name hybridf
 .inputs  Ri * A1i * A2i *
 .outputs  Rx * Ax * Ao * R1o * R2o *
-pl2/pl3|Ri-
-pl4/pl1|Ri+
-pl6,pl1/pl2,pl26|Ao+
-pl9,pl3/pl4,pl5|Ao-
-pl11,pl5/pl6,pl7,pl18,pl22|Rx-
-pl13/pl14|A1i+
-pl16/pl17|A2i+
-pl17,pl10,pl14/pl11|Ax+
-pl18/pl19|R1o-
-pl19/pl20,pl21|A1i-
-pl21,pl12/pl13|R1o+
-pl22/pl23|R2o-
-pl23/pl24,pl25|A2i-
-pl24,pl7,pl20/pl8|Ax-
-pl25,pl15/pl16|R2o+
-pl26,pl8/pl9,pl10,pl12,pl15|Rx+
-.start pl1
+PL2/PL3|Ri-
+PL4/PL1|Ri+
+PL6,PL1/PL2,PL26|Ao+
+PL9,PL3/PL4,PL5|Ao-
+PL11,PL5/PL6,PL7,PL18,PL22|Rx-
+PL13/PL14|A1i+
+PL16/PL17|A2i+
+PL17,PL10,PL14/PL11|Ax+
+PL18/PL19|R1o-
+PL19/PL20,PL21|A1i-
+PL21,PL12/PL13|R1o+
+PL22/PL23|R2o-
+PL23/PL24,PL25|A2i-
+PL24,PL7,PL20/PL8|Ax-
+PL25,PL15/PL16|R2o+
+PL26,PL8/PL9,PL10,PL12,PL15|Rx+
+.start PL1
 .end

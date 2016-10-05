@@ -1,23 +1,22 @@
 .inputs  r1 * r2 * r3 *
 .outputs  a * b * c * t1 * t2 * t3 *
-pl24/pl25,pl29|r1+
-pl25,pl30/pl26,pl28,pl31,pl32|t1+
-pl29,pl6/pl1,pl30|a-
-pl31,pl26/pl27|r1-
-pl32,pl1,pl28/pl2,pl23|c+
-pl8/pl9,pl13|r3+
-pl10/pl11|r3-
-pl11,pl7/pl8|t3-
-pl12,pl5/pl6,pl7|b+
-pl13,pl4/pl5,pl14|c-
-pl14,pl9/pl10,pl12|t3+
-pl16/pl17,pl21|r2+
-pl18/pl19|r2-
-pl19,pl15/pl16|t2-
-pl20,pl3/pl4,pl15|a+
-pl21,pl2/pl3,pl22|b-
-pl22,pl17/pl18,pl20|t2+
-pl23,pl27/pl24|t1-
-pl30,pl30/pl26,pl28,pl31,pl32|t1+
-.start pl1 pl30
+PL8/PL9,PL13|r3+
+PL10/PL11|r3-
+PL11,PL7/PL8|t3-
+PL12,PL5/PL6,PL7|b+
+PL13,PL4/PL5,PL14|c-
+PL14,PL9/PL10,PL12|t3+
+PL16/PL17,PL21|r2+
+PL18/PL19|r2-
+PL19,PL15/PL16|t2-
+PL20,PL3/PL4,PL15|a+
+PL21,PL2/PL3,PL22|b-
+PL22,PL17/PL18,PL20|t2+
+PL24/PL25,PL29|r1+
+PL25/PL26,PL28|t1+
+PL26/PL27|r1-
+PL27,PL23/PL24|t1-
+PL28,PL1/PL2,PL23|c+
+PL29,PL6/PL1|a-
+.start PL1
 .end

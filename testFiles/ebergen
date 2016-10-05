@@ -1,19 +1,19 @@
 .inputs  a * d *
 .outputs  b * c * x *
-pl1/pl2|b+
-pl2/pl3|a-
-pl4/pl5|b-
-pl5/pl6|a+
-pl6/pl7,pl13|c-
-pl7/pl8|b+
-pl8/pl9|a-
-pl10/pl11|b-
-pl11/pl12|a+
-pl12/pl1,pl15|c+
-pl15/pl16|d+
-pl16,pl3/pl4|x+
-pl13/pl14|d-
-pl14,pl9/pl10|x-
-pl15/pl16|d+
-.start pl1 pl15
+PL1/PL2|b+
+PL2/PL3|a-
+PL4/PL5|b-
+PL5/PL6|a+
+PL6/PL7,PL13|c-
+PL7/PL8|b+
+PL8/PL9|a-
+PL10/PL11|b-
+PL11/PL12|a+
+PL12/PL1,PL15|c+
+PL15/PL16|d+
+PL16,PL3/PL4|x+
+PL13/PL14|d-
+PL14,PL9/PL10|x-
+PL15/PL16|d+
+.start PL1 PL15
 .end

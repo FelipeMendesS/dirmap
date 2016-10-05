@@ -1,26 +1,26 @@
 .inputs  d * c * b * a *
 .outputs  t *
-pl1/pl2|d+
-pl2/pl3|b+
-pl3/pl4|c+
-pl4/pl5|b-
-pl5/pl6|t-
-pl6/pl7|d-
-pl7/pl8|t+
-pl8/pl9|b+
-pl9/pl10|a+
-pl10/pl11|b-
-pl11/pl12|d+
-pl12/pl13|b+
-pl13/pl14|t-
-pl14/pl15|c-
-pl15/pl16|t+
-pl16/pl17|b-
-pl17/pl18|d-
-pl18/pl19|b+
-pl19/pl20|t-
-pl20/pl21|a-
-pl21/pl22|t+
-pl22/pl1|b-
-.start pl1
+PL1/PL2|d+
+PL2/PL3|b+
+PL3/PL4|c+
+PL4/PL5|b-
+PL5/PL6|t-
+PL6/PL7|d-
+PL7/PL8|t+
+PL8/PL9|b+
+PL9/PL10|a+
+PL10/PL11|b-
+PL11/PL12|d+
+PL12/PL13|b+
+PL13/PL14|t-
+PL14/PL15|c-
+PL15/PL16|t+
+PL16/PL17|b-
+PL17/PL18|d-
+PL18/PL19|b+
+PL19/PL20|t-
+PL20/PL21|a-
+PL21/PL22|t+
+PL22/PL1|b-
+.start PL1
 .end

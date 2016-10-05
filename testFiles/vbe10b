@@ -1,28 +1,28 @@
 .name vbe10b
 .inputs  R1 * R2 * R3 * R4 *
 .outputs  A1 * A2 * A3 * A4 * X0 * X1 * X2 *
-pl1/pl2|R1-
-pl3/pl4|R1+
-pl31/pl32|X0+
-pl32,pl2/pl3,pl5|A1-
-pl6/pl7|R2-
-pl8/pl9|R2+
-pl9,pl5/pl6,pl27,pl29|A2+
-pl11/pl12|R3-
-pl13/pl14|R3+
-pl14,pl10/pl11,pl23,pl25|A3+
-pl16/pl17|R4-
-pl18/pl19|R4+
-pl19,pl15/pl16,pl21|A4+
-pl20,pl4/pl1,pl31|A1+
-pl21/pl22|X2-
-pl22,pl17/pl18,pl20|A4-
-pl23/pl24|X2+
-pl25/pl26|X1-
-pl26,pl12,pl24/pl13,pl15|A3-
-pl27/pl28|X1+
-pl29/pl30|X0-
-pl30,pl7,pl28/pl8,pl10|A2-
-pl31/pl32|X0+
-.start pl1 pl31
+PL1/PL2|R1-
+PL3/PL4|R1+
+PL31/PL32|X0+
+PL32,PL2/PL3,PL5|A1-
+PL6/PL7|R2-
+PL8/PL9|R2+
+PL9,PL5/PL6,PL27,PL29|A2+
+PL11/PL12|R3-
+PL13/PL14|R3+
+PL14,PL10/PL11,PL23,PL25|A3+
+PL16/PL17|R4-
+PL18/PL19|R4+
+PL19,PL15/PL16,PL21|A4+
+PL20,PL4/PL1,PL31|A1+
+PL21/PL22|X2-
+PL22,PL17/PL18,PL20|A4-
+PL23/PL24|X2+
+PL25/PL26|X1-
+PL26,PL12,PL24/PL13,PL15|A3-
+PL27/PL28|X1+
+PL29/PL30|X0-
+PL30,PL7,PL28/PL8,PL10|A2-
+PL31/PL32|X0+
+.start PL1 PL31
 .end

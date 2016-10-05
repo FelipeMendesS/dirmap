@@ -63,6 +63,7 @@ class GraphUtil(object):
             elif re.match(r"\s*\.marking\s+", line):
                 initial_markings = line.strip(".marking {}")
         extended_graph, initial_place_list = GraphUtil.__get_extended_graph(initial_markings, graph)
+        print (extended_graph)
         GraphUtil.__classify_nodes(extended_graph, node_classification)
         GraphUtil.__write_file(name, inputs, outputs, extended_graph, node_classification, converted_file_name, initial_place_list)
         return inputs, outputs, graph, name, initial_markings, extended_graph, node_classification
@@ -186,6 +187,8 @@ class GraphUtil(object):
         for transition in initial_transitions:
             for following_node in graph[transition]:
                 if GraphUtil.__is_place(following_node):
+                    if following_node in place_relation:
+                        continue
                     if not initial_places_flag:
                         initial_places_list.append(GraphUtil.__get_place_name(place_count))
                     place_relation[following_node] = GraphUtil.__get_place_name(place_count)
@@ -194,6 +197,8 @@ class GraphUtil(object):
                     GraphUtil.__aux_get_extended_graph(following_node, extended_graph, graph, place_count,
                                                        node_classification, place_relation)
                 else:
+                    if following_node in extended_graph:
+                        continue
                     if not initial_places_flag:
                         initial_places_list.append(GraphUtil.__get_place_name(place_count))
                     GraphUtil.__add_connection(extended_graph, transition, GraphUtil.__get_place_name(place_count))
@@ -275,7 +280,7 @@ class GraphUtil(object):
 
     @staticmethod
     def __get_place_name(place_count):
-        return "pl" + str(place_count[0])
+        return "PL" + str(place_count[0])
 
     @staticmethod
     def __is_place(node):
@@ -303,7 +308,7 @@ class GraphUtil(object):
                     transition = GraphUtil.__get_transition_name(graph, marking, end_place)
                     g.node(transition, label="", xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
                            shape="box", width="0.5", height="0.01")
-                    g.edge(marking, transition, dir="none")
+                    g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
                     g.edge(transition, end_place)
                     traversed_transitions[key] = 1
                 continue
@@ -312,7 +317,7 @@ class GraphUtil(object):
                 transition = GraphUtil.__get_transition_name(graph, marking, end_place)
                 g.node(transition, label="", xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
                        shape="box", width="0.5", height="0.01")
-                g.edge(marking, transition, dir="none")
+                g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
                 g.edge(transition, end_place)
                 traversed_transitions[key] = 1
             GraphUtil.__aux_print_graph(traversed_transitions, traversed_places, g, end_place, graph)
@@ -325,7 +330,7 @@ class GraphUtil(object):
         if os.path.isfile(path_to_graph + file_name) and not GraphUtil.__was_file_changed(file_name) and not \
                 overwrite_graph:
             if view_flag:
-                gv.view(path_to_graph + file_name + svg_extension + svg_extension)
+                gv.view(path_to_graph + file_name + svg_extension)
             return
         g = gv.Digraph(format='svg', strict=True)
         initial_marking = graph.initial_places
@@ -345,7 +350,7 @@ class GraphUtil(object):
                     g.node(transition, label="",
                            xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
                            shape="box", width= "0.5", height="0.001")
-                    g.edge(place, transition, dir="none")
+                    g.edge(place, transition, arrowhead="onormal", arrowsize="0.5")
                     g.edge(transition, end_place)
                     mark_traversed_transitions[key] = 1
                 GraphUtil.__aux_print_graph(mark_traversed_transitions, mark_placed_places, g, end_place, graph)

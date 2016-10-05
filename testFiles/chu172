@@ -1,18 +1,18 @@
 .name RLM_module
 .inputs  Sr * La * Cr *
 .outputs  Sa * Lr * Ca *
-pl1/pl2|Sr+
-pl2/pl3|Sa+
-pl3/pl4|Sr-
-pl4/pl1|Sa-
-pl1/pl5|Cr+
-pl5/pl6|Lr-
-pl6/pl7|La-
-pl7/pl8|Ca+
-pl8/pl9|Cr-
-pl9/pl10|Ca-
-pl10/pl11|Sr+
-pl11/pl12|Lr+
-pl12/pl2|La+
-.start pl1
+PL1/PL2|Sr+
+PL2/PL3|Sa+
+PL3/PL4|Sr-
+PL4/PL1|Sa-
+PL1/PL5|Cr+
+PL5/PL6|Lr-
+PL6/PL7|La-
+PL7/PL8|Ca+
+PL8/PL9|Cr-
+PL9/PL10|Ca-
+PL10/PL11|Sr+
+PL11/PL12|Lr+
+PL12/PL2|La+
+.start PL1
 .end

@@ -1,19 +1,19 @@
 .name qr42
 .inputs  a * d *
 .outputs  b * c * x *
-pl1/pl2,pl15|c+
-pl2/pl3|b+
-pl3/pl4|a-
-pl5/pl6|b-
-pl6/pl7|a+
-pl7/pl8,pl13|c-
-pl8/pl9|b+
-pl9/pl10|a-
-pl11/pl12|b-
-pl12/pl1|a+
-pl13/pl14|d-
-pl14,pl10/pl11|x-
-pl15/pl16|d+
-pl16,pl4/pl5|x+
-.start pl1
+PL1/PL2,PL15|c+
+PL2/PL3|b+
+PL3/PL4|a-
+PL5/PL6|b-
+PL6/PL7|a+
+PL7/PL8,PL13|c-
+PL8/PL9|b+
+PL9/PL10|a-
+PL11/PL12|b-
+PL12/PL1|a+
+PL13/PL14|d-
+PL14,PL10/PL11|x-
+PL15/PL16|d+
+PL16,PL4/PL5|x+
+.start PL1
 .end
