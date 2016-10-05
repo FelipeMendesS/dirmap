@@ -24,12 +24,11 @@ class DirectMapping(object):
         self.size_2_cycles = []  # type: List[List[str]]
         self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
         self.check_for_size_2_cycles()
-        # self.get_control_cell_graph()
-
+        self.get_control_cell_graph()
 
     def get_set_of_control_cell_places(self):
         set_of_control_cell_places = set(self.graph.initial_places)
-        initial_places_not_P1 = set(self.graph.initial_places)
+        initial_places_not_p1 = set(self.graph.initial_places)
         does_transition_contain_input = {}  # type: Dict[str, bool]
         for transition in self.graph.transitions_identification.keys():
             for signal in self.graph.transitions_identification[transition][0]:
@@ -52,8 +51,8 @@ class DirectMapping(object):
         for place in self.graph.stg_graph[initial_place]:
             self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
         for cycle in cycles:
-            initial_control_cell = ""
-            current_control_cell = ""
+            # initial_control_cell = ""
+            # current_control_cell = ""
             size = 0
             for place in cycle:
                 if place in valid_places_set:
@@ -104,34 +103,21 @@ class DirectMapping(object):
                 self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
 
     def get_control_cell_graph(self):
-        visited_places = set()
-        for place in self.graph.initial_places:
-            if place in self.control_cells_graph:
-                continue
-            else:
-                self.__aux_get_control_cell_graph(place, place, visited_places)
+        for control_cell in self.set_of_control_cell_places:
+            visited_places = set()
+            visited_places.add(control_cell)
+            self.control_cells_graph[control_cell] = set()
+            for place in self.graph.stg_graph[control_cell]:
+                self.__aux_get_control_cell_graph(control_cell, place, visited_places)
 
-    def __aux_get_control_cell_graph(self, current_control_cell, current_place, visited_places, aux_cycle_0=set()):
-        for place in self.graph.stg_graph[current_place]:
-            if place in self.set_of_control_cell_places:
-                if current_control_cell in self.control_cells_graph:
-                    self.control_cells_graph[current_control_cell].add(place)
-                else:
-                    self.control_cells_graph[current_control_cell] = set()
-                    self.control_cells_graph[current_control_cell].add(place)
-                if place in self.control_cells_graph:
-                    continue
-                else:
-                    self.__aux_get_control_cell_graph(place, place, visited_places)
+    def __aux_get_control_cell_graph(self, current_control_cell, current_place, visited_places):
+        if current_place not in visited_places:
+            if current_place in self.set_of_control_cell_places:
+                self.control_cells_graph[current_control_cell].add(current_place)
+                visited_places.add(current_place)
+                return
             else:
-                if current_place in self.cycle_0_final_transition and place in \
-                        self.cycle_0_final_transition[current_place]:
-                    if current_place + place in aux_cycle_0:
-                        continue
-                    else:
-                        aux_cycle_0.add(current_place + place)
-                        self.__aux_get_control_cell_graph(current_control_cell, place, visited_places, aux_cycle_0)
-                if len(aux_cycle_0) > 0:
-                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places, aux_cycle_0)
-                else:
+                visited_places.add(current_place)
+                for place in self.graph.stg_graph[current_place]:
                     self.__aux_get_control_cell_graph(current_control_cell, place, visited_places)
+
