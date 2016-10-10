@@ -47,4 +47,6 @@ fabric.properties
 Relatorio/
 theory/
 
-.idea/*
+.idea/
+
+Linux/
