@@ -68,7 +68,7 @@ class TestTextParse(TestCase):
         files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
                  "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
                  "vbe10b", "wrdatab"]
-        # files = ["master-read"]
+        # files = ["meng9"]
         extension = ".g"
         for file in files:
             try:
@@ -79,7 +79,17 @@ class TestTextParse(TestCase):
                 GraphUtil.print_graph(parse_test.graph, file, view_flag=True, overwrite_graph=True)
                 print("Success")
             except Exception as e:
-                traceback.print_exc()
+                traceback.print_exc(e)
         # print(graph)
         # print(extended_graph)
         # print(node_classification)
+
+    def test_free_choice_test(self):
+        files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
+                 "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
+                 "vbe10b", "wrdatab"]
+        for file in files:
+            parse_test = TextParse(self.PATH_TO_TESTS + file)
+            parse_test.read_file()
+            if not GraphUtil.is_free_choice_stg(parse_test.graph):
+                GraphUtil.print_graph(parse_test.graph, file)

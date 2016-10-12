@@ -15,4 +15,5 @@ Ro- Ai-
 Ai- Ro+ 
 
 Ri+ Ro+
+#.marking { <Ri+, Ao+> <Ai-,Ro+> }
 .end

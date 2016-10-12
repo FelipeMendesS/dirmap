@@ -46,8 +46,11 @@ class ESTGGraph (object):
         self.transition_variables = {}  # type: Dict[str, Transition]
         # Map that holds the identification of all transitions
         self.transitions_identification = {}  # type: Dict[str, Transition]
+        # TODO: Maybe change these to Sets
         # Map that stores the real complete graph, considering also the transitions as nodes.
         self.extended_graph = {}  # type: Dict[str, List[str]]
+        # Same map but inverted
+        self.inverted_extended_graph = {}  # type: Dict[str, List[str]]
         # List of places starting with tokens
         self.initial_places = initial_places  # type: List[str]
         # Map of signals and their initial values
@@ -86,6 +89,7 @@ class ESTGGraph (object):
             transition_name = "transition" + str(transition_count)
             self.transitions_identification[transition_name] = transition_conditions
             [origin_vertex, destination_vertex] = map(str.strip, vertices.split('/'))
+            self.inverted_extended_graph[transition_name] = []
             for origin in map(str.strip, origin_vertex.split(',')):
                 if origin not in self.stg_graph:
                     self.stg_graph[origin] = []
@@ -93,11 +97,16 @@ class ESTGGraph (object):
                     self.extended_graph[origin] = [transition_name]
                 else:
                     self.extended_graph[origin].append(transition_name)
+                self.inverted_extended_graph[transition_name].append(origin)
                 self.extended_graph[transition_name] = []
                 for destination in destination_vertex.split(','):
                     self.stg_graph[origin].append(destination)
                     self.transition_variables[origin + destination] = transition_conditions
                     self.extended_graph[transition_name].append(destination)
+                    if destination not in self.inverted_extended_graph:
+                        self.inverted_extended_graph[destination] = [transition_name]
+                    else:
+                        self.inverted_extended_graph[destination].append(transition_name)
             self.__classify_nodes()
 
     # Check if the graph is strongly connected
