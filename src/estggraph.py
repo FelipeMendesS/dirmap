@@ -7,7 +7,6 @@ class ESTGGraph (object):
 
     '''
     Class that stores the ESTG graph and its properties in order to synthesize it.
-
     '''
     # Data that we need to use
     # Check if we can have a choice to different concurrency, at first won't be implemented. Can change data structures
@@ -108,10 +107,6 @@ class ESTGGraph (object):
                     else:
                         self.inverted_extended_graph[destination].append(transition_name)
             self.__classify_nodes()
-
-    # Check if the graph is strongly connected
-    def check_liveness(self):
-        return
 
     def check_consistency(self):
         # TODO: Make this more efficient

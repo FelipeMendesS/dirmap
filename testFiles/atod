@@ -1,3 +1,4 @@
+.name atod
 .inputs  la * da * za *
 .outputs  lr * dr * zr * x *
 PL1/PL2,PL14|dr+

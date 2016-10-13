@@ -3,8 +3,8 @@ from typing import List, Dict, Set
 from graphutil import GraphUtil
 from collections import OrderedDict
 
-class DirectMapping(object):
 
+class DirectMapping(object):
     # Class that implements the direct mapping algorithm
     ''' Class that implements the direct mapping algorithm:
         1. Identifies all places that are initial places and places that are only activated by input transitions.
@@ -23,7 +23,6 @@ class DirectMapping(object):
         self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[str]
         self.control_cells_graph = {}  # type: Dict[str, Set[str]]
         self.inverse_control_cells_graph = {}  # type: Dict[str, Set[str]]
-        self.control_cell_input
         self.size_2_cycles = []  # type: List[List[str]]
         self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
         self.check_for_size_2_cycles()

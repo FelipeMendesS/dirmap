@@ -11,7 +11,6 @@ Transition = Tuple[str, str]
 class GraphUtil(object):
 
     # Places with names starting with p concatenated with a number, in order of creation
-    # TODO Known Issues: Initial places when not specified is not correctly considering cases of parallelism.
     # -Double places in some specific transitions, even tripled. Maybe caused by the graph formation and not conversion
     # -Initial places only considers initial transition and assumes all transitions coming from it are initial
     # and this is simply not true for all cases. Adjust accordingly.
@@ -80,6 +79,7 @@ class GraphUtil(object):
 
     @staticmethod
     def get_initial_markings(marking_line: str) -> List[Transition]:
+        # TODO: Known Issue! If we have any space inside the initial marking definition we get errors.
         # Return a list of transitions that are considered the initial markings of this especification. If a place is
         # one of the initial markings it's going to be represented as the place two times in  the tuple
         markings = marking_line.split()
@@ -87,11 +87,11 @@ class GraphUtil(object):
         for marking in markings:
             if GraphUtil.__is_place(marking):
                 initial_markings.append((marking, marking))
-            elif re.match(r"^<\s*\w+[+-]\s*,\s*\w+[+-]\s*>$"):
+            elif re.match(r"^<\s*\w+[+-](\/[0-9]+)?\s*,\s*\w+[+-](\/[0-9]+)?\s*>$", marking):
                 aux = marking.strip("<>").split(",")
                 initial_markings.append((aux[0].strip(), aux[1].strip()))
             else:
-                raise Exception("Markings with wrong syntax" + marking_line)
+                raise Exception("Markings with wrong syntax " + marking_line)
         return initial_markings
 
 
@@ -104,6 +104,8 @@ class GraphUtil(object):
         with open(path_to_descriptions + converted_file_name, 'w') as f:
             if name != "":
                 f.write(".name " + name + enter)
+            else:
+                f.write(".name " + converted_file_name[13:] + enter)
             aux = [".inputs "]
             for input_signal in inputs:
                 aux.extend([" ", input_signal, " *"])
@@ -115,8 +117,9 @@ class GraphUtil(object):
             aux_string = "".join(aux)
             f.write(aux_string + enter)
             for place in initial_places:
-                GraphUtil.__recursive_transition_write(f, extended_graph, node_classification, place,
-                                                       concurrency_close_map, traversed_places)
+                if place not in traversed_places:
+                    GraphUtil.__recursive_transition_write(f, extended_graph, node_classification, place,
+                                                           concurrency_close_map, traversed_places)
             aux = ".start "
             for index, place in enumerate(initial_places):
                 if index == 0:
@@ -192,25 +195,6 @@ class GraphUtil(object):
         place_count = [1]
         initial_places_list = []
         initial_places_flag = False
-        # if re.match(r"\w+[+-](\/[0-9]+)?", initial_markings):
-        #     initial_transitions.append(initial_markings)
-        #     # initial_places_list.append(GraphUtil.__get_place_name(place_count))
-        #     # initial_places_flag = True
-        # elif GraphUtil.__is_place(initial_markings):
-        #     place_relation[initial_markings] = GraphUtil.__get_place_name(place_count)
-        #     initial_transitions = graph[initial_markings]
-        #     extended_graph[GraphUtil.__get_place_name(place_count)] = initial_transitions
-        #     initial_places_list.append(GraphUtil.__get_place_name(place_count))
-        #     initial_places_flag = True
-        #     place_count[0] += 1
-        # else:
-        #     # Assumption that we have only one place or several transitions
-        #     # TODO treat the case when we have places and transitions in here. Not that hard.
-        #     aux_markings = set()
-        #     transitions = initial_markings.split()
-        #     for transition in transitions:
-        #         aux_markings.add(transition.strip("<> ").split(',')[0])
-        #     initial_transitions = list(aux_markings)
         for node in initial_markings:
             if GraphUtil.__is_place(node[0]):
                 place_relation[node[0]] = GraphUtil.__get_place_name(place_count)
@@ -220,6 +204,7 @@ class GraphUtil(object):
                 place_count[0] += 1
             else:
                 initial_transitions.append(node[1])
+                initial_transitions.append(node[0])
                 if node[0] not in extended_graph:
                     extended_graph[node[0]] = [GraphUtil.__get_place_name(place_count)]
                 else:
@@ -232,22 +217,27 @@ class GraphUtil(object):
                 if GraphUtil.__is_place(following_node):
                     if following_node in place_relation:
                         continue
-                    # if not initial_places_flag:
-                    #     initial_places_list.append(GraphUtil.__get_place_name(place_count))
                     place_relation[following_node] = GraphUtil.__get_place_name(place_count)
                     GraphUtil.__add_connection(extended_graph, transition, GraphUtil.__get_place_name(place_count))
                     place_count[0] += 1
                     GraphUtil.__aux_get_extended_graph(following_node, extended_graph, graph, place_count,
                                                        node_classification, place_relation)
                 else:
-                    if following_node in extended_graph:
+                    if following_node in initial_transitions and (transition, following_node) in initial_markings:
                         continue
-                    # if not initial_places_flag:
-                    #     initial_places_list.append(GraphUtil.__get_place_name(place_count))
+                    duplicate_flag = False
+                    if following_node in extended_graph and transition in extended_graph:
+                        for place in extended_graph[transition]:
+                            if following_node in set(extended_graph[place]):
+                                duplicate_flag = True
+                    if duplicate_flag:
+                        continue
                     GraphUtil.__add_connection(extended_graph, transition, GraphUtil.__get_place_name(place_count))
                     GraphUtil.__add_connection(extended_graph, following_node, GraphUtil.__get_place_name(place_count),
                                                False)
                     place_count[0] += 1
+                    if following_node in extended_graph:
+                        continue
                     GraphUtil.__aux_get_extended_graph(following_node, extended_graph, graph, place_count,
                                                        node_classification, place_relation)
 

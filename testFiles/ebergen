@@ -1,19 +1,19 @@
+.name ebergen
 .inputs  a * d *
 .outputs  b * c * x *
-PL1/PL2|b+
-PL2/PL3|a-
-PL4/PL5|b-
-PL5/PL6|a+
-PL6/PL7,PL13|c-
-PL7/PL8|b+
-PL8/PL9|a-
-PL10/PL11|b-
-PL11/PL12|a+
-PL12/PL1,PL15|c+
-PL15/PL16|d+
-PL16,PL3/PL4|x+
-PL13/PL14|d-
-PL14,PL9/PL10|x-
-PL15/PL16|d+
-.start PL1 PL15
+PL1/PL3|b+
+PL3/PL4|a-
+PL5/PL6|b-
+PL6/PL7|a+
+PL7/PL8,PL14|c-
+PL8/PL9|b+
+PL9/PL10|a-
+PL11/PL12|b-
+PL12/PL13|a+
+PL13/PL1,PL2|c+
+PL2/PL16|d+
+PL16,PL4/PL5|x+
+PL14/PL15|d-
+PL15,PL10/PL11|x-
+.start PL1 PL2
 .end

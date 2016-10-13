@@ -1,3 +1,4 @@
+.name fifo
 .inputs  a * b *
 .outputs  c *
 PL1/PL2|b+

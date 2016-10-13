@@ -1,13 +1,13 @@
+.name sendr-done
 .inputs  w8 * reqsend *
 .outputs  dones * y0_sendrdone *
-PL1/PL2|w8+
-PL3/PL4|w8-
-PL4/PL5|dones+
-PL5/PL6|reqsend-
-PL6/PL7|y0_sendrdone-
-PL7/PL1,PL8|dones-
-PL8/PL9|reqsend+
-PL9,PL2/PL3|y0_sendrdone+
-PL8/PL9|reqsend+
-.start PL1 PL8
+PL1/PL3|w8+
+PL4/PL5|w8-
+PL5/PL6|dones+
+PL6/PL7|reqsend-
+PL7/PL8|y0_sendrdone-
+PL8/PL1,PL2|dones-
+PL2/PL9|reqsend+
+PL9,PL3/PL4|y0_sendrdone+
+.start PL1 PL2
 .end

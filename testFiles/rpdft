@@ -1,3 +1,4 @@
+.name rpdft
 .inputs  d * c * b * a *
 .outputs  t *
 PL1/PL2|d+
