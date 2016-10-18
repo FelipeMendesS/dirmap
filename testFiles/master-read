@@ -1,33 +1,33 @@
 .name master_read
 .inputs  ari * pri * bprn * xack * di * pack *
 .outputs  aro * pro * breq * busy * mrdc * do * pdo * x *
-PL1/PL6|ari+
 PL7/PL8|aro-
 PL8/PL9|ari-
 PL10/PL11,PL12|pri-
-PL11/PL1|aro+
-PL2,PL6/PL7,PL13|pro-
+PL11/PL2|aro+
+PL2/PL1|ari+
+PL3,PL1/PL7,PL13|pro-
 PL20/PL21|bprn-
 PL21/PL22|x+
-PL22/PL3,PL23|busy-
+PL22/PL4,PL23|busy-
 PL15,PL9/PL10|pro+
 PL18/PL19|bprn+
-PL19,PL12,PL17/PL2,PL20|breq-
+PL19,PL12,PL17/PL3,PL20|breq-
 PL24/PL25|xack-
-PL5/PL34|do+
+PL6/PL34|do+
 PL34/PL35,PL36|di+
 PL28/PL29,PL30|di-
-PL4/PL26|pack+
+PL5/PL26|pack+
 PL26,PL35/PL27,PL31|pdo-
-PL33,PL25/PL5|x-
+PL33,PL25/PL6|x-
 PL31/PL32|pack-
-PL32,PL29/PL4,PL33|pdo+
+PL32,PL29/PL5,PL33|pdo+
 PL36/PL37,PL38,PL39|mrdc+
 PL37,PL27/PL28|do-
 PL38,PL16/PL17|busy+
 PL39/PL40|xack+
 PL40,PL23,PL30/PL24|mrdc-
 PL13/PL14|pri+
-PL14,PL3/PL15,PL16,PL18|breq+
-.start PL1 PL2 PL3 PL4 PL5
+PL14,PL4/PL15,PL16,PL18|breq+
+.start PL1 PL2 PL3 PL4 PL5 PL6
 .end

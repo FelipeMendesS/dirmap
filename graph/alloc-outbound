@@ -1,59 +1,59 @@
 strict digraph {
 	PL1 [fixedsize=true shape=circle width=.5]
-	PL2 [fixedsize=true shape=circle width=.5]
-	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="req+"]
-		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
-		transition1 -> PL2
 	PL3 [fixedsize=true shape=circle width=.5]
-	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="busctl+"]
-		PL2 -> transition2 [arrowhead=onormal arrowsize=0.5]
-		transition2 -> PL3
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="busctl+"]
+		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> PL3
 	PL4 [fixedsize=true shape=circle width=.5]
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="ackctl+"]
-		PL3 -> transition3 [arrowhead=onormal arrowsize=0.5]
-		transition3 -> PL4
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="ackctl+"]
+		PL3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> PL4
 	PL5 [fixedsize=true shape=circle width=.5]
-	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="reqbus+"]
-		PL4 -> transition4 [arrowhead=onormal arrowsize=0.5]
-		transition4 -> PL5
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="reqbus+"]
+		PL4 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> PL5
 	PL6 [fixedsize=true shape=circle width=.5]
-	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="ackbus+"]
-		PL5 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> PL6
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="ackbus+"]
+		PL5 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> PL6
 	PL7 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="y1_allocoutbound+"]
-		PL6 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> PL7
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="y1_allocoutbound+"]
+		PL6 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> PL7
 	PL8 [fixedsize=true shape=circle width=.5]
-	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="reqbus-"]
-		PL7 -> transition7 [arrowhead=onormal arrowsize=0.5]
-		transition7 -> PL8
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="reqbus-"]
+		PL7 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> PL8
 	PL9 [fixedsize=true shape=circle width=.5]
-	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="ackbus-"]
-		PL8 -> transition8 [arrowhead=onormal arrowsize=0.5]
-		transition8 -> PL9
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="ackbus-"]
+		PL8 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL9
 	PL10 [fixedsize=true shape=circle width=.5]
-	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="busctl-"]
-		PL9 -> transition9 [arrowhead=onormal arrowsize=0.5]
-		transition9 -> PL10
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="busctl-"]
+		PL9 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> PL10
 	PL11 [fixedsize=true shape=circle width=.5]
-	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="ackctl-"]
-		PL10 -> transition10 [arrowhead=onormal arrowsize=0.5]
-		transition10 -> PL11
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="ackctl-"]
+		PL10 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> PL11
 	PL12 [fixedsize=true shape=circle width=.5]
-	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="ack+"]
-		PL11 -> transition11 [arrowhead=onormal arrowsize=0.5]
-		transition11 -> PL12
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="ack+"]
+		PL11 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> PL12
 	PL13 [fixedsize=true shape=circle width=.5]
-	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="req-"]
-		PL12 -> transition12 [arrowhead=onormal arrowsize=0.5]
-		transition12 -> PL13
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="req-"]
+		PL12 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> PL13
 	PL14 [fixedsize=true shape=circle width=.5]
-	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="y1_allocoutbound-"]
-		PL13 -> transition13 [arrowhead=onormal arrowsize=0.5]
-		transition13 -> PL14
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
-		PL14 -> transition14 [arrowhead=onormal arrowsize=0.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="y1_allocoutbound-"]
+		PL13 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> PL14
+	PL2 [fixedsize=true shape=circle width=.5]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
+		PL14 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL2
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="req+"]
+		PL2 -> transition14 [arrowhead=onormal arrowsize=0.5]
 		transition14 -> PL1
 	PL15 [fixedsize=true shape=circle width=.5]
 	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="nakbus+"]

@@ -1,6 +1,6 @@
 from unittest import TestCase
 from directmapping import DirectMapping
-from textparse import TextParse
+from textparseestg import TextParseESTG
 from estggraph import ESTGGraph
 from graphutil import GraphUtil
 
@@ -14,7 +14,7 @@ class TestDirectMapping(TestCase):
     # algorithm being tested to generate the results to be compared with
     def test_get_set_of_control_cell_places(self):
         file = "pe-send-ifc"
-        parse_test = TextParse(self.PATH_TO_TESTS + file)
+        parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         GraphUtil.print_graph(parse_test.graph, file, True)
         direct = DirectMapping(parse_test.graph)
@@ -22,7 +22,7 @@ class TestDirectMapping(TestCase):
 
     def test_check_for_size_2_cycles(self):
         file = "pe-send-ifc"
-        parse_test = TextParse(self.PATH_TO_TESTS + file)
+        parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         direct = DirectMapping(parse_test.graph)
         print(direct.size_2_cycles)
