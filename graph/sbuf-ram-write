@@ -52,6 +52,17 @@ strict digraph {
 	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="wsldin-"]
 		PL16 -> transition10 [arrowhead=onormal arrowsize=0.5]
 		transition10 -> PL17
+	PL20 [fixedsize=true shape=circle width=.5]
+	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
+		PL17 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL20
+	PL4 [fixedsize=true shape=circle width=.5]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
+		PL20 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> PL4
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="req+"]
+		PL4 -> transition17 [arrowhead=onormal arrowsize=0.5]
+		transition17 -> PL1
 	PL18 [fixedsize=true shape=circle width=.5]
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
 		PL17 -> transition22 [arrowhead=onormal arrowsize=0.5]
@@ -67,17 +78,6 @@ strict digraph {
 	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="y0_sbuframwrite-"]
 		PL28 -> transition15 [arrowhead=onormal arrowsize=0.5]
 		transition15 -> PL5
-	PL20 [fixedsize=true shape=circle width=.5]
-	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
-		PL17 -> transition22 [arrowhead=onormal arrowsize=0.5]
-		transition22 -> PL20
-	PL4 [fixedsize=true shape=circle width=.5]
-	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
-		PL20 -> transition16 [arrowhead=onormal arrowsize=0.5]
-		transition16 -> PL4
-	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="req+"]
-		PL4 -> transition17 [arrowhead=onormal arrowsize=0.5]
-		transition17 -> PL1
 	PL19 [fixedsize=true shape=circle width=.5]
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
 		PL17 -> transition22 [arrowhead=onormal arrowsize=0.5]
@@ -118,10 +118,10 @@ strict digraph {
 		transition21 -> PL25
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
 		PL25 -> transition22 [arrowhead=onormal arrowsize=0.5]
-		transition22 -> PL18
+		transition22 -> PL20
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
 		PL25 -> transition22 [arrowhead=onormal arrowsize=0.5]
-		transition22 -> PL20
+		transition22 -> PL18
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="y1_sbuframwrite+"]
 		PL25 -> transition22 [arrowhead=onormal arrowsize=0.5]
 		transition22 -> PL19

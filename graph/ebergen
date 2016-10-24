@@ -20,17 +20,21 @@ strict digraph {
 	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
 		PL6 -> transition4 [arrowhead=onormal arrowsize=0.5]
 		transition4 -> PL7
-	PL14 [fixedsize=true shape=circle width=.5]
+	PL8 [fixedsize=true shape=circle width=.5]
 	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
 		PL7 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> PL14
-	PL15 [fixedsize=true shape=circle width=.5]
-	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="d-"]
-		PL14 -> transition13 [arrowhead=onormal arrowsize=0.5]
-		transition13 -> PL15
+		transition5 -> PL8
+	PL9 [fixedsize=true shape=circle width=.5]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
+		PL8 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> PL9
+	PL10 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		PL9 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL10
 	PL11 [fixedsize=true shape=circle width=.5]
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
-		PL15 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		PL10 -> transition14 [arrowhead=onormal arrowsize=0.5]
 		transition14 -> PL11
 	PL12 [fixedsize=true shape=circle width=.5]
 	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
@@ -54,19 +58,15 @@ strict digraph {
 	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="x+"]
 		PL16 -> transition12 [arrowhead=onormal arrowsize=0.5]
 		transition12 -> PL5
-	PL8 [fixedsize=true shape=circle width=.5]
+	PL14 [fixedsize=true shape=circle width=.5]
 	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
 		PL7 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> PL8
-	PL9 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
-		PL8 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> PL9
-	PL10 [fixedsize=true shape=circle width=.5]
-	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
-		PL9 -> transition7 [arrowhead=onormal arrowsize=0.5]
-		transition7 -> PL10
+		transition5 -> PL14
+	PL15 [fixedsize=true shape=circle width=.5]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="d-"]
+		PL14 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> PL15
 	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
-		PL10 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		PL15 -> transition14 [arrowhead=onormal arrowsize=0.5]
 		transition14 -> PL11
 }

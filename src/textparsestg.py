@@ -63,6 +63,7 @@ class TextParseSTG(object):
             elif re.match(r"\s*\.marking\s+", line):
                 is_marking_present = True
                 aux = line.strip(".marking {}")
+                self.initial_markings = []
                 self.__get_initial_markings(aux)
         if not is_marking_present:
             print("Warning! This STG especification doesn't have a initial marking defined. It's necessary to fix this"
@@ -103,18 +104,18 @@ class TextParseSTG(object):
 
     def __get_extended_graph(self):
         place_relation = {}
-        initial_transitions = []
+        initial_transitions = set()
         place_count = [1]
         for node in self.initial_markings:
             if TextParseSTG.__is_place(node[0]):
                 place_relation[node[0]] = TextParseSTG.__get_place_name(place_count)
-                initial_transitions.extend(self.graph[node[0]])
+                initial_transitions.add(set(self.graph[node[0]]))
                 self.extended_graph[TextParseSTG.__get_place_name(place_count)] = self.graph[node[0]]
                 self.initial_places_list.append(TextParseSTG.__get_place_name(place_count))
                 place_count[0] += 1
             else:
-                initial_transitions.append(node[1])
-                initial_transitions.append(node[0])
+                initial_transitions.add(node[1])
+                initial_transitions.add(node[0])
                 if node[0] not in self.extended_graph:
                     self.extended_graph[node[0]] = [TextParseSTG.__get_place_name(place_count)]
                 else:
@@ -126,6 +127,7 @@ class TextParseSTG(object):
             for following_node in self.graph[transition]:
                 if TextParseSTG.__is_place(following_node):
                     if following_node in place_relation:
+                        self.__add_connection(transition, place_relation[following_node])
                         continue
                     place_relation[following_node] = TextParseSTG.__get_place_name(place_count)
                     self.__add_connection(transition, TextParseSTG.__get_place_name(place_count))

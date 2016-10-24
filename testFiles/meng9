@@ -1,13 +1,13 @@
 .name meng_fig_9
 .inputs  Ai * Ri *
 .outputs  Ao * Ro *
-PL4/PL5|Ri-
-PL5/PL6|Ao-
-PL6/PL1,PL2,PL7|Ri+
-PL2,PL1/PL4|Ao+
-PL8/PL9|Ai+
-PL9/PL10|Ro-
-PL10/PL3|Ai-
-PL3,PL7/PL8|Ro+
-.start PL1 PL2 PL3
+PL1/PL7|Ao+
+PL7/PL8|Ri-
+PL8/PL9|Ao-
+PL9/PL1,PL3|Ri+
+PL4/PL5|Ai+
+PL5/PL6|Ro-
+PL6/PL2|Ai-
+PL2,PL3/PL4|Ro+
+.start PL1 PL2
 .end
