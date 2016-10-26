@@ -1,6 +1,6 @@
 .name not_sure_what_this_is
-.inputs  req 0 ackline 0
-.outputs ack 0 sendline 0
+.inputs  req * ackline *
+.outputs ack * sendline *
 .choice done 0
 p1 / p2| req+
 p2 / p3| sendline+

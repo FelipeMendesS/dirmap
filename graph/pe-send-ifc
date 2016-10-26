@@ -1,321 +1,321 @@
 strict digraph {
 	PL1 [fixedsize=true shape=circle width=.5]
+	PL59 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> PL59
 	PL4 [fixedsize=true shape=circle width=.5]
-	transition25 [label="" height=0.001 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL1 -> transition25 [arrowhead=onormal arrowsize=0.5]
-		transition25 -> PL4
+	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend+"]
+		PL59 -> transition26 [arrowhead=onormal arrowsize=0.5]
+		transition26 -> PL4
 	PL5 [fixedsize=true shape=circle width=.5]
-	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
-		PL4 -> transition1 [arrowhead=onormal arrowsize=0.5]
-		transition1 -> PL5
+	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL4 -> transition27 [arrowhead=onormal arrowsize=0.5]
+		transition27 -> PL5
 	PL6 [fixedsize=true shape=circle width=.5]
-	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout+"]
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
 		PL5 -> transition2 [arrowhead=onormal arrowsize=0.5]
 		transition2 -> PL6
 	PL7 [fixedsize=true shape=circle width=.5]
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout+"]
 		PL6 -> transition3 [arrowhead=onormal arrowsize=0.5]
 		transition3 -> PL7
 	PL8 [fixedsize=true shape=circle width=.5]
-	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
 		PL7 -> transition4 [arrowhead=onormal arrowsize=0.5]
 		transition4 -> PL8
 	PL9 [fixedsize=true shape=circle width=.5]
-	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq-"]
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
 		PL8 -> transition5 [arrowhead=onormal arrowsize=0.5]
 		transition5 -> PL9
 	PL10 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq-"]
 		PL9 -> transition6 [arrowhead=onormal arrowsize=0.5]
 		transition6 -> PL10
-	PL11 [fixedsize=true shape=circle width=.5]
-	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="adbld-"]
+	PL48 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
 		PL10 -> transition7 [arrowhead=onormal arrowsize=0.5]
-		transition7 -> PL11
-	PL12 [fixedsize=true shape=circle width=.5]
-	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout-"]
-		PL11 -> transition8 [arrowhead=onormal arrowsize=0.5]
-		transition8 -> PL12
-	PL43 [fixedsize=true shape=circle width=.5]
-	transition51 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL12 -> transition51 [arrowhead=onormal arrowsize=0.5]
-		transition51 -> PL43
-	PL44 [fixedsize=true shape=circle width=.5]
-	transition43 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
-		PL43 -> transition43 [arrowhead=onormal arrowsize=0.5]
-		transition43 -> PL44
-	PL45 [fixedsize=true shape=circle width=.5]
-	transition44 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
-		PL44 -> transition44 [arrowhead=onormal arrowsize=0.5]
-		transition44 -> PL45
-	PL30 [fixedsize=true shape=circle width=.5]
-	transition45 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
-		PL45 -> transition45 [arrowhead=onormal arrowsize=0.5]
-		transition45 -> PL30
-	PL27 [fixedsize=true shape=circle width=.5]
-	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
-		PL30 -> transition23 [arrowhead=onormal arrowsize=0.5]
-		transition23 -> PL27
-	PL28 [fixedsize=true shape=circle width=.5]
-	transition20 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
-		PL27 -> transition20 [arrowhead=onormal arrowsize=0.5]
-		transition20 -> PL28
-	PL29 [fixedsize=true shape=circle width=.5]
-	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
-		PL28 -> transition21 [arrowhead=onormal arrowsize=0.5]
-		transition21 -> PL29
-	PL26 [fixedsize=true shape=circle width=.5]
-	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
-		PL29 -> transition22 [arrowhead=onormal arrowsize=0.5]
-		transition22 -> PL26
-	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
-		PL26 -> transition23 [arrowhead=onormal arrowsize=0.5]
-		transition23 -> PL27
-	PL3 [fixedsize=true shape=circle width=.5]
-	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
-		PL26 -> transition30 [arrowhead=onormal arrowsize=0.5]
-		transition30 -> PL3
-	PL59 [fixedsize=true shape=circle width=.5]
-	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
-		PL3 -> transition26 [arrowhead=onormal arrowsize=0.5]
-		transition26 -> PL59
-	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend+"]
-		PL59 -> transition27 [arrowhead=onormal arrowsize=0.5]
-		transition27 -> PL1
-	PL60 [fixedsize=true shape=circle width=.5]
-	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
-		PL3 -> transition26 [arrowhead=onormal arrowsize=0.5]
-		transition26 -> PL60
-	PL56 [fixedsize=true shape=circle width=.5]
-	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
-		PL60 -> transition28 [arrowhead=onormal arrowsize=0.5]
-		transition28 -> PL56
-	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL56 -> transition25 [arrowhead=onormal arrowsize=0.5]
-		transition25 -> PL4
-	PL61 [fixedsize=true shape=circle width=.5]
-	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
-		PL3 -> transition26 [arrowhead=onormal arrowsize=0.5]
-		transition26 -> PL61
-	PL58 [fixedsize=true shape=circle width=.5]
-	transition29 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
-		PL61 -> transition29 [arrowhead=onormal arrowsize=0.5]
-		transition29 -> PL58
-	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL58 -> transition25 [arrowhead=onormal arrowsize=0.5]
-		transition25 -> PL4
-	PL2 [fixedsize=true shape=circle width=.5]
-	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
-		PL26 -> transition30 [arrowhead=onormal arrowsize=0.5]
-		transition30 -> PL2
-	PL57 [fixedsize=true shape=circle width=.5]
-	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL2 -> transition24 [arrowhead=onormal arrowsize=0.5]
-		transition24 -> PL57
-	transition29 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
-		PL57 -> transition29 [arrowhead=onormal arrowsize=0.5]
-		transition29 -> PL58
-	PL55 [fixedsize=true shape=circle width=.5]
-	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL2 -> transition24 [arrowhead=onormal arrowsize=0.5]
-		transition24 -> PL55
-	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
-		PL55 -> transition28 [arrowhead=onormal arrowsize=0.5]
-		transition28 -> PL56
-	PL54 [fixedsize=true shape=circle width=.5]
-	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL2 -> transition24 [arrowhead=onormal arrowsize=0.5]
-		transition24 -> PL54
-	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend+"]
-		PL54 -> transition27 [arrowhead=onormal arrowsize=0.5]
-		transition27 -> PL1
-	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
-		PL29 -> transition22 [arrowhead=onormal arrowsize=0.5]
-		transition22 -> PL30
-	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
-		PL30 -> transition30 [arrowhead=onormal arrowsize=0.5]
-		transition30 -> PL3
-	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
-		PL30 -> transition30 [arrowhead=onormal arrowsize=0.5]
-		transition30 -> PL2
-	PL46 [fixedsize=true shape=circle width=.5]
-	transition44 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
-		PL44 -> transition44 [arrowhead=onormal arrowsize=0.5]
-		transition44 -> PL46
-	transition46 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
-		PL46 -> transition46 [arrowhead=onormal arrowsize=0.5]
-		transition46 -> PL26
-	PL13 [fixedsize=true shape=circle width=.5]
-	transition53 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL12 -> transition53 [arrowhead=onormal arrowsize=0.5]
-		transition53 -> PL13
+		transition7 -> PL48
+	PL49 [fixedsize=true shape=circle width=.5]
+	transition45 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
+		PL48 -> transition45 [arrowhead=onormal arrowsize=0.5]
+		transition45 -> PL49
+	PL50 [fixedsize=true shape=circle width=.5]
+	transition46 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
+		PL49 -> transition46 [arrowhead=onormal arrowsize=0.5]
+		transition46 -> PL50
 	PL14 [fixedsize=true shape=circle width=.5]
-	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
-		PL13 -> transition9 [arrowhead=onormal arrowsize=0.5]
-		transition9 -> PL14
+	transition51 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL50 -> transition51 [arrowhead=onormal arrowsize=0.5]
+		transition51 -> PL14
 	PL15 [fixedsize=true shape=circle width=.5]
-	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout+"]
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
 		PL14 -> transition10 [arrowhead=onormal arrowsize=0.5]
 		transition10 -> PL15
 	PL16 [fixedsize=true shape=circle width=.5]
-	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout+"]
 		PL15 -> transition11 [arrowhead=onormal arrowsize=0.5]
 		transition11 -> PL16
 	PL17 [fixedsize=true shape=circle width=.5]
-	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
 		PL16 -> transition12 [arrowhead=onormal arrowsize=0.5]
 		transition12 -> PL17
 	PL18 [fixedsize=true shape=circle width=.5]
-	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq-"]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
 		PL17 -> transition13 [arrowhead=onormal arrowsize=0.5]
 		transition13 -> PL18
 	PL19 [fixedsize=true shape=circle width=.5]
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq-"]
 		PL18 -> transition14 [arrowhead=onormal arrowsize=0.5]
 		transition14 -> PL19
+	PL38 [fixedsize=true shape=circle width=.5]
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL19 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> PL38
+	PL39 [fixedsize=true shape=circle width=.5]
+	transition35 [label="" height=0.01 shape=box width=0.5 xlabel="adbld-"]
+		PL38 -> transition35 [arrowhead=onormal arrowsize=0.5]
+		transition35 -> PL39
+	PL40 [fixedsize=true shape=circle width=.5]
+	transition36 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout-"]
+		PL39 -> transition36 [arrowhead=onormal arrowsize=0.5]
+		transition36 -> PL40
+	PL23 [fixedsize=true shape=circle width=.5]
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL40 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL23
+	PL24 [fixedsize=true shape=circle width=.5]
+	transition18 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
+		PL23 -> transition18 [arrowhead=onormal arrowsize=0.5]
+		transition18 -> PL24
+	PL25 [fixedsize=true shape=circle width=.5]
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
+		PL24 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> PL25
+	PL26 [fixedsize=true shape=circle width=.5]
+	transition32 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
+		PL25 -> transition32 [arrowhead=onormal arrowsize=0.5]
+		transition32 -> PL26
+	PL27 [fixedsize=true shape=circle width=.5]
+	transition20 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
+		PL26 -> transition20 [arrowhead=onormal arrowsize=0.5]
+		transition20 -> PL27
+	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
+		PL27 -> transition28 [arrowhead=onormal arrowsize=0.5]
+		transition28 -> PL1
+	PL2 [fixedsize=true shape=circle width=.5]
+	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
+		PL27 -> transition28 [arrowhead=onormal arrowsize=0.5]
+		transition28 -> PL2
+	PL3 [fixedsize=true shape=circle width=.5]
+	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
+		PL2 -> transition25 [arrowhead=onormal arrowsize=0.5]
+		transition25 -> PL3
+	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend+"]
+		PL3 -> transition26 [arrowhead=onormal arrowsize=0.5]
+		transition26 -> PL4
+	PL55 [fixedsize=true shape=circle width=.5]
+	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
+		PL2 -> transition25 [arrowhead=onormal arrowsize=0.5]
+		transition25 -> PL55
+	PL56 [fixedsize=true shape=circle width=.5]
+	transition52 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
+		PL55 -> transition52 [arrowhead=onormal arrowsize=0.5]
+		transition52 -> PL56
+	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL56 -> transition27 [arrowhead=onormal arrowsize=0.5]
+		transition27 -> PL5
+	PL57 [fixedsize=true shape=circle width=.5]
+	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc-"]
+		PL2 -> transition25 [arrowhead=onormal arrowsize=0.5]
+		transition25 -> PL57
+	PL58 [fixedsize=true shape=circle width=.5]
+	transition53 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
+		PL57 -> transition53 [arrowhead=onormal arrowsize=0.5]
+		transition53 -> PL58
+	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL58 -> transition27 [arrowhead=onormal arrowsize=0.5]
+		transition27 -> PL5
+	PL28 [fixedsize=true shape=circle width=.5]
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
+		PL27 -> transition24 [arrowhead=onormal arrowsize=0.5]
+		transition24 -> PL28
+	PL29 [fixedsize=true shape=circle width=.5]
+	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
+		PL28 -> transition21 [arrowhead=onormal arrowsize=0.5]
+		transition21 -> PL29
+	PL30 [fixedsize=true shape=circle width=.5]
+	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
+		PL29 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> PL30
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
+		PL30 -> transition23 [arrowhead=onormal arrowsize=0.5]
+		transition23 -> PL27
+	PL31 [fixedsize=true shape=circle width=.5]
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
+		PL30 -> transition23 [arrowhead=onormal arrowsize=0.5]
+		transition23 -> PL31
+	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
+		PL31 -> transition28 [arrowhead=onormal arrowsize=0.5]
+		transition28 -> PL1
+	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="reqsend-"]
+		PL31 -> transition28 [arrowhead=onormal arrowsize=0.5]
+		transition28 -> PL2
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
+		PL31 -> transition24 [arrowhead=onormal arrowsize=0.5]
+		transition24 -> PL28
+	PL32 [fixedsize=true shape=circle width=.5]
+	transition32 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
+		PL25 -> transition32 [arrowhead=onormal arrowsize=0.5]
+		transition32 -> PL32
+	transition29 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
+		PL32 -> transition29 [arrowhead=onormal arrowsize=0.5]
+		transition29 -> PL31
+	PL37 [fixedsize=true shape=circle width=.5]
+	transition40 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL40 -> transition40 [arrowhead=onormal arrowsize=0.5]
+		transition40 -> PL37
+	transition34 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
+		PL37 -> transition34 [arrowhead=onormal arrowsize=0.5]
+		transition34 -> PL6
+	PL33 [fixedsize=true shape=circle width=.5]
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL40 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL33
+	PL34 [fixedsize=true shape=circle width=.5]
+	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
+		PL33 -> transition30 [arrowhead=onormal arrowsize=0.5]
+		transition30 -> PL34
+	PL35 [fixedsize=true shape=circle width=.5]
+	transition31 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
+		PL34 -> transition31 [arrowhead=onormal arrowsize=0.5]
+		transition31 -> PL35
+	transition32 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
+		PL35 -> transition32 [arrowhead=onormal arrowsize=0.5]
+		transition32 -> PL26
+	transition32 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
+		PL35 -> transition32 [arrowhead=onormal arrowsize=0.5]
+		transition32 -> PL32
 	PL20 [fixedsize=true shape=circle width=.5]
-	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
 		PL19 -> transition15 [arrowhead=onormal arrowsize=0.5]
 		transition15 -> PL20
-	PL35 [fixedsize=true shape=circle width=.5]
-	transition35 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
-		PL20 -> transition35 [arrowhead=onormal arrowsize=0.5]
-		transition35 -> PL35
-	PL36 [fixedsize=true shape=circle width=.5]
-	transition42 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL35 -> transition42 [arrowhead=onormal arrowsize=0.5]
-		transition42 -> PL36
-	transition36 [label="" height=0.01 shape=box width=0.5 xlabel="adbld+"]
-		PL36 -> transition36 [arrowhead=onormal arrowsize=0.5]
-		transition36 -> PL5
 	PL21 [fixedsize=true shape=circle width=.5]
-	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt+"]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
 		PL20 -> transition16 [arrowhead=onormal arrowsize=0.5]
 		transition16 -> PL21
 	PL22 [fixedsize=true shape=circle width=.5]
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL21 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL22
-	PL23 [fixedsize=true shape=circle width=.5]
-	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
-		PL22 -> transition17 [arrowhead=onormal arrowsize=0.5]
-		transition17 -> PL23
-	PL24 [fixedsize=true shape=circle width=.5]
-	transition18 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
-		PL23 -> transition18 [arrowhead=onormal arrowsize=0.5]
-		transition18 -> PL24
-	PL31 [fixedsize=true shape=circle width=.5]
-	transition34 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
-		PL24 -> transition34 [arrowhead=onormal arrowsize=0.5]
-		transition34 -> PL31
-	transition31 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
-		PL31 -> transition31 [arrowhead=onormal arrowsize=0.5]
-		transition31 -> PL30
-	PL25 [fixedsize=true shape=circle width=.5]
-	transition34 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
-		PL24 -> transition34 [arrowhead=onormal arrowsize=0.5]
-		transition34 -> PL25
-	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
-		PL25 -> transition19 [arrowhead=onormal arrowsize=0.5]
-		transition19 -> PL26
-	PL32 [fixedsize=true shape=circle width=.5]
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL21 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL32
-	PL33 [fixedsize=true shape=circle width=.5]
-	transition32 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
-		PL32 -> transition32 [arrowhead=onormal arrowsize=0.5]
-		transition32 -> PL33
-	PL34 [fixedsize=true shape=circle width=.5]
-	transition33 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
-		PL33 -> transition33 [arrowhead=onormal arrowsize=0.5]
-		transition33 -> PL34
-	transition34 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
-		PL34 -> transition34 [arrowhead=onormal arrowsize=0.5]
-		transition34 -> PL31
-	transition34 [label="" height=0.01 shape=box width=0.5 xlabel="y1_pesendifc+"]
-		PL34 -> transition34 [arrowhead=onormal arrowsize=0.5]
-		transition34 -> PL25
-	PL37 [fixedsize=true shape=circle width=.5]
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL18 -> transition14 [arrowhead=onormal arrowsize=0.5]
-		transition14 -> PL37
-	PL38 [fixedsize=true shape=circle width=.5]
-	transition37 [label="" height=0.01 shape=box width=0.5 xlabel="adbld-"]
-		PL37 -> transition37 [arrowhead=onormal arrowsize=0.5]
-		transition37 -> PL38
-	PL39 [fixedsize=true shape=circle width=.5]
-	transition38 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout-"]
-		PL38 -> transition38 [arrowhead=onormal arrowsize=0.5]
-		transition38 -> PL39
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL39 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL22
-	transition42 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL39 -> transition42 [arrowhead=onormal arrowsize=0.5]
-		transition42 -> PL36
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL39 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL32
-	PL40 [fixedsize=true shape=circle width=.5]
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL18 -> transition14 [arrowhead=onormal arrowsize=0.5]
-		transition14 -> PL40
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt+"]
+		PL21 -> transition17 [arrowhead=onormal arrowsize=0.5]
+		transition17 -> PL22
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL22 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL23
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL22 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL33
+	PL36 [fixedsize=true shape=circle width=.5]
+	transition33 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
+		PL21 -> transition33 [arrowhead=onormal arrowsize=0.5]
+		transition33 -> PL36
+	transition40 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL36 -> transition40 [arrowhead=onormal arrowsize=0.5]
+		transition40 -> PL37
 	PL41 [fixedsize=true shape=circle width=.5]
-	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
-		PL40 -> transition39 [arrowhead=onormal arrowsize=0.5]
-		transition39 -> PL41
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL19 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> PL41
 	PL42 [fixedsize=true shape=circle width=.5]
-	transition40 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
-		PL41 -> transition40 [arrowhead=onormal arrowsize=0.5]
-		transition40 -> PL42
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL42 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL22
-	transition42 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL42 -> transition42 [arrowhead=onormal arrowsize=0.5]
-		transition42 -> PL36
-	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL42 -> transition41 [arrowhead=onormal arrowsize=0.5]
-		transition41 -> PL32
-	PL50 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL9 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> PL50
-	PL51 [fixedsize=true shape=circle width=.5]
-	transition49 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
+	transition37 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
+		PL41 -> transition37 [arrowhead=onormal arrowsize=0.5]
+		transition37 -> PL42
+	PL43 [fixedsize=true shape=circle width=.5]
+	transition38 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
+		PL42 -> transition38 [arrowhead=onormal arrowsize=0.5]
+		transition38 -> PL43
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL43 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL23
+	transition40 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL43 -> transition40 [arrowhead=onormal arrowsize=0.5]
+		transition40 -> PL37
+	transition39 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL43 -> transition39 [arrowhead=onormal arrowsize=0.5]
+		transition39 -> PL33
+	PL44 [fixedsize=true shape=circle width=.5]
+	transition49 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
 		PL50 -> transition49 [arrowhead=onormal arrowsize=0.5]
-		transition49 -> PL51
-	PL52 [fixedsize=true shape=circle width=.5]
-	transition50 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt+"]
-		PL51 -> transition50 [arrowhead=onormal arrowsize=0.5]
-		transition50 -> PL52
-	transition51 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL52 -> transition51 [arrowhead=onormal arrowsize=0.5]
-		transition51 -> PL43
-	PL53 [fixedsize=true shape=circle width=.5]
-	transition52 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
-		PL51 -> transition52 [arrowhead=onormal arrowsize=0.5]
-		transition52 -> PL53
-	transition53 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL53 -> transition53 [arrowhead=onormal arrowsize=0.5]
-		transition53 -> PL13
+		transition49 -> PL44
+	PL45 [fixedsize=true shape=circle width=.5]
+	transition41 [label="" height=0.01 shape=box width=0.5 xlabel="peack+"]
+		PL44 -> transition41 [arrowhead=onormal arrowsize=0.5]
+		transition41 -> PL45
+	PL46 [fixedsize=true shape=circle width=.5]
+	transition42 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
+		PL45 -> transition42 [arrowhead=onormal arrowsize=0.5]
+		transition42 -> PL46
+	transition43 [label="" height=0.01 shape=box width=0.5 xlabel="tack-"]
+		PL46 -> transition43 [arrowhead=onormal arrowsize=0.5]
+		transition43 -> PL31
 	PL47 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
-		PL9 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> PL47
-	PL48 [fixedsize=true shape=circle width=.5]
-	transition47 [label="" height=0.01 shape=box width=0.5 xlabel="tack+"]
-		PL47 -> transition47 [arrowhead=onormal arrowsize=0.5]
-		transition47 -> PL48
-	PL49 [fixedsize=true shape=circle width=.5]
-	transition48 [label="" height=0.01 shape=box width=0.5 xlabel="treq-"]
-		PL48 -> transition48 [arrowhead=onormal arrowsize=0.5]
-		transition48 -> PL49
+	transition42 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt-"]
+		PL45 -> transition42 [arrowhead=onormal arrowsize=0.5]
+		transition42 -> PL47
+	transition44 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
+		PL47 -> transition44 [arrowhead=onormal arrowsize=0.5]
+		transition44 -> PL27
+	PL11 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL10 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL11
+	PL12 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="adbld-"]
+		PL11 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> PL12
+	PL13 [fixedsize=true shape=circle width=.5]
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="adbldout-"]
+		PL12 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> PL13
 	transition51 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL49 -> transition51 [arrowhead=onormal arrowsize=0.5]
-		transition51 -> PL43
-	transition53 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
-		PL49 -> transition53 [arrowhead=onormal arrowsize=0.5]
-		transition53 -> PL13
+		PL13 -> transition51 [arrowhead=onormal arrowsize=0.5]
+		transition51 -> PL14
+	transition49 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL13 -> transition49 [arrowhead=onormal arrowsize=0.5]
+		transition49 -> PL44
+	PL51 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL10 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> PL51
+	PL52 [fixedsize=true shape=circle width=.5]
+	transition47 [label="" height=0.01 shape=box width=0.5 xlabel="peack-"]
+		PL51 -> transition47 [arrowhead=onormal arrowsize=0.5]
+		transition47 -> PL52
+	PL53 [fixedsize=true shape=circle width=.5]
+	transition48 [label="" height=0.01 shape=box width=0.5 xlabel="ackpkt+"]
+		PL52 -> transition48 [arrowhead=onormal arrowsize=0.5]
+		transition48 -> PL53
+	transition49 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL53 -> transition49 [arrowhead=onormal arrowsize=0.5]
+		transition49 -> PL44
+	PL54 [fixedsize=true shape=circle width=.5]
+	transition50 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
+		PL52 -> transition50 [arrowhead=onormal arrowsize=0.5]
+		transition50 -> PL54
+	transition51 [label="" height=0.01 shape=box width=0.5 xlabel="y0_pesendifc+"]
+		PL54 -> transition51 [arrowhead=onormal arrowsize=0.5]
+		transition51 -> PL14
+	PL60 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> PL60
+	transition52 [label="" height=0.01 shape=box width=0.5 xlabel="treq+"]
+		PL60 -> transition52 [arrowhead=onormal arrowsize=0.5]
+		transition52 -> PL56
+	PL61 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="y0_pesendifc-"]
+		PL1 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> PL61
+	transition53 [label="" height=0.01 shape=box width=0.5 xlabel="rdiq+"]
+		PL61 -> transition53 [arrowhead=onormal arrowsize=0.5]
+		transition53 -> PL58
 }

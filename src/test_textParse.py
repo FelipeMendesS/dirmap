@@ -20,7 +20,7 @@ class TestTextParse(TestCase):
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
-        GraphUtil.print_graph(estg_graph, file)
+        GraphUtil.print_graph(estg_graph, file, view_flag=True)
         estg_graph.check_consistency()
         estg_graph.check_output_persistency()
         self.assertEqual(parse_test.regular_inputs, ["req", "ackline"])
@@ -71,10 +71,10 @@ class TestTextParse(TestCase):
     def test_stg_conversion(self):
         # inputs, outputs, graph, name, initial_markings, extended_graph, node_classification =\
         # #     GraphUtil.stg_to_estg(self.PATH_TO_TESTS + "atod.g", overwrite_file_flag=False)
-        # files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
-        #          "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
-        #          "vbe10b", "wrdatab"]
-        files = ["meng9"]
+        files = ["alloc-outbound", "atod", "chu172", "ebergen", "fifo", "hybridf", "master-read", "meng9",
+                 "pe-send-ifc", "qr42", "ram-read-sbuf", "rpdft", "sbuf-ram-write", "sendr-done", "sm", "trimos-send",
+                 "vbe10b", "wrdatab"]
+        # files = ["vbe10b"]
         extension = ".g"
         for file in files:
             try:
@@ -83,7 +83,7 @@ class TestTextParse(TestCase):
                 parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
                 parse_test.read_file()
                 estg_graph = ESTGGraph(parse_test)
-                GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
+                GraphUtil.print_graph(estg_graph, file, view_flag=False, overwrite_graph=True)
                 print("Success")
             except Exception as e:
                 traceback.print_exc()

@@ -109,7 +109,7 @@ class TextParseSTG(object):
         for node in self.initial_markings:
             if TextParseSTG.__is_place(node[0]):
                 place_relation[node[0]] = TextParseSTG.__get_place_name(place_count)
-                initial_transitions.add(set(self.graph[node[0]]))
+                initial_transitions.update(set(self.graph[node[0]]))
                 self.extended_graph[TextParseSTG.__get_place_name(place_count)] = self.graph[node[0]]
                 self.initial_places_list.append(TextParseSTG.__get_place_name(place_count))
                 place_count[0] += 1

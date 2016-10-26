@@ -29,11 +29,11 @@ class GraphUtil(object):
                 if end_place not in mark_placed_places:
                     g.node(end_place, shape="circle", width=".5", fixedsize="true")
                     mark_placed_places[end_place] = 1
-                key = place + end_place + str(graph.transition_variables[place + end_place])
+                key = place + end_place + str(graph.stg_graph_transitions[place + end_place])
                 if key not in mark_traversed_transitions:
                     transition = GraphUtil.__get_transition_name(graph, place, end_place)
                     g.node(transition, label="",
-                           xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                           xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
                            shape="box", width="0.5", height="0.001")
                     g.edge(place, transition, arrowhead="onormal", arrowsize="0.5")
                     g.edge(transition, end_place)
@@ -64,21 +64,21 @@ class GraphUtil(object):
                 g.node(end_place, shape="circle", width=".5", fixedsize="true")
                 traversed_places[end_place] = 1
             elif end_place in traversed_places:
-                key = marking + end_place + str(graph .transition_variables[marking + end_place])
+                key = marking + end_place + str(graph .stg_graph_transitions[marking + end_place])
                 if key not in traversed_transitions:
                     transition = GraphUtil.__get_transition_name(graph, marking, end_place)
                     g.node(transition, label="",
-                           xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                           xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
                            shape="box", width="0.5", height="0.01")
                     g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
                     g.edge(transition, end_place)
                     traversed_transitions[key] = 1
                 continue
-            key = marking + end_place + str(graph .transition_variables[marking + end_place])
+            key = marking + end_place + str(graph.stg_graph_transitions[marking + end_place])
             if key not in traversed_transitions:
                 transition = GraphUtil.__get_transition_name(graph, marking, end_place)
                 g.node(transition, label="",
-                       xlabel=GraphUtil.__transition_to_string(graph.transitions_identification[transition]),
+                       xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
                        shape="box", width="0.5", height="0.01")
                 g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
                 g.edge(transition, end_place)
@@ -89,8 +89,8 @@ class GraphUtil(object):
     @staticmethod
     def __transition_to_string(transition):
         transition_string = ""
-        for index, signal in enumerate(transition[0]):
-            aux = ESTGGraph.SYMBOL_DICT[transition[1][index]]
+        for signal, transition_type in transition:
+            aux = ESTGGraph.SYMBOL_DICT[transition_type]
             transition_string = transition_string + aux[0] + signal + aux[1]
         return transition_string
 

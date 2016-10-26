@@ -1,27 +1,27 @@
 .name ram-read-sbuf
 .inputs  req * precharged * prnotin * wenin * wsldin *
 .outputs  ack * wsen * prnot * wen * wsld * y0_ramreadsbuf *
-PL4/PL5|prnotin+
-PL5/PL6,PL28|wen+
-PL6/PL7|precharged-
-PL8/PL9,PL26|req-
-PL9/PL10|wen-
-PL11/PL12,PL22|y0_ramreadsbuf+
-PL12/PL13,PL21|wsld+
-PL13/PL14|wsldin+
-PL15/PL16|wsld-
-PL16/PL17,PL19|wsldin-
-PL17/PL18|ack-
-PL19/PL20|wsen+
-PL20,PL18/PL1,PL2|req+
-PL3,PL1,PL2/PL4|prnot+
-PL22/PL23,PL25|prnot-
-PL23/PL24|prnotin-
-PL24,PL14/PL15|y0_ramreadsbuf-
-PL25,PL21/PL3|precharged+
-PL26/PL27|wsen-
-PL27,PL10/PL11|wenin-
-PL28/PL29|wenin+
-PL29,PL7/PL8|ack+
-.start PL1 PL2 PL3
+PL3/PL4|prnotin+
+PL4/PL5,PL27|wen+
+PL5/PL6|precharged-
+PL7/PL8,PL25|req-
+PL8/PL9|wen-
+PL10/PL11,PL21|y0_ramreadsbuf+
+PL11/PL12,PL20|wsld+
+PL12/PL13|wsldin+
+PL14/PL15|wsld-
+PL15/PL16,PL18|wsldin-
+PL16/PL17|ack-
+PL18/PL19|wsen+
+PL19,PL17/PL1|req+
+PL2,PL1/PL3|prnot+
+PL21/PL22,PL24|prnot-
+PL22/PL23|prnotin-
+PL23,PL13/PL14|y0_ramreadsbuf-
+PL24,PL20/PL2|precharged+
+PL25/PL26|wsen-
+PL26,PL9/PL10|wenin-
+PL27/PL28|wenin+
+PL28,PL6/PL7|ack+
+.start PL1 PL2
 .end

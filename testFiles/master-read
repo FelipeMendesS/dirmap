@@ -1,33 +1,33 @@
 .name master_read
 .inputs  ari * pri * bprn * xack * di * pack *
 .outputs  aro * pro * breq * busy * mrdc * do * pdo * x *
-PL7/PL8|aro-
-PL8/PL9|ari-
-PL10/PL11,PL12|pri-
-PL11/PL2|aro+
-PL2/PL1|ari+
-PL3,PL1/PL7,PL13|pro-
-PL20/PL21|bprn-
-PL21/PL22|x+
-PL22/PL4,PL23|busy-
-PL15,PL9/PL10|pro+
-PL18/PL19|bprn+
-PL19,PL12,PL17/PL3,PL20|breq-
-PL24/PL25|xack-
-PL6/PL34|do+
-PL34/PL35,PL36|di+
-PL28/PL29,PL30|di-
-PL5/PL26|pack+
-PL26,PL35/PL27,PL31|pdo-
-PL33,PL25/PL6|x-
-PL31/PL32|pack-
-PL32,PL29/PL5,PL33|pdo+
-PL36/PL37,PL38,PL39|mrdc+
-PL37,PL27/PL28|do-
-PL38,PL16/PL17|busy+
-PL39/PL40|xack+
-PL40,PL23,PL30/PL24|mrdc-
-PL13/PL14|pri+
-PL14,PL4/PL15,PL16,PL18|breq+
-.start PL1 PL2 PL3 PL4 PL5 PL6
+PL1/PL37|ari+
+PL22/PL23|aro-
+PL23/PL24|ari-
+PL25/PL26,PL27|pri-
+PL26/PL1|aro+
+PL2,PL37/PL22,PL28|pro-
+PL38/PL39|bprn-
+PL39/PL40|x+
+PL40/PL3,PL34|busy-
+PL30,PL24/PL25|pro+
+PL32/PL33|bprn+
+PL33,PL27,PL19/PL2,PL38|breq-
+PL12/PL13|xack-
+PL5/PL6|do+
+PL6/PL7,PL16|di+
+PL9/PL10,PL11|di-
+PL4/PL35|pack+
+PL35,PL7/PL8,PL14|pdo-
+PL36,PL13/PL5|x-
+PL14/PL15|pack-
+PL15,PL10/PL4,PL36|pdo+
+PL16/PL17,PL18,PL20|mrdc+
+PL17,PL8/PL9|do-
+PL18,PL31/PL19|busy+
+PL20/PL21|xack+
+PL21,PL34,PL11/PL12|mrdc-
+PL28/PL29|pri+
+PL29,PL3/PL30,PL31,PL32|breq+
+.start PL1 PL2 PL3 PL4 PL5
 .end

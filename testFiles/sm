@@ -1,15 +1,15 @@
 .name sm
 .inputs  s * m *
 .outputs  q *
-PL3/PL4|q+
-PL4/PL5|s-
-PL5/PL2|q-
-PL2,PL1/PL3|s+
-PL8/PL9|s+
-PL9/PL6|q+
-PL6/PL7|s-
-PL7/PL5|m-
-PL4/PL6|m+
-PL1,PL2/PL8|m+
+PL8/PL9|q+
+PL9/PL7|s-
+PL7/PL2|q-
+PL2,PL1/PL8|s+
+PL3/PL4|s+
+PL4/PL5|q+
+PL5/PL6|s-
+PL6/PL7|m-
+PL9/PL5|m+
+PL1,PL2/PL3|m+
 .start PL1 PL2
 .end

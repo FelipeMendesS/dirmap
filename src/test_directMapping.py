@@ -10,21 +10,30 @@ class TestDirectMapping(TestCase):
     PATH_TO_TESTS = "../testFiles/"
     PATH_TO_IMAGES = "../graph/"
 
+    def setUp(self):
+        self.file = "testFile"
+        self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
+        self.parse_test.read_file()
+        self.estg_graph = ESTGGraph(self.parse_test)
+        self.direct = DirectMapping(self.estg_graph)
+        GraphUtil.print_graph(self.estg_graph, self.file, True)
+
+
     # How to make this tests automated? Seems to be something pretty hard to automatically test without using the same
     # algorithm being tested to generate the results to be compared with
+    # Improve testing!!! I just need some working tests before finishing these stuff.
     def test_get_set_of_control_cell_places(self):
-        file = "pe-send-ifc"
-        parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
-        parse_test.read_file()
-        GraphUtil.print_graph(parse_test.graph, file, True)
-        direct = DirectMapping(parse_test.graph)
-        print(direct.set_of_control_cell_places)
+        print(self.direct.set_of_control_cell_places)
 
     def test_check_for_size_2_cycles(self):
-        file = "pe-send-ifc"
-        parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
-        parse_test.read_file()
-        direct = DirectMapping(parse_test.graph)
-        print(direct.size_2_cycles)
-        print(direct.cycle_0_final_transition)
-        print(direct.control_cells_graph)
+        print(self.direct.size_2_cycles)
+        print(self.direct.cycle_0_final_transition)
+        print(self.direct.control_cells_graph)
+
+    def test_input_connections(self):
+        print(self.direct.inverse_control_cells_graph)
+        print(self.direct.control_cell_input_to_connected_control_cells)
+
+
+    def test_output_signal_values(self):
+        print(self.direct.output_control_cell_relation)

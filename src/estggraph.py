@@ -1,7 +1,7 @@
 import re
 from typing import List, Dict, Tuple, Union, Set
 from textparseestg import TextParseESTG
-Transition = Tuple[List[str], List[int]]
+Transition = List[Tuple[str, int]]
 
 
 class ESTGGraph (object):
@@ -42,13 +42,13 @@ class ESTGGraph (object):
         self.stg_graph = {}  # type: Dict[str, Set[str]]
         # Map that shows the variables involved in each and every transition in the graph. The keys are made by the
         # concatenation of the nodes names
-        self.transition_variables = {}  # type: Dict[str, Transition]
+        self.stg_graph_transitions = {}  # type: Dict[str, Transition]
         # Map that holds the identification of all transitions
-        self.transitions_identification = {}  # type: Dict[str, Transition]
+        self.transitions_name_to_signal = {}  # type: Dict[str, Transition]
         # Map that stores the real complete graph, considering also the transitions as nodes.
         self.extended_graph = {}  # type: Dict[str, List[str]]
         # Same map but inverted
-        self.inverted_extended_graph = {}  # type: Dict[str, List[str]]
+        self.inverted_extended_graph = {}  # type: Dict[str, List[str]]  Not sure If working, but assuming it is.
         # List of places starting with tokens
         self.initial_places = text_parse.initial_places  # type: List[str]
         # Map of signals and their initial values
@@ -64,28 +64,27 @@ class ESTGGraph (object):
             self.signal_map[conditional_signal] = self.CONDITIONAL_SIGNAL
         for line in text_parse.transitions:
             [vertices, variables] = map(str.strip, line.split('|'))
-            v = []
-            t = []
+            transition_conditions = []
             for variable in map(str.strip, variables.split(',')):
                 if re.match(r"#\w+[+\-*]", variable):
                     if variable[-1] == "+":
-                        t.append(self.LEVEL_HIGH)
+                        t = self.LEVEL_HIGH
                     elif variable[-1] == "-":
-                        t.append(self.LEVEL_LOW)
+                        t = self.LEVEL_LOW
                     else:
-                        t.append(self.DONT_CARE)
+                        t = self.DONT_CARE
                 else:
                     if variable[-1] == "+":
-                        t.append(self.RISING_EDGE)
+                        t = self.RISING_EDGE
                     elif variable[-1] == "-":
-                        t.append(self.FALLING_EDGE)
+                        t = self.FALLING_EDGE
                     else:
-                        t.append(self.DONT_CARE)
-                v.append(variable.strip('#+-*'))
-            transition_conditions = (v, t)
+                        t = self.DONT_CARE
+                v = variable.strip('#+-*')
+                transition_conditions.append((v, t))
             transition_count += 1
             transition_name = "transition" + str(transition_count)
-            self.transitions_identification[transition_name] = transition_conditions
+            self.transitions_name_to_signal[transition_name] = transition_conditions
             [origin_vertex, destination_vertex] = map(str.strip, vertices.split('/'))
             self.inverted_extended_graph[transition_name] = []
             for origin in map(str.strip, origin_vertex.split(',')):
@@ -99,7 +98,7 @@ class ESTGGraph (object):
                 self.extended_graph[transition_name] = []
                 for destination in destination_vertex.split(','):
                     self.stg_graph[origin].add(destination)
-                    self.transition_variables[origin + destination] = transition_conditions
+                    self.stg_graph_transitions[origin + destination] = transition_conditions
                     self.extended_graph[transition_name].append(destination)
                     if destination not in self.inverted_extended_graph:
                         self.inverted_extended_graph[destination] = [transition_name]
@@ -126,17 +125,16 @@ class ESTGGraph (object):
 
     def aux_check_consistency(self, visited_graph_map, current_signal_values, current_place, order_of_signal_list):
         for destination in self.stg_graph[current_place]:
-            signal_values = dict(current_signal_values)
-            (signals, transitions) = self.transition_variables[current_place + destination]
-            for index, signal in enumerate(signals):
-                if transitions[index] == self.RISING_EDGE:
+            signal_values = dict(current_signal_values)  # Just copying
+            for signal, transition_type in self.stg_graph_transitions[current_place + destination]:
+                if transition_type == self.RISING_EDGE:
                     if signal_values[signal] == 0 or signal_values[signal] == "*":
                         signal_values[signal] = 1
                     else:
                         raise Exception("Inconsistent transition between place " + current_place + " and place " +
                                         destination + ". " + signal +
                                         " was 1 and is expected to rise in this transition")
-                elif transitions[index] == self.FALLING_EDGE:
+                elif transition_type == self.FALLING_EDGE:
                     if signal_values[signal] == 1 or signal_values[signal] == "*":
                         signal_values[signal] = 0
                     else:
@@ -157,7 +155,7 @@ class ESTGGraph (object):
         for node in self.node_classification.keys():
             if node in self.stg_graph:
                 for transition in self.extended_graph[node]:
-                    for signal in self.transitions_identification[transition][0]:
+                    for signal, transition_type in self.transitions_name_to_signal[transition]:
                         if self.signal_map[signal] == self.OUTPUT:
                             raise Exception("In the decision coming from place " + node +
                                             ", one of the transitions contain the output signal " + signal +
@@ -167,8 +165,8 @@ class ESTGGraph (object):
 
     def __check_variables_use(self):
         variable_check_map = dict.fromkeys(self.signal_map.keys(), 0)
-        for value in self.transition_variables.values():
-            for variable in value[0]:
+        for value in self.stg_graph_transitions.values():
+            for variable, transition_type in value:
                 if variable in variable_check_map:
                     variable_check_map[variable] = 1
                 else:
