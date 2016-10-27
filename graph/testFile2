@@ -83,7 +83,7 @@ strict digraph {
 		p18 -> transition21 [arrowhead=onormal arrowsize=0.5]
 		transition21 -> p19
 	p20 [fixedsize=true shape=circle width=.5]
-	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="dack*regout-"]
+	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="regout-"]
 		p19 -> transition22 [arrowhead=onormal arrowsize=0.5]
 		transition22 -> p20
 	p21 [fixedsize=true shape=circle width=.5]
@@ -91,14 +91,14 @@ strict digraph {
 		p20 -> transition23 [arrowhead=onormal arrowsize=0.5]
 		transition23 -> p21
 	p22 [fixedsize=true shape=circle width=.5]
-	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="dack*regout+"]
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="regout+"]
 		p21 -> transition24 [arrowhead=onormal arrowsize=0.5]
 		transition24 -> p22
 	p23 [fixedsize=true shape=circle width=.5]
 	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="dack*ackin+"]
 		p22 -> transition25 [arrowhead=onormal arrowsize=0.5]
 		transition25 -> p23
-	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="dack*regout-"]
+	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="regout-"]
 		p23 -> transition26 [arrowhead=onormal arrowsize=0.5]
 		transition26 -> p20
 	p24 [fixedsize=true shape=circle width=.5]

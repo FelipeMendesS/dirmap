@@ -422,7 +422,7 @@
 <!-- transition22 -->
 <g id="node43" class="node"><title>transition22</title>
 <polygon fill="none" stroke="black" points="204,-437 168,-437 168,-436 204,-436 204,-437"/>
-<text text-anchor="middle" x="131" y="-440.8" font-family="Times,serif" font-size="14.00">dack*regout&#45;</text>
+<text text-anchor="middle" x="147.5" y="-440.8" font-family="Times,serif" font-size="14.00">regout&#45;</text>
 </g>
 <!-- p19&#45;&gt;transition22 -->
 <g id="edge43" class="edge"><title>p19&#45;&gt;transition22</title>
@@ -472,7 +472,7 @@
 <!-- transition24 -->
 <g id="node47" class="node"><title>transition24</title>
 <polygon fill="none" stroke="black" points="250,-219 214,-219 214,-218 250,-218 250,-219"/>
-<text text-anchor="middle" x="175" y="-222.8" font-family="Times,serif" font-size="14.00">dack*regout+</text>
+<text text-anchor="middle" x="192" y="-222.8" font-family="Times,serif" font-size="14.00">regout+</text>
 </g>
 <!-- p21&#45;&gt;transition24 -->
 <g id="edge47" class="edge"><title>p21&#45;&gt;transition24</title>
@@ -512,7 +512,7 @@
 <!-- transition26 -->
 <g id="node50" class="node"><title>transition26</title>
 <polygon fill="none" stroke="black" points="227,-1 191,-1 191,-0 227,-0 227,-1"/>
-<text text-anchor="middle" x="154" y="-4.8" font-family="Times,serif" font-size="14.00">dack*regout&#45;</text>
+<text text-anchor="middle" x="170.5" y="-4.8" font-family="Times,serif" font-size="14.00">regout&#45;</text>
 </g>
 <!-- p23&#45;&gt;transition26 -->
 <g id="edge51" class="edge"><title>p23&#45;&gt;transition26</title>

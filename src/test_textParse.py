@@ -16,7 +16,7 @@ class TestTextParse(TestCase):
         return
 
     def test_read_file1(self):
-        file = "testFile"
+        file = "hybridf"
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
@@ -44,7 +44,7 @@ class TestTextParse(TestCase):
         self.assertEqual(parse_test.outputs, ["dreq", "endmaint", "ready", "regout"])
 
     def test_read_file3(self):
-        file = "testFile3"
+        file = "master-read"
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)

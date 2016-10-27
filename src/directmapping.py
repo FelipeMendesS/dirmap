@@ -39,9 +39,12 @@ class DirectMapping(object):
         self.size_2_cycles = []  # type: List[List[str]]
         self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
         self.output_control_cell_relation = {}  # type: Dict[str, Dict[str, int]]
+
+        
+
         self.check_for_size_2_cycles()
         self.get_control_cell_graph()
-        self.get_output_control_cell_relation()
+        # self.get_output_control_cell_relation()
 
     def get_set_of_control_cell_places(self):
         set_of_control_cell_places = set(self.graph.initial_places)
@@ -140,6 +143,8 @@ class DirectMapping(object):
 
     def get_output_control_cell_relation(self):
         # Algorithm working only for the case without concurrency
+        # Not working yet for case starting with * don't care
+        # Treat case when a loop doesn' add any new information for the don't care. Not sure how to do it yet.
         output_signal_dict = {}
         current_output_signal_dict = {}
         # If for the control cell is 1, this means none of the output signals in undetermined in this one.
@@ -151,7 +156,7 @@ class DirectMapping(object):
         for place in self.set_of_control_cell_places:
             self.output_control_cell_relation[place] = dict(output_signal_dict)
             determined_control_cells[place] = 0
-        self.output_control_cell_relation[self.graph.initial_places[0]] = current_output_signal_dict
+        self.output_control_cell_relation[self.graph.initial_places[0]] = dict(current_output_signal_dict)
         self.__aux_get_output_control_cell_relation(self.graph.initial_places[0], determined_control_cells,
                                           current_output_signal_dict)
 
@@ -166,18 +171,20 @@ class DirectMapping(object):
             output_signals_list = self.__transition_contains_output(self.graph.transitions_name_to_signal[transition])
             next_marking = self.graph.extended_graph[transition][0]
             if len(output_signals_list) == 0:
+                if next_marking in self.set_of_control_cell_places:
+                    self.output_control_cell_relation[next_marking] = dict(current_output_signal_dict)
                 self.__aux_get_output_control_cell_relation(next_marking, determined_control_cells,
-                                                            current_output_signal_dict)
+                                                            dict(current_output_signal_dict))
             else:
                 for signal, transition_type in output_signals_list:
                     if transition_type == ESTGGraph.RISING_EDGE:
                         current_output_signal_dict[signal] = 1
                     else:
                         current_output_signal_dict[signal] = 0
-                if current_marking in self.set_of_control_cell_places:
-                    self.output_control_cell_relation[current_marking] = dict(current_output_signal_dict)
-            self.__aux_get_output_control_cell_relation(next_marking, determined_control_cells,
-                                                        current_output_signal_dict)
+                if next_marking in self.set_of_control_cell_places:
+                    self.output_control_cell_relation[next_marking] = dict(current_output_signal_dict)
+                self.__aux_get_output_control_cell_relation(next_marking, determined_control_cells,
+                                                            dict(current_output_signal_dict))
 
     def __is_control_cell_output_signal_determined(self, control_cell):
         for signal in self.output_control_cell_relation[control_cell].keys():

@@ -23,11 +23,11 @@ p25/p16|ready-
 p16/p17|dack-,dtc-
 p17/p18|regout+
 p18/p19|dack*,ackin+
-p19/p20|dack*, regout-
+p19/p20|regout-
 p20/p21|#empty-,dack*,ackin-
-p21/p22|dack*,regout+
+p21/p22|regout+
 p22/p23|dack*,ackin+
-p23/p20|dack*, regout-
+p23/p20|regout-
 p20/p24|#empty+,dack+,ackin-
 .start p1
 .end
