@@ -26,6 +26,7 @@ class ESTGGraph (object):
     CONCURRENCY_OPEN = 8
     CHOICE_OPEN = 9
     CONCURRENCY_CLOSE_OR_HUB = 10
+    CHOICE_CLOSE_OR_HUB = 11
 
     SYMBOL_DICT = {
         3: ["", "+"],
@@ -197,6 +198,15 @@ class ESTGGraph (object):
                 aux = self.node_classification[transition][1]
                 aux.append(transition_fanin_count[transition])
                 self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB, aux)
+        for place in self.stg_graph.keys():
+            aux = len(self.inverted_extended_graph[place])
+            if aux > 1:
+                if place in self.node_classification:
+                    choice_open_index = self.node_classification[place][1]
+                    choice_open_index.append(aux)
+                    self.node_classification[place] = (ESTGGraph.CHOICE_CLOSE_OR_HUB, choice_open_index)
+                else:
+                    self.node_classification[place] = (ESTGGraph.CHOICE_CLOSE_OR_HUB, [aux])
 
     @staticmethod
     def get_current_signal_values(current_signal_values, order_of_signal_list):

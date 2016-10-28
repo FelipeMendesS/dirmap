@@ -30,7 +30,7 @@ class DirectMapping(object):
     }
 
     def __init__(self, graph: ESTGGraph):
-        # TODO: Currently not considering initial places when calculating path with only 2 control cells.
+        # TODO: Currently not considering initial places when calculating path with only 2 control cells. FIXIT
         self.graph = graph
         self.control_cell_input_to_connected_control_cells = {}  # type: Dict[str, Set[str]]
         self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[str]
@@ -39,9 +39,11 @@ class DirectMapping(object):
         self.size_2_cycles = []  # type: List[List[str]]
         self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
         self.output_control_cell_relation = {}  # type: Dict[str, Dict[str, int]]
-
-        
-
+        # Starting with variables directly related to circuit implementation
+        # Assuming choices can only happen with inputs (Which makes sense) and there are no more than 1 choice close
+        # Between two adjacent control cells. (IMPORTANT ASSUMPTION)
+        # TODO: Doesn't work for the case when there is concurrency before choice. They are all being anded together.
+        self.control_cell_deactivation_signal = {}  # type: Dict[str, Set[Union[str, Tuple[str]]]]
         self.check_for_size_2_cycles()
         self.get_control_cell_graph()
         # self.get_output_control_cell_relation()
@@ -105,13 +107,35 @@ class DirectMapping(object):
                 self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
 
     def get_control_cell_graph(self):
+        choice_map = {}  # type: Dict[str, Dict[str, Tuple[str]]]
+        choice_inverse_map = {}  # type: Dict[str, Dict[str, Tuple[str]]]
+        for control_cell in self.set_of_control_cell_places:
+            self.control_cell_deactivation_signal[control_cell] = set()
+            choice_map[control_cell] = {}
+            choice_inverse_map[control_cell] = {}
         for control_cell in self.set_of_control_cell_places:
             visited_places = set()
             visited_places.add(control_cell)
             self.control_cells_graph[control_cell] = set()
+            choice_set = set()
+            choice_inverse_set = set()
+            if control_cell in self.graph.node_classification:
+                if self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_OPEN or\
+                        (self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB and
+                         len(self.graph.node_classification[control_cell][1]) == 2):
+                    choice_set.add(control_cell)
+                if self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB:
+                    choice_inverse_set.add(control_cell)
             for place in self.graph.stg_graph[control_cell]:
                 transition = self.__get_transition_name(control_cell, place)
-                self.__aux_get_control_cell_graph(control_cell, place, visited_places, transition)
+                self.__aux_get_control_cell_graph(control_cell, place, visited_places, transition, set(choice_set),
+                                                  choice_map, set(choice_inverse_set), choice_inverse_map)
+        for control_cell in choice_map.keys():
+            for node in choice_map[control_cell].keys():
+                self.control_cell_deactivation_signal[control_cell].add(choice_map[control_cell][node])
+        for control_cell in choice_inverse_map.keys():
+            for node in choice_inverse_map[control_cell].keys():
+                self.control_cell_deactivation_signal[control_cell].add(choice_inverse_map[control_cell][node])
         for place in self.control_cells_graph.keys():
             for connected_place in self.control_cells_graph[place]:
                 if connected_place in self.inverse_control_cells_graph:
@@ -120,19 +144,47 @@ class DirectMapping(object):
                     self.inverse_control_cells_graph[connected_place] = set()
                     self.inverse_control_cells_graph[connected_place].add(place)
 
-    def __aux_get_control_cell_graph(self, current_control_cell, current_place, visited_places, transition):
+    def __aux_get_control_cell_graph(self, current_control_cell, current_place, visited_places, transition, choice_set,
+                                     choice_map, choice_inverse_set, choice_inverse_map):
         if current_place not in visited_places:
             if current_place in self.set_of_control_cell_places:
                 self.control_cells_graph[current_control_cell].add(current_place)
                 visited_places.add(current_place)
                 if current_place + transition in self.control_cell_input_to_connected_control_cells:
                     self.control_cell_input_to_connected_control_cells[current_place + transition].add(current_control_cell)
+                if len(choice_set) == 0:
+                    self.control_cell_deactivation_signal[current_control_cell].add(current_place)
+                else:
+                    if str(choice_set) in choice_map[current_control_cell]:
+                        aux = list(choice_map[current_control_cell][str(choice_set)])
+                        aux.append(current_place)
+                        choice_map[current_control_cell][str(choice_set)] = tuple(aux)
+                    else:
+                        choice_map[current_control_cell][str(choice_set)] = (current_place,)
+                if len(choice_inverse_set) == 0:
+                    self.control_cell_deactivation_signal[current_place].add(current_control_cell)
+                else:
+                    if str(choice_inverse_set) in choice_inverse_map[current_place]:
+                        aux = list(choice_inverse_map[current_place][str(choice_inverse_set)])
+                        aux.append(current_control_cell)
+                        choice_inverse_map[current_place][str(choice_inverse_set)] = tuple(aux)
+                    else:
+                        choice_inverse_map[current_place][str(choice_inverse_set)] = (current_control_cell,)
                 return
             else:
                 visited_places.add(current_place)
+                if current_place in self.graph.node_classification:
+                    if self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_OPEN or\
+                        (self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB and
+                         len(self.graph.node_classification[current_place][1]) == 2):
+                        choice_set.add(current_place)
+                    if self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB:
+                        choice_inverse_set.add(current_place)
                 for place in self.graph.stg_graph[current_place]:
                     next_transition = self.__get_transition_name(current_place, place)
-                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places, next_transition)
+                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places, next_transition,
+                                                      set(choice_set), choice_map, set(choice_inverse_set),
+                                                      choice_inverse_map)
 
     def __get_transition_name(self, initial_place, destination_place):
         transition_signals = self.graph.stg_graph_transitions[initial_place + destination_place]

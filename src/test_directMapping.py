@@ -11,7 +11,7 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = "master-read"
+        self.file = "testFile"
         self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
         self.parse_test.read_file()
         self.estg_graph = ESTGGraph(self.parse_test)
@@ -25,6 +25,11 @@ class TestDirectMapping(TestCase):
     def test_get_set_of_control_cell_places(self):
         print("Set of control cell places")
         print(self.direct.set_of_control_cell_places)
+        print("Ai signals")
+        print(self.direct.control_cell_deactivation_signal)
+        print(self.direct.control_cells_graph)
+        print(self.direct.graph.node_classification)
+
 
     def test_check_for_size_2_cycles(self):
         print("Size 2 cycle")
