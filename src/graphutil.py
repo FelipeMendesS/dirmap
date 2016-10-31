@@ -23,20 +23,20 @@ class GraphUtil(object):
         mark_placed_places = {}
         for place in initial_marking:
             if place not in mark_placed_places:
-                g.node(place, shape="circle", width=".5", fixedsize="true")
+                g.node(place.name, shape="circle", width=".5", fixedsize="true")
                 mark_placed_places[place] = 1
             for end_place in graph.stg_graph[place]:
                 if end_place not in mark_placed_places:
-                    g.node(end_place, shape="circle", width=".5", fixedsize="true")
+                    g.node(end_place.name, shape="circle", width=".5", fixedsize="true")
                     mark_placed_places[end_place] = 1
-                key = place + end_place + str(graph.stg_graph_transitions[place + end_place])
+                key = place.name + end_place.name + str(graph.stg_graph_transitions[(place, end_place)])
                 if key not in mark_traversed_transitions:
-                    transition = GraphUtil.__get_transition_name(graph, place, end_place)
-                    g.node(transition, label="",
-                           xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
+                    transition = graph.stg_graph_transitions[(place, end_place)]
+                    g.node(transition.name, label="",
+                           xlabel=GraphUtil.__transition_to_string(transition.transition),
                            shape="box", width="0.5", height="0.001")
-                    g.edge(place, transition, arrowhead="onormal", arrowsize="0.5")
-                    g.edge(transition, end_place)
+                    g.edge(place.name, transition.name, arrowhead="onormal", arrowsize="0.5")
+                    g.edge(transition.name, end_place.name)
                     mark_traversed_transitions[key] = 1
                 GraphUtil.__aux_print_graph(mark_traversed_transitions, mark_placed_places, g, end_place, graph)
         g.render(TextParseESTG.PATH_TO_GRAPH + file_name)
@@ -61,27 +61,27 @@ class GraphUtil(object):
                           graph: ESTGGraph):
         for end_place in graph.stg_graph[marking]:
             if end_place not in traversed_places:
-                g.node(end_place, shape="circle", width=".5", fixedsize="true")
+                g.node(end_place.name, shape="circle", width=".5", fixedsize="true")
                 traversed_places[end_place] = 1
             elif end_place in traversed_places:
-                key = marking + end_place + str(graph .stg_graph_transitions[marking + end_place])
+                key = marking.name + end_place.name + str(graph.stg_graph_transitions[(marking,  end_place)])
                 if key not in traversed_transitions:
-                    transition = GraphUtil.__get_transition_name(graph, marking, end_place)
-                    g.node(transition, label="",
-                           xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
+                    transition = graph.stg_graph_transitions[(marking, end_place)]
+                    g.node(transition.name, label="",
+                           xlabel=GraphUtil.__transition_to_string(transition.transition),
                            shape="box", width="0.5", height="0.01")
-                    g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
-                    g.edge(transition, end_place)
+                    g.edge(marking.name, transition.name, arrowhead="onormal", arrowsize="0.5")
+                    g.edge(transition.name, end_place.name)
                     traversed_transitions[key] = 1
                 continue
-            key = marking + end_place + str(graph.stg_graph_transitions[marking + end_place])
+            key = marking.name + end_place.name + str(graph.stg_graph_transitions[(marking, end_place)])
             if key not in traversed_transitions:
-                transition = GraphUtil.__get_transition_name(graph, marking, end_place)
-                g.node(transition, label="",
-                       xlabel=GraphUtil.__transition_to_string(graph.transitions_name_to_signal[transition]),
+                transition = graph.stg_graph_transitions[(marking, end_place)]
+                g.node(transition.name, label="",
+                       xlabel=GraphUtil.__transition_to_string(transition.transition),
                        shape="box", width="0.5", height="0.01")
-                g.edge(marking, transition, arrowhead="onormal", arrowsize="0.5")
-                g.edge(transition, end_place)
+                g.edge(marking.name, transition.name, arrowhead="onormal", arrowsize="0.5")
+                g.edge(transition.name, end_place.name)
                 traversed_transitions[key] = 1
             GraphUtil.__aux_print_graph(traversed_transitions, traversed_places, g, end_place, graph)
     # Only renders the svg file if it doesn't exist yet or if the description was changed after the last time.
@@ -93,14 +93,6 @@ class GraphUtil(object):
             aux = ESTGGraph.SYMBOL_DICT[transition_type]
             transition_string = transition_string + aux[0] + signal + aux[1]
         return transition_string
-
-    @staticmethod
-    def __get_transition_name(graph: ESTGGraph, start_place: str, end_place: str):
-        for transition in graph.extended_graph[start_place]:
-            for place in graph.extended_graph[transition]:
-                if place == end_place:
-                    return transition
-        raise Exception("Two places not separated by a transition were expected to be.")
 
     @staticmethod
     def __was_file_changed(file_name):

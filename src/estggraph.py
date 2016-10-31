@@ -1,6 +1,7 @@
 import re
 from typing import List, Dict, Tuple, Union, Set
 from textparseestg import TextParseESTG
+from node import Node
 Transition = List[Tuple[str, int]]
 
 
@@ -16,46 +17,37 @@ class ESTGGraph (object):
     INPUT = 0
     OUTPUT = 1
     CONDITIONAL_SIGNAL = 2
-    # Transitions classifications
-    RISING_EDGE = 3
-    FALLING_EDGE = 4
-    DONT_CARE = 5
-    LEVEL_HIGH = 6
-    LEVEL_LOW = 7
-    # Node classifications
-    CONCURRENCY_OPEN = 8
-    CHOICE_OPEN = 9
-    CONCURRENCY_CLOSE_OR_HUB = 10
-    CHOICE_CLOSE_OR_HUB = 11
 
     SYMBOL_DICT = {
-        3: ["", "+"],
-        4: ["", "-"],
-        5: ["", "*"],
-        6: ["[", "+]"],
-        7: ["[", "-]"]
+        Node.RISING_EDGE: ["", "+"],
+        Node.FALLING_EDGE: ["", "-"],
+        Node.DONT_CARE: ["", "*"],
+        Node.LEVEL_HIGH: ["[", "+]"],
+        Node.LEVEL_LOW: ["[", "-]"]
     }
 
     def __init__(self, text_parse: TextParseESTG):
         # Map to relate all variables to type (Input, output, conditional signal)
         self.signal_map = {}  # type: Dict[str, int]
         # Map that shows places graph
-        self.stg_graph = {}  # type: Dict[str, Set[str]]
+        self.stg_graph = {}  # type: Dict[Node, Set[Node]]
         # Map that shows the variables involved in each and every transition in the graph. The keys are made by the
         # concatenation of the nodes names
-        self.stg_graph_transitions = {}  # type: Dict[str, Transition]
+        self.stg_graph_transitions = {}  # type: Dict[Tuple[Node, Node], Node]
         # Map that holds the identification of all transitions
+        # Don't need anymore
         self.transitions_name_to_signal = {}  # type: Dict[str, Transition]
         # Map that stores the real complete graph, considering also the transitions as nodes.
-        self.extended_graph = {}  # type: Dict[str, List[str]]
+        self.extended_graph = {}  # type: Dict[Node, List[Node]]
         # Same map but inverted
-        self.inverted_extended_graph = {}  # type: Dict[str, List[str]]  Not sure If working, but assuming it is.
+        self.inverted_extended_graph = {}  # type: Dict[Node, List[Node]]
         # List of places starting with tokens
-        self.initial_places = text_parse.initial_places  # type: List[str]
+        self.initial_places = text_parse.initial_places  # type: List[Node]
         # Map of signals and their initial values
         self.initial_signal_values = text_parse.initial_signal_values  # type: Dict[str, Union[int,str]]
         # Node classification to check concurrency and decisions
-        self.node_classification = {}  # type: Dict[str,Tuple[int, List[int]]]
+        # not needed
+        self.node_classification = {}  # type: Dict[Node,Tuple[int, List[int]]]
         transition_count = 0
         for regular_input in text_parse.regular_inputs:
             self.signal_map[regular_input] = self.INPUT
@@ -65,46 +57,29 @@ class ESTGGraph (object):
             self.signal_map[conditional_signal] = self.CONDITIONAL_SIGNAL
         for line in text_parse.transitions:
             [vertices, variables] = map(str.strip, line.split('|'))
-            transition_conditions = []
-            for variable in map(str.strip, variables.split(',')):
-                if re.match(r"#\w+[+\-*]", variable):
-                    if variable[-1] == "+":
-                        t = self.LEVEL_HIGH
-                    elif variable[-1] == "-":
-                        t = self.LEVEL_LOW
-                    else:
-                        t = self.DONT_CARE
-                else:
-                    if variable[-1] == "+":
-                        t = self.RISING_EDGE
-                    elif variable[-1] == "-":
-                        t = self.FALLING_EDGE
-                    else:
-                        t = self.DONT_CARE
-                v = variable.strip('#+-*')
-                transition_conditions.append((v, t))
+            transition = Node(False, transition_count=transition_count, transition_text=variables)
             transition_count += 1
-            transition_name = "transition" + str(transition_count)
-            self.transitions_name_to_signal[transition_name] = transition_conditions
             [origin_vertex, destination_vertex] = map(str.strip, vertices.split('/'))
-            self.inverted_extended_graph[transition_name] = []
+            self.inverted_extended_graph[transition] = []
             for origin in map(str.strip, origin_vertex.split(',')):
-                if origin not in self.stg_graph:
-                    self.stg_graph[origin] = set()
-                if origin not in self.extended_graph:
-                    self.extended_graph[origin] = [transition_name]
+                origin_node = Node(True, name=origin)
+                if origin_node not in self.stg_graph:
+                    self.stg_graph[origin_node] = set()
+                if origin_node not in self.extended_graph:
+                    self.extended_graph[origin_node] = [transition]
                 else:
-                    self.extended_graph[origin].append(transition_name)
-                self.inverted_extended_graph[transition_name].append(origin)
-                self.extended_graph[transition_name] = []
+                    self.extended_graph[origin_node].append(transition)
+                self.inverted_extended_graph[transition].append(origin_node)
+                self.extended_graph[transition] = []
                 for destination in destination_vertex.split(','):
-                    self.stg_graph[origin].add(destination)
-                    self.stg_graph_transitions[origin + destination] = transition_conditions
-                    self.extended_graph[transition_name].append(destination)
-                    if destination not in self.inverted_extended_graph:
-                        self.inverted_extended_graph[destination] = [transition_name]
+                    destination_node = Node(True, name=destination)
+                    self.stg_graph[origin_node].add(destination_node)
+                    self.stg_graph_transitions[(origin_node, destination_node)] = transition
+                    self.extended_graph[transition].append(destination_node)
+                    if destination_node not in self.inverted_extended_graph:
+                        self.inverted_extended_graph[destination_node] = [transition]
                     else:
-                        self.inverted_extended_graph[destination].append(transition_name)
+                        self.inverted_extended_graph[destination_node].append(transition)
         self.__classify_nodes()
         self.__check_variables_use()
 
@@ -124,18 +99,19 @@ class ESTGGraph (object):
             self.aux_check_consistency(visited_graph_map, current_signal_values, place, order_of_signal_list)
         print("STG is consistent")
 
+    # Will redo completey algorithm
     def aux_check_consistency(self, visited_graph_map, current_signal_values, current_place, order_of_signal_list):
         for destination in self.stg_graph[current_place]:
             signal_values = dict(current_signal_values)  # Just copying
-            for signal, transition_type in self.stg_graph_transitions[current_place + destination]:
-                if transition_type == self.RISING_EDGE:
+            for signal, transition_type in self.stg_graph_transitions[(current_place, destination)].transition:
+                if transition_type == Node.RISING_EDGE:
                     if signal_values[signal] == 0 or signal_values[signal] == "*":
                         signal_values[signal] = 1
                     else:
                         raise Exception("Inconsistent transition between place " + current_place + " and place " +
                                         destination + ". " + signal +
                                         " was 1 and is expected to rise in this transition")
-                elif transition_type == self.FALLING_EDGE:
+                elif transition_type == Node.FALLING_EDGE:
                     if signal_values[signal] == 1 or signal_values[signal] == "*":
                         signal_values[signal] = 0
                     else:
@@ -149,64 +125,53 @@ class ESTGGraph (object):
                 # Add which signal is different between them to make it easier to identify which
                 raise Exception("Inconsistent path coming and going to place" + destination)
 
-    def check_concurrecy_consistency(self):
-        return
-
     def check_output_persistency(self):
-        for node in self.node_classification.keys():
-            if node in self.stg_graph:
+        for node in self.stg_graph:
+            if node.is_choice_open():
                 for transition in self.extended_graph[node]:
-                    for signal, transition_type in self.transitions_name_to_signal[transition]:
-                        if self.signal_map[signal] == self.OUTPUT:
-                            raise Exception("In the decision coming from place " + node +
-                                            ", one of the transitions contain the output signal " + signal +
-                                            ". Thus this ESTG is not output persistent.")
+                    if transition.contains_output(self.signal_map):
+                        raise Exception("In the decision coming from place " + node.name +
+                                        ", one of the transitions contain an output signal. "
+                                        "Thus this ESTG is not output persistent.")
         print("ESTG is output-persistent!")
         return
 
     def __check_variables_use(self):
         variable_check_map = dict.fromkeys(self.signal_map.keys(), 0)
-        for value in self.stg_graph_transitions.values():
-            for variable, transition_type in value:
+        for transition in self.stg_graph_transitions.values():
+            for variable, transition_type in transition.transition:
                 if variable in variable_check_map:
                     variable_check_map[variable] = 1
                 else:
                     raise Exception("Variable not declared: " + variable)
-        for key, value in variable_check_map.items():
-            if value != 1:
+        for key, transition in variable_check_map.items():
+            if transition != 1:
                 print("Warning! Variable", key, "declared but not used.")
 
     def __classify_nodes(self):
-        transition_fanin_count = {}
         for node in self.extended_graph.keys():
-            if ESTGGraph.__is_place(node):
-                if len(self.extended_graph[node]) > 1:
-                    self.node_classification[node] = (ESTGGraph.CHOICE_OPEN, [len(self.extended_graph[node])])
-                for transition in self.extended_graph[node]:
-                    if transition not in transition_fanin_count:
-                        transition_fanin_count[transition] = 1
-                    else:
-                        transition_fanin_count[transition] += 1
-            else:
-                if len(self.extended_graph[node]) > 1:
-                    self.node_classification[node] = (ESTGGraph.CONCURRENCY_OPEN, [len(self.extended_graph[node])])
-        for transition in transition_fanin_count:
-            if transition_fanin_count[transition] > 1 and transition not in self.node_classification:
-                self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB,
-                                                        [transition_fanin_count[transition]])
-            elif transition_fanin_count[transition] > 1:
-                aux = self.node_classification[transition][1]
-                aux.append(transition_fanin_count[transition])
-                self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB, aux)
-        for place in self.stg_graph.keys():
-            aux = len(self.inverted_extended_graph[place])
-            if aux > 1:
-                if place in self.node_classification:
-                    choice_open_index = self.node_classification[place][1]
-                    choice_open_index.append(aux)
-                    self.node_classification[place] = (ESTGGraph.CHOICE_CLOSE_OR_HUB, choice_open_index)
+            length = len(self.extended_graph[node])
+            if length > 1:
+                if node.is_place:
+                    node.classify = (Node.CHOICE_OPEN, [length])
                 else:
-                    self.node_classification[place] = (ESTGGraph.CHOICE_CLOSE_OR_HUB, [aux])
+                    node.classify = (Node.CONCURRENCY_OPEN, [length])
+        for node in self.inverted_extended_graph.keys():
+            length = len(self.inverted_extended_graph[node])
+            if length > 1:
+                if node.is_place:
+                    if node.classify:
+                        node.classify[1].append(length)
+                        node.classify = (Node.CHOICE_CLOSE_OR_HUB, node.classify[1])
+                    else:
+                        node.classify = (Node.CHOICE_CLOSE_OR_HUB, [length])
+                else:
+
+                    if node.classify:
+                        node.classify[1].append(length)
+                        node.classify = (Node.CHOICE_CLOSE_OR_HUB, node.classify[1])
+                    else:
+                        node.classify = (Node.CONCURRENCY_CLOSE_OR_HUB, [length])
 
     @staticmethod
     def get_current_signal_values(current_signal_values, order_of_signal_list):
@@ -214,9 +179,3 @@ class ESTGGraph (object):
         for signal in order_of_signal_list:
             signal_values += str(current_signal_values[signal])
         return signal_values
-
-    @staticmethod
-    def __is_place(node):
-        if re.match(r"^transition[0-9]+$", node):
-            return False
-        return True

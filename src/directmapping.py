@@ -1,6 +1,7 @@
 from estggraph import ESTGGraph
 from typing import List, Dict, Set, Tuple, Union
 from graphutil import GraphUtil
+from node import Node
 from collections import OrderedDict
 Transition = List[Tuple[str, int]]
 
@@ -33,7 +34,7 @@ class DirectMapping(object):
         # TODO: Currently not considering initial places when calculating path with only 2 control cells. FIXIT
         self.graph = graph
         self.control_cell_input_to_connected_control_cells = {}  # type: Dict[str, Set[str]]
-        self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[str]
+        self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[Node]
         self.control_cells_graph = {}  # type: Dict[str, Set[str]]
         self.inverse_control_cells_graph = {}  # type: Dict[str, Set[str]]
         self.size_2_cycles = []  # type: List[List[str]]
@@ -119,12 +120,10 @@ class DirectMapping(object):
             self.control_cells_graph[control_cell] = set()
             choice_set = set()
             choice_inverse_set = set()
-            if control_cell in self.graph.node_classification:
-                if self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_OPEN or\
-                        (self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB and
-                         len(self.graph.node_classification[control_cell][1]) == 2):
+            if control_cell.classify:
+                if control_cell.is_choice_open():
                     choice_set.add(control_cell)
-                if self.graph.node_classification[control_cell][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB:
+                if self.graph.node_classification[control_cell][0] == Node.CHOICE_CLOSE_OR_HUB:
                     choice_inverse_set.add(control_cell)
             for place in self.graph.stg_graph[control_cell]:
                 transition = self.__get_transition_name(control_cell, place)
@@ -144,7 +143,7 @@ class DirectMapping(object):
                     self.inverse_control_cells_graph[connected_place] = set()
                     self.inverse_control_cells_graph[connected_place].add(place)
 
-    def __aux_get_control_cell_graph(self, current_control_cell, current_place, visited_places, transition, choice_set,
+    def __aux_get_control_cell_graph(self, current_control_cell, current_place: Node, visited_places, transition, choice_set,
                                      choice_map, choice_inverse_set, choice_inverse_map):
         if current_place not in visited_places:
             if current_place in self.set_of_control_cell_places:
@@ -173,12 +172,10 @@ class DirectMapping(object):
                 return
             else:
                 visited_places.add(current_place)
-                if current_place in self.graph.node_classification:
-                    if self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_OPEN or\
-                        (self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB and
-                         len(self.graph.node_classification[current_place][1]) == 2):
+                if current_place.classify:
+                    if current_place.is_choice_open():
                         choice_set.add(current_place)
-                    if self.graph.node_classification[current_place][0] == ESTGGraph.CHOICE_CLOSE_OR_HUB:
+                    if current_place.classify[0] == Node.CHOICE_CLOSE_OR_HUB:
                         choice_inverse_set.add(current_place)
                 for place in self.graph.stg_graph[current_place]:
                     next_transition = self.__get_transition_name(current_place, place)
@@ -229,7 +226,7 @@ class DirectMapping(object):
                                                             dict(current_output_signal_dict))
             else:
                 for signal, transition_type in output_signals_list:
-                    if transition_type == ESTGGraph.RISING_EDGE:
+                    if transition_type == Node.RISING_EDGE:
                         current_output_signal_dict[signal] = 1
                     else:
                         current_output_signal_dict[signal] = 0

@@ -4,6 +4,7 @@ import pickle
 import hashlib
 from typing import List, Tuple, Dict
 from estggraph import ESTGGraph
+from node import Node
 from textparseestg import TextParseESTG
 Transition = Tuple[str, str]
 
@@ -185,7 +186,7 @@ class TextParseSTG(object):
         for node in self.extended_graph.keys():
             if TextParseSTG.__is_place(node):
                 if len(self.extended_graph[node]) > 1:
-                    self.node_classification[node] = (ESTGGraph.CHOICE_OPEN, len(self.extended_graph[node]))
+                    self.node_classification[node] = (Node.CHOICE_OPEN, len(self.extended_graph[node]))
                 for transition in self.extended_graph[node]:
                     if transition not in transition_fanin_count:
                         transition_fanin_count[transition] = 1
@@ -193,10 +194,10 @@ class TextParseSTG(object):
                         transition_fanin_count[transition] += 1
             else:
                 if len(self.extended_graph[node]) > 1:
-                    self.node_classification[node] = (ESTGGraph.CONCURRENCY_OPEN, len(self.extended_graph[node]))
+                    self.node_classification[node] = (Node.CONCURRENCY_OPEN, len(self.extended_graph[node]))
         for transition in transition_fanin_count:
             if transition_fanin_count[transition] > 1:
-                self.node_classification[transition] = (ESTGGraph.CONCURRENCY_CLOSE_OR_HUB,
+                self.node_classification[transition] = (Node.CONCURRENCY_CLOSE_OR_HUB,
                                                         transition_fanin_count[transition])
 
     def __add_connection(self, transition, place, is_transition_parent=True):
@@ -255,7 +256,7 @@ class TextParseSTG(object):
         traversed_places[current_place] = 1
         for transition in self.extended_graph[current_place]:
             if transition in self.node_classification:
-                if self.node_classification[transition][0] == ESTGGraph.CONCURRENCY_OPEN:
+                if self.node_classification[transition][0] == Node.CONCURRENCY_OPEN:
                     aux = current_place + "/"
                     for index, place in enumerate(self.extended_graph[transition]):
                         if index == 0:
@@ -266,7 +267,7 @@ class TextParseSTG(object):
                     for place in self.extended_graph[transition]:
                         if place not in traversed_places:
                             self.__recursive_transition_write(file, place, concurrency_close_map, traversed_places)
-                elif self.node_classification[transition][0] == ESTGGraph.CONCURRENCY_CLOSE_OR_HUB:
+                elif self.node_classification[transition][0] == Node.CONCURRENCY_CLOSE_OR_HUB:
                     if transition not in concurrency_close_map:
                         concurrency_close_map[transition] = [[current_place],
                                                              self.node_classification[transition][1] - 1]

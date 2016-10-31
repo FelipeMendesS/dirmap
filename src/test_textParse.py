@@ -16,11 +16,11 @@ class TestTextParse(TestCase):
         return
 
     def test_read_file1(self):
-        file = "hybridf"
+        file = "testFile"
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
-        GraphUtil.print_graph(estg_graph, file, view_flag=True)
+        # GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
         estg_graph.check_consistency()
         estg_graph.check_output_persistency()
         self.assertEqual(parse_test.regular_inputs, ["req", "ackline"])

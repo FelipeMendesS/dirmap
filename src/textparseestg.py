@@ -1,6 +1,6 @@
 import re
 from typing import List, Dict, Union
-
+from node import Node
 
 class TextParseESTG (object):
 
@@ -16,7 +16,7 @@ class TextParseESTG (object):
         self.outputs = []  # type: List[str]
         self.conditional_signals = []  # type: List[str]
         self.specification_name = ""  # type: str
-        self.initial_places = []  # type: List[str]
+        self.initial_places = []  # type: List[Node]
         # Map with: (Key: Name of variable, Value: Initial value)
         self.initial_signal_values = {}  # type: Dict[str, Union[int, str]]
         self.transitions = []  # type: List[str]
@@ -34,6 +34,7 @@ class TextParseESTG (object):
     def read_file(self):
         # loop checking for each and all cases creating data structures with transitions, inputs, outputs cond signals
         reached_end = 0
+        aux_initial_places = []
         for index, line in enumerate(self.file_lines):
             if re.match(r"^\s*\.name\s+.+", line):
                 self.specification_name = line.lstrip(' .name').strip()
@@ -59,7 +60,7 @@ class TextParseESTG (object):
                     self.conditional_signals.append(aux[i * 2])
                     self.initial_signal_values[aux[i * 2]] = int(aux[i * 2 + 1])
             elif re.match(r"^\s*\.start(\s+\w+)+", line):
-                self.initial_places.extend(line.strip()[6:].split())
+                aux_initial_places.extend(line.strip()[6:].split())
             elif re.match(r"^\s*\.end\s*$", line):
                 reached_end = 1
                 if index < len(self.file_lines) - 1:
@@ -74,4 +75,6 @@ class TextParseESTG (object):
 
         if reached_end == 0:
             raise Exception("No end statement")
+        for place in aux_initial_places:
+            self.initial_places.append(Node(True, place))
         self.check_file()

@@ -1,0 +1,16 @@
+.name testsuga
+.inputs a * b * c *
+.outputs x * y *
+p1/p2,p8|x+
+p2/p3|a+
+p2/p6|b+
+p3/p4|x-
+p6/p7|x-
+p4/p5|a-
+p7/p5|b-
+p5,p11/p1|y-
+p8/p9|c+
+p9/p10|y+
+p10/p11|c-
+.start p1
+.end
