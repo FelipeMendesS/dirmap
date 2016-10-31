@@ -52,9 +52,11 @@ theory/
 Linux/
 Estagio/
 VHDL/
-Xilinx/
-!Xilinx/*/*.vhd
-
+Xilinx/*
+!Xilinx/FileTest
+Xilinx/FileTest/*
+!Xilinx/FileTest/*.vhd
+!Xilinx/FileTest/*.xise
 
 .idea/misc.xml
 .idea/modules.xml
