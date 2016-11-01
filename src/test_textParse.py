@@ -3,7 +3,6 @@ from textparseestg import TextParseESTG
 from estggraph import ESTGGraph
 from graphutil import GraphUtil
 from textparsestg import TextParseSTG
-import graphviz as gv
 import traceback
 
 
@@ -20,7 +19,7 @@ class TestTextParse(TestCase):
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
-        # GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
+        GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
         estg_graph.check_consistency()
         estg_graph.check_output_persistency()
         self.assertEqual(parse_test.regular_inputs, ["req", "ackline"])
@@ -37,7 +36,7 @@ class TestTextParse(TestCase):
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
-        GraphUtil.print_graph(estg_graph, file)
+        GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
         estg_graph.check_consistency()
         estg_graph.check_output_persistency()
         self.assertEqual(parse_test.regular_inputs, ["ackin", "dack", "done", "dtc", "startdmasend"])
@@ -48,7 +47,7 @@ class TestTextParse(TestCase):
         parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
         parse_test.read_file()
         estg_graph = ESTGGraph(parse_test)
-        GraphUtil.print_graph(estg_graph, file)
+        GraphUtil.print_graph(estg_graph, file, view_flag=True, overwrite_graph=True)
         estg_graph.check_consistency()
         estg_graph.check_output_persistency()
         self.assertEqual(parse_test.regular_inputs, ["a", "d"])

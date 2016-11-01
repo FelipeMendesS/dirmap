@@ -28,6 +28,9 @@ class Node(object):
     CONCURRENCY_CLOSE_OR_HUB = 10
     CHOICE_CLOSE_OR_HUB = 11
 
+    AND = "and"
+    OR = "or"
+
     def __init__(self, is_place: bool, name: str="", transition_count: int=0, transition_text: str=""):
         self.name = name  # type: str
         self.is_place = is_place  # type: str
@@ -59,7 +62,7 @@ class Node(object):
     def is_choice_open(self):
         if self.classify:
             return self.classify[0] == self.CHOICE_OPEN or (self.classify[0] == self.CHOICE_CLOSE_OR_HUB and
-                                                        len(self.classify)[1] == 2)
+                                                            len(self.classify[1]) == 2)
         return False
 
     def is_concurrency_open(self):
@@ -94,3 +97,11 @@ class Node(object):
 
     def __hash__(self):
         return hash(self.name + str(self.is_place) + str(self.transition))
+
+    def __str__(self):
+        # return self.name + str(self.is_place) + str(self.transition) + str(self.classify)
+        return self.name
+
+    def __repr__(self):
+        # return self.name + str(self.is_place) + str(self.transition) + str(self.classify)
+        return self.name

@@ -3,6 +3,7 @@ from typing import List, Dict, Set, Tuple, Union
 from graphutil import GraphUtil
 from node import Node
 from collections import OrderedDict
+from tree import Tree
 Transition = List[Tuple[str, int]]
 
 
@@ -33,18 +34,18 @@ class DirectMapping(object):
     def __init__(self, graph: ESTGGraph):
         # TODO: Currently not considering initial places when calculating path with only 2 control cells. FIXIT
         self.graph = graph
-        self.control_cell_input_to_connected_control_cells = {}  # type: Dict[str, Set[str]]
         self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[Node]
-        self.control_cells_graph = {}  # type: Dict[str, Set[str]]
-        self.inverse_control_cells_graph = {}  # type: Dict[str, Set[str]]
-        self.size_2_cycles = []  # type: List[List[str]]
+        self.control_cells_graph = {}  # type: Dict[Node, Set[Node]]
+        self.inverse_control_cells_graph = {}  # type: Dict[Node, Set[Node]]
+        self.size_2_cycles = []  # type: List[List[Node]]
         self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
         self.output_control_cell_relation = {}  # type: Dict[str, Dict[str, int]]
+        # First direct logic tree and then inverse logic tree.
+        self.logic_tree = {}  # type: Dict[Node, Tuple[Tree, Tree]]
         # Starting with variables directly related to circuit implementation
         # Assuming choices can only happen with inputs (Which makes sense) and there are no more than 1 choice close
         # Between two adjacent control cells. (IMPORTANT ASSUMPTION)
         # TODO: Doesn't work for the case when there is concurrency before choice. They are all being anded together.
-        self.control_cell_deactivation_signal = {}  # type: Dict[str, Set[Union[str, Tuple[str]]]]
         self.check_for_size_2_cycles()
         self.get_control_cell_graph()
         # self.get_output_control_cell_relation()
@@ -53,15 +54,14 @@ class DirectMapping(object):
         set_of_control_cell_places = set(self.graph.initial_places)
         initial_places_not_p1 = set(self.graph.initial_places)
         does_transition_contain_input = {}  # type: Dict[str, bool]
-        for transition in self.graph.transitions_name_to_signal.keys():
-            for signal, transition_type in self.graph.transitions_name_to_signal[transition]:
+        for transition in self.graph.stg_graph_transitions.values():
+            for signal, transition_type in transition.transition:
                 if self.graph.signal_map[signal] == self.graph.INPUT:
                     does_transition_contain_input[transition] = True
                     break
             if transition in does_transition_contain_input:
                 for place in self.graph.extended_graph[transition]:
                     set_of_control_cell_places.add(place)
-                    self.control_cell_input_to_connected_control_cells[place + transition] = set()
                     if place in initial_places_not_p1:
                         initial_places_not_p1.remove(place)
         return set_of_control_cell_places, initial_places_not_p1
@@ -108,138 +108,163 @@ class DirectMapping(object):
                 self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
 
     def get_control_cell_graph(self):
-        choice_map = {}  # type: Dict[str, Dict[str, Tuple[str]]]
-        choice_inverse_map = {}  # type: Dict[str, Dict[str, Tuple[str]]]
-        for control_cell in self.set_of_control_cell_places:
-            self.control_cell_deactivation_signal[control_cell] = set()
-            choice_map[control_cell] = {}
-            choice_inverse_map[control_cell] = {}
+        # Maybe add a map with already sorted nodes. Gain some time with that. Memory is not a problem.
         for control_cell in self.set_of_control_cell_places:
             visited_places = set()
             visited_places.add(control_cell)
             self.control_cells_graph[control_cell] = set()
-            choice_set = set()
-            choice_inverse_set = set()
-            if control_cell.classify:
-                if control_cell.is_choice_open():
-                    choice_set.add(control_cell)
-                if self.graph.node_classification[control_cell][0] == Node.CHOICE_CLOSE_OR_HUB:
-                    choice_inverse_set.add(control_cell)
-            for place in self.graph.stg_graph[control_cell]:
-                transition = self.__get_transition_name(control_cell, place)
-                self.__aux_get_control_cell_graph(control_cell, place, visited_places, transition, set(choice_set),
-                                                  choice_map, set(choice_inverse_set), choice_inverse_map)
-        for control_cell in choice_map.keys():
-            for node in choice_map[control_cell].keys():
-                self.control_cell_deactivation_signal[control_cell].add(choice_map[control_cell][node])
-        for control_cell in choice_inverse_map.keys():
-            for node in choice_inverse_map[control_cell].keys():
-                self.control_cell_deactivation_signal[control_cell].add(choice_inverse_map[control_cell][node])
-        for place in self.control_cells_graph.keys():
-            for connected_place in self.control_cells_graph[place]:
-                if connected_place in self.inverse_control_cells_graph:
-                    self.inverse_control_cells_graph[connected_place].add(place)
-                else:
-                    self.inverse_control_cells_graph[connected_place] = set()
-                    self.inverse_control_cells_graph[connected_place].add(place)
+            current_tree_node = None  # type: Tree
+            inverse_stack = []  # type: List[Tuple[int, int, int]]
+            if len(self.graph.extended_graph[control_cell]) > 1:
+                self.graph.extended_graph[control_cell].sort()
+                current_tree_node = Tree(Tree.AND, size=len(self.graph.extended_graph[control_cell]))
+                self.__add_tree_to_place(True, control_cell, current_tree_node)
+            for indext, transition in enumerate(self.graph.extended_graph[control_cell]):
+                if len(self.graph.inverted_extended_graph[transition]) > 1:
+                    self.graph.inverted_extended_graph[transition].sort()
+                    inverse_stack.append((Tree.OR, self.graph.inverted_extended_graph[transition].index(control_cell),
+                                          len(self.graph.inverted_extended_graph[transition])))
+                if len(self.graph.extended_graph[transition]) > 1:
+                    self.graph.extended_graph[transition].sort()
+                    if current_tree_node:
+                        current_tree_node.next[indext] = Tree(Tree.OR, size=len(self.graph.extended_graph[transition]))
+                    else:
+                        current_tree_node = Tree(Tree.OR, size=len(self.graph.extended_graph[transition]))
+                        self.__add_tree_to_place(True, control_cell, current_tree_node)
+                for indexp, place in enumerate(self.graph.extended_graph[transition]):
+                    if len(self.graph.inverted_extended_graph[place]) > 1:
+                        self.graph.inverted_extended_graph[place].sort()
+                        inverse_stack.append((Tree.AND, self.graph.inverted_extended_graph[place].index(transition),
+                                              len(self.graph.inverted_extended_graph[place])))
+                    if current_tree_node:
+                        if len(self.graph.extended_graph[control_cell]) > 1:
+                            if len(self.graph.extended_graph[transition]) > 1:
+                                self.__aux_get_control_cell_graph(control_cell, place, visited_places,
+                                                                  list(inverse_stack), current_tree_node.next[indext],
+                                                                  indexp)
+                            else:
+                                self.__aux_get_control_cell_graph(control_cell, place, visited_places,
+                                                                  list(inverse_stack), current_tree_node, indext)
+                        else:
+                            self.__aux_get_control_cell_graph(control_cell, place, visited_places, list(inverse_stack),
+                                                              current_tree_node, indexp)
+                    else:
+                        self.__aux_get_control_cell_graph(control_cell, place, visited_places, list(inverse_stack),
+                                                          current_tree_node)
 
-    def __aux_get_control_cell_graph(self, current_control_cell, current_place: Node, visited_places, transition, choice_set,
-                                     choice_map, choice_inverse_set, choice_inverse_map):
+    def __aux_get_control_cell_graph(self, current_control_cell, current_place: Node, visited_places, inverse_stack,
+                                     current_tree_node: Union[Tree, None], tree_index=0):
         if current_place not in visited_places:
             if current_place in self.set_of_control_cell_places:
                 self.control_cells_graph[current_control_cell].add(current_place)
+                if current_place in self.inverse_control_cells_graph:
+                    self.inverse_control_cells_graph[current_place].add(current_control_cell)
+                else:
+                    self.inverse_control_cells_graph[current_place] = set()
+                    self.inverse_control_cells_graph[current_place].add(current_control_cell)
                 visited_places.add(current_place)
-                if current_place + transition in self.control_cell_input_to_connected_control_cells:
-                    self.control_cell_input_to_connected_control_cells[current_place + transition].add(current_control_cell)
-                if len(choice_set) == 0:
-                    self.control_cell_deactivation_signal[current_control_cell].add(current_place)
+                if current_tree_node:
+                    current_tree_node.next[tree_index] = Tree(Tree.PLACE, node=current_place)
                 else:
-                    if str(choice_set) in choice_map[current_control_cell]:
-                        aux = list(choice_map[current_control_cell][str(choice_set)])
-                        aux.append(current_place)
-                        choice_map[current_control_cell][str(choice_set)] = tuple(aux)
+                    self.__add_tree_to_place(True, current_control_cell, Tree(Tree.PLACE, node=current_place))
+                if len(inverse_stack) > 0:
+                    if current_place in self.logic_tree:
+                        tree_traverse = self.logic_tree[current_place][1]
                     else:
-                        choice_map[current_control_cell][str(choice_set)] = (current_place,)
-                if len(choice_inverse_set) == 0:
-                    self.control_cell_deactivation_signal[current_place].add(current_control_cell)
+                        self.logic_tree[current_place] = (None, None)
+                        tree_traverse = self.logic_tree[current_place][1]
+                    current_index = None
+                    if not tree_traverse:
+                            aux = inverse_stack.pop()
+                            tree_traverse = Tree(aux[0], size=aux[2])
+                            current_index = aux[1]
+                            self.logic_tree[current_place] = (self.logic_tree[current_place][0], tree_traverse)
+                    for index in range(len(inverse_stack)):
+                        aux = inverse_stack.pop()
+                        if current_index is None:
+                            if tree_traverse.classification == aux[0]:
+                                current_index = aux[1]
+                            else:
+                                raise Exception("Incorrect order of logic tree generation")
+                        elif tree_traverse.next[current_index] is None:
+                            tree_traverse.next[current_index] = Tree(aux[0], size=aux[2])
+                            tree_traverse = tree_traverse.next[current_index]
+                            current_index = aux[1]
+                        else:
+                            tree_traverse = tree_traverse.next[current_index]
+                            if tree_traverse.classification == aux[0]:
+                                current_index = aux[1]
+                            else:
+                                raise Exception("Incorrect order of logic tree generation")
+                    tree_traverse.next[current_index] = Tree(Tree.PLACE, node=current_control_cell)
                 else:
-                    if str(choice_inverse_set) in choice_inverse_map[current_place]:
-                        aux = list(choice_inverse_map[current_place][str(choice_inverse_set)])
-                        aux.append(current_control_cell)
-                        choice_inverse_map[current_place][str(choice_inverse_set)] = tuple(aux)
-                    else:
-                        choice_inverse_map[current_place][str(choice_inverse_set)] = (current_control_cell,)
-                return
+                    self.__add_tree_to_place(False, current_place, Tree(Tree.PLACE, node=current_control_cell))
             else:
                 visited_places.add(current_place)
-                if current_place.classify:
-                    if current_place.is_choice_open():
-                        choice_set.add(current_place)
-                    if current_place.classify[0] == Node.CHOICE_CLOSE_OR_HUB:
-                        choice_inverse_set.add(current_place)
-                for place in self.graph.stg_graph[current_place]:
-                    next_transition = self.__get_transition_name(current_place, place)
-                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places, next_transition,
-                                                      set(choice_set), choice_map, set(choice_inverse_set),
-                                                      choice_inverse_map)
+                if len(self.graph.extended_graph[current_place]) > 1:
+                    self.graph.extended_graph[current_place].sort()
+                    if current_tree_node:
+                        current_tree_node.next[tree_index] = Tree(Tree.AND,
+                                                                  size=len(self.graph.extended_graph[current_place]))
+                    else:
+                        current_tree_node = Tree(Tree.AND, size=len(self.graph.extended_graph[current_place]))
+                        self.__add_tree_to_place(True, current_control_cell, current_tree_node)
+                for indext, transition in enumerate(self.graph.extended_graph[current_place]):
+                    if len(self.graph.inverted_extended_graph[transition]) > 1:
+                        self.graph.inverted_extended_graph[transition].sort()
+                        inverse_stack.append((Tree.OR,
+                                              self.graph.inverted_extended_graph[transition].index(current_place),
+                                              len(self.graph.inverted_extended_graph[transition])))
+                    if len(self.graph.extended_graph[transition]) > 1:
+                        self.graph.extended_graph[transition].sort()
+                        if current_tree_node:
+                            current_tree_node.next[indext] = Tree(Tree.OR,
+                                                                  size=len(self.graph.extended_graph[transition]))
+                        else:
+                            current_tree_node = Tree(Tree.OR, size=len(self.graph.extended_graph[transition]))
+                            self.__add_tree_to_place(True, current_control_cell, current_tree_node)
+                    for indexp, place in enumerate(self.graph.extended_graph[transition]):
+                        if len(self.graph.inverted_extended_graph[place]) > 1:
+                            self.graph.inverted_extended_graph[place].sort()
+                            inverse_stack.append((Tree.AND, self.graph.inverted_extended_graph[place].index(transition),
+                                                  len(self.graph.inverted_extended_graph[place])))
+                        if current_tree_node:
+                            if len(self.graph.extended_graph[current_place]) > 1:
+                                if len(self.graph.extended_graph[transition]) > 1:
+                                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                      list(inverse_stack),
+                                                                      current_tree_node.next[indext], indexp)
+                                else:
+                                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                      list(inverse_stack), current_tree_node, indext)
+                            elif len(self.graph.extended_graph[transition]) > 1:
+                                self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                  list(inverse_stack), current_tree_node, indexp)
+                            else:
+                                self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                  list(inverse_stack), current_tree_node, tree_index)
+                        else:
+                            self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                              list(inverse_stack), current_tree_node)
+
+    def __add_tree_to_place(self, is_direct_tree: bool, control_cell: Node, tree: Tree):
+        if control_cell in self.logic_tree:
+            if is_direct_tree:
+                self.logic_tree[control_cell] = (tree, self.logic_tree[control_cell][1])
+            else:
+                self.logic_tree[control_cell] = (self.logic_tree[control_cell][0], tree)
+        else:
+            if is_direct_tree:
+                self.logic_tree[control_cell] = (tree, None)
+            else:
+                self.logic_tree[control_cell] = (None, tree)
 
     def __get_transition_name(self, initial_place, destination_place):
-        transition_signals = self.graph.stg_graph_transitions[initial_place + destination_place]
+        transition_node = self.graph.stg_graph_transitions[(initial_place, destination_place)]
         for transition in self.graph.extended_graph[initial_place]:
-            if self.graph.transitions_name_to_signal[transition] == transition_signals:
+            if transition == transition_node:
                 return transition
         raise Exception("Transition not found!")
-
-    def get_output_control_cell_relation(self):
-        # Algorithm working only for the case without concurrency
-        # Not working yet for case starting with * don't care
-        # Treat case when a loop doesn' add any new information for the don't care. Not sure how to do it yet.
-        output_signal_dict = {}
-        current_output_signal_dict = {}
-        # If for the control cell is 1, this means none of the output signals in undetermined in this one.
-        determined_control_cells = {}
-        for signal in self.graph.signal_map.keys():
-            if self.graph.signal_map[signal] == ESTGGraph.OUTPUT:
-                output_signal_dict[signal] = self.UNDETERMINED
-                current_output_signal_dict[signal] = self.LEVEL_DICT[self.graph.initial_signal_values[signal]]
-        for place in self.set_of_control_cell_places:
-            self.output_control_cell_relation[place] = dict(output_signal_dict)
-            determined_control_cells[place] = 0
-        self.output_control_cell_relation[self.graph.initial_places[0]] = dict(current_output_signal_dict)
-        self.__aux_get_output_control_cell_relation(self.graph.initial_places[0], determined_control_cells,
-                                          current_output_signal_dict)
-
-    def __aux_get_output_control_cell_relation(self, current_marking, determined_control_cells,
-                                               current_output_signal_dict):
-        if current_marking in determined_control_cells:
-            if determined_control_cells[current_marking] == 1:
-                return
-            elif self.__is_control_cell_output_signal_determined(current_marking):
-                determined_control_cells[current_marking] = 1
-        for transition in self.graph.extended_graph[current_marking]:
-            output_signals_list = self.__transition_contains_output(self.graph.transitions_name_to_signal[transition])
-            next_marking = self.graph.extended_graph[transition][0]
-            if len(output_signals_list) == 0:
-                if next_marking in self.set_of_control_cell_places:
-                    self.output_control_cell_relation[next_marking] = dict(current_output_signal_dict)
-                self.__aux_get_output_control_cell_relation(next_marking, determined_control_cells,
-                                                            dict(current_output_signal_dict))
-            else:
-                for signal, transition_type in output_signals_list:
-                    if transition_type == Node.RISING_EDGE:
-                        current_output_signal_dict[signal] = 1
-                    else:
-                        current_output_signal_dict[signal] = 0
-                if next_marking in self.set_of_control_cell_places:
-                    self.output_control_cell_relation[next_marking] = dict(current_output_signal_dict)
-                self.__aux_get_output_control_cell_relation(next_marking, determined_control_cells,
-                                                            dict(current_output_signal_dict))
-
-    def __is_control_cell_output_signal_determined(self, control_cell):
-        for signal in self.output_control_cell_relation[control_cell].keys():
-            if self.output_control_cell_relation[control_cell][signal] == self.UNDETERMINED:
-                return False
-        return True
 
     def __transition_contains_output(self, transition: Transition) -> List[Tuple[str, int]]:
         output_list = []

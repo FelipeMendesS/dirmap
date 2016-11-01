@@ -1,41 +1,41 @@
 strict digraph {
 	p1 [fixedsize=true shape=circle width=.5]
 	p2 [fixedsize=true shape=circle width=.5]
-	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="req+"]
-		p1 -> transition1 [arrowhead=onormal arrowsize=0.5]
-		transition1 -> p2
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="req+"]
+		p1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> p2
 	p3 [fixedsize=true shape=circle width=.5]
-	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="sendline+"]
-		p2 -> transition2 [arrowhead=onormal arrowsize=0.5]
-		transition2 -> p3
-	p4 [fixedsize=true shape=circle width=.5]
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="[done-]ackline+"]
-		p3 -> transition3 [arrowhead=onormal arrowsize=0.5]
-		transition3 -> p4
-	p5 [fixedsize=true shape=circle width=.5]
-	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="sendline-"]
-		p4 -> transition4 [arrowhead=onormal arrowsize=0.5]
-		transition4 -> p5
-	p6 [fixedsize=true shape=circle width=.5]
-	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="ackline-"]
-		p5 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> p6
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="sendline+"]
-		p6 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> p3
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="sendline+"]
+		p2 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> p3
 	p7 [fixedsize=true shape=circle width=.5]
-	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="[done+]ackline+"]
-		p3 -> transition7 [arrowhead=onormal arrowsize=0.5]
-		transition7 -> p7
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="[done+]ackline+"]
+		p3 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> p7
 	p8 [fixedsize=true shape=circle width=.5]
-	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="sendline-ack+"]
-		p7 -> transition8 [arrowhead=onormal arrowsize=0.5]
-		transition8 -> p8
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="sendline-ack+"]
+		p7 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> p8
 	p9 [fixedsize=true shape=circle width=.5]
-	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="req-ackline-"]
-		p8 -> transition9 [arrowhead=onormal arrowsize=0.5]
-		transition9 -> p9
-	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
-		p9 -> transition10 [arrowhead=onormal arrowsize=0.5]
-		transition10 -> p1
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="req-ackline-"]
+		p8 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> p9
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="ack-"]
+		p9 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> p1
+	p4 [fixedsize=true shape=circle width=.5]
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="[done-]ackline+"]
+		p3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> p4
+	p5 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="sendline-"]
+		p4 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> p5
+	p6 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="ackline-"]
+		p5 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> p6
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="sendline+"]
+		p6 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> p3
 }
