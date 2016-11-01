@@ -11,7 +11,7 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = "atod"
+        self.file = "pe-send-ifc"
         self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
         self.parse_test.read_file()
         self.estg_graph = ESTGGraph(self.parse_test)

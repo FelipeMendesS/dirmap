@@ -201,6 +201,10 @@ class DirectMapping(object):
                     self.__add_tree_to_place(False, current_place, Tree(Tree.PLACE, node=current_control_cell))
             else:
                 visited_places.add(current_place)
+                if current_tree_node:
+                    current_tree_flag = False
+                else:
+                    current_tree_flag = True
                 if len(self.graph.extended_graph[current_place]) > 1:
                     self.graph.extended_graph[current_place].sort()
                     if current_tree_node:
@@ -218,8 +222,12 @@ class DirectMapping(object):
                     if len(self.graph.extended_graph[transition]) > 1:
                         self.graph.extended_graph[transition].sort()
                         if current_tree_node:
-                            current_tree_node.next[indext] = Tree(Tree.OR,
-                                                                  size=len(self.graph.extended_graph[transition]))
+                            if len(self.graph.extended_graph[current_place]) > 1:
+                                current_tree_node.next[indext] = Tree(Tree.OR,
+                                                                      size=len(self.graph.extended_graph[transition]))
+                            else:
+                                current_tree_node.next[tree_index] = Tree(Tree.OR,
+                                                                          size=len(self.graph.extended_graph[transition]))
                         else:
                             current_tree_node = Tree(Tree.OR, size=len(self.graph.extended_graph[transition]))
                             self.__add_tree_to_place(True, current_control_cell, current_tree_node)
@@ -228,24 +236,49 @@ class DirectMapping(object):
                             self.graph.inverted_extended_graph[place].sort()
                             inverse_stack.append((Tree.AND, self.graph.inverted_extended_graph[place].index(transition),
                                                   len(self.graph.inverted_extended_graph[place])))
-                        if current_tree_node:
-                            if len(self.graph.extended_graph[current_place]) > 1:
-                                if len(self.graph.extended_graph[transition]) > 1:
+                        if current_tree_flag:
+                            if current_tree_node:
+                                if len(self.graph.extended_graph[current_place]) > 1:
+                                    if len(self.graph.extended_graph[transition]) > 1:
+                                        self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                          list(inverse_stack),
+                                                                          current_tree_node.next[indext], indexp)
+                                    else:
+                                        self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                          list(inverse_stack), current_tree_node,
+                                                                          indext)
+                                elif len(self.graph.extended_graph[transition]) > 1:
                                     self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
-                                                                      list(inverse_stack),
-                                                                      current_tree_node.next[indext], indexp)
+                                                                      list(inverse_stack), current_tree_node, indexp)
                                 else:
                                     self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
-                                                                      list(inverse_stack), current_tree_node, indext)
-                            elif len(self.graph.extended_graph[transition]) > 1:
-                                self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
-                                                                  list(inverse_stack), current_tree_node, indexp)
+                                                                      list(inverse_stack), current_tree_node,
+                                                                      tree_index)
                             else:
                                 self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
-                                                                  list(inverse_stack), current_tree_node, tree_index)
+                                                                  list(inverse_stack), current_tree_node)
                         else:
-                            self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
-                                                              list(inverse_stack), current_tree_node)
+                            if current_tree_node:
+                                if len(self.graph.extended_graph[current_place]) > 1:
+                                    if len(self.graph.extended_graph[transition]) > 1:
+                                        self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                          list(inverse_stack),
+                                                                          current_tree_node.next[indext], indexp)
+                                    else:
+                                        self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                          list(inverse_stack),
+                                                                          current_tree_node.next[tree_index], indext)
+                                elif len(self.graph.extended_graph[transition]) > 1:
+                                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                      list(inverse_stack),
+                                                                      current_tree_node.next[tree_index], indexp)
+                                else:
+                                    self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                      list(inverse_stack), current_tree_node,
+                                                                      tree_index)
+                            else:
+                                self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
+                                                                  list(inverse_stack), current_tree_node)
 
     def __add_tree_to_place(self, is_direct_tree: bool, control_cell: Node, tree: Tree):
         if control_cell in self.logic_tree:
