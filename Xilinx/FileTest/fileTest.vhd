@@ -121,7 +121,7 @@ Ai_Paux <= Ao_P4 and Ao_P7 and not (reset);
 ack_set <= not Ro_P7 or not ack_reset;
 ack_reset <= not Ro_P9 and not reset;
 
-sendline_set <= (not Ro_P2 and not Ro_P6) or not sendline_reset;
+sendline_set <= (not Ro_P2 and not Ro_Paux) or not sendline_reset;
 sendline_reset <= not Ro_P4 and not Ro_P7 and not reset;
 
 --ack <= Ro_P7 and Ao_P9;
