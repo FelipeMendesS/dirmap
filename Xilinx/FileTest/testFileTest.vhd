@@ -120,7 +120,7 @@ BEGIN
 		wait for 50 ns;
 		ackline <= '0';
 		wait for 50 ns;
-      wait;
+		wait;
    end process;
 
 END;
