@@ -55,7 +55,7 @@ ARCHITECTURE behavior OF testFileTest IS
    signal reset : std_logic := '0';
    signal req : std_logic := '0';
    signal ackline : std_logic := '0';
-   signal done : std_logic := '0';
+   signal done : std_logic := '1';
 
  	--Outputs
    signal ack : std_logic;
@@ -92,26 +92,34 @@ BEGIN
    begin		
       -- hold reset state for 100 ns.
 		reset <= '1';
-      wait for 100 ns;
+      wait for 50 ns;
 		reset <= '0';
-		wait for 10 ns;
+		wait for 50 ns;
+		reset <= '1';
+		wait for 50 ns;
+		reset <= '0';
+		wait for 50 ns;
       -- insert stimulus here 
 		
 		req <= '1';
-		wait for 10 ns;
+		wait for 50 ns;
 		
 		ackline <= '1';
-		wait for 10 ns;		
+		wait for 50 ns;		
 		ackline <= '0';
-		wait for 10 ns;		
-		done <= '0';
-		wait for 10 ns;		
-		ackline <= '1';
-		wait for 10 ns;		
 		req <= '0';
-		wait for 10 ns;		
+		wait for 50 ns;		
+		req <= '1';		
+		done <= '0';
+		wait for 50 ns;
+		ackline <= '1';
+		wait for 50 ns;
 		ackline <= '0';
-		wait for 10 ns;			
+		wait for 50 ns;
+		ackline <= '1';
+		wait for 50 ns;
+		ackline <= '0';
+		wait for 50 ns;
       wait;
    end process;
 
