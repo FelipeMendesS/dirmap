@@ -241,8 +241,10 @@ class VHDLGenerator(object):
         file.write("port(" + signal + ":" + " " * (max_len - len(signal) + 1) + self.IN + "std_logic;" + self.ENTER)
         for signal in input_signals:
             file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.IN + "std_logic;" + self.ENTER)
-        for signal in output_signals:
-            file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.OUT + "std_logic;" + self.ENTER)
+        for index, signal in enumerate(output_signals):
+            if index > 0:
+                file.write(";" + self.ENTER)
+            file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.OUT + "std_logic")
         file.write(");" + self.ENTER)
         file.write("end " + self.file_name + ";" + self.ENTER)
         file.write(self.ENTER)
