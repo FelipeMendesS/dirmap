@@ -129,7 +129,7 @@ class VHDLGenerator(object):
                 self.__print_ri(self.INITIAL_P1, control_cell, file)
             else:
                 self.__print_ri(self.OTHER_CONTROL_CELLS, control_cell, file)
-            file.write(")" + self.ENTER)
+            file.write(");" + self.ENTER)
         file.write(self.ENTER)
         for i in range(self.number_of_aux_cells):
             file.write("Ri_Paux" + str(i + 1) + " <= not Ro_" + self.last_cycle_2_control_cell[i].name + "_buffer;")
@@ -238,7 +238,8 @@ class VHDLGenerator(object):
             else:
                 input_signals.append(signal)
         signal = input_signals.pop()
-        file.write("port(" + signal + ":" + " " * (max_len - len(signal) + 1) + self.IN + "std_logic;" + self.ENTER)
+        file.write("port(reset :" + self.IN + "std_logic;" + self.ENTER)
+        file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.IN + "std_logic;" + self.ENTER)
         for signal in input_signals:
             file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.IN + "std_logic;" + self.ENTER)
         for index, signal in enumerate(output_signals):
@@ -283,8 +284,8 @@ class VHDLGenerator(object):
         output_signals = self.__get_signals(ESTGGraph.OUTPUT)
         for output in output_signals:
             self.outputs.append(output)
-            file.write("signal " + output + "_set:   std_logic" + self.ENTER)
-            file.write("signal " + output + "_reset: std_logic" + self.ENTER)
+            file.write("signal " + output + "_set:   std_logic;" + self.ENTER)
+            file.write("signal " + output + "_reset: std_logic;" + self.ENTER)
             file.write(self.ENTER)
 
     def print_instantiations(self, file):

@@ -18,7 +18,7 @@ def main():
     parse_file.read_file()
     estg_graph = ESTGGraph(parse_file)
     direct = DirectMapping(estg_graph)
-    GraphUtil.print_graph(estg_graph, file_name, True, overwrite_graph=True)
+    # GraphUtil.print_graph(estg_graph, file_name, True, overwrite_graph=True)
     VHDLGenerator(direct, file_name)
 
 # Parse files and get them to directmapping or something like that. Already showing how the program is supposed to be
