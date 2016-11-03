@@ -274,10 +274,10 @@ class VHDLGenerator(object):
                         found_first = True
                         higher_node = node
                 self.last_cycle_2_control_cell.append(higher_node)
-                file.write("signal " + "Ri_Paux" + str(index) + ": std_logic;" + self.ENTER)
-                file.write("signal " + "Ai_Paux" + str(index) + ": std_logic;" + self.ENTER)
-                file.write("signal " + "Ro_Paux" + str(index) + ": std_logic;" + self.ENTER)
-                file.write("signal " + "Ao_Paux" + str(index) + ": std_logic;" + self.ENTER)
+                file.write("signal " + "Ri_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
+                file.write("signal " + "Ai_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
+                file.write("signal " + "Ro_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
+                file.write("signal " + "Ao_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
                 file.write(self.ENTER)
                 file.write("signal " + "Ro_" + higher_node.name + "_buffer" + ": std_logic;" + self.ENTER)
                 file.write(self.ENTER)
