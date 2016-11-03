@@ -110,13 +110,13 @@ Ri_P9 <= not(Ro_P7 and (not req) and (not ackline));
 
 Ri_Paux <= not Ro_P6_buffer;
 
-Ai_P1 <= Ao_P2;
-Ai_P2 <= Ao_P4 and Ao_P7 and not (reset);
-Ai_P4 <= Ao_P6 and not (reset);
-Ai_P6 <= Ao_Paux and not (reset);
-Ai_P7 <= Ao_P9 and not (reset);
-Ai_P9 <= Ao_P1 and not (reset);
-Ai_Paux <= Ao_P4 and Ao_P7 and not (reset);
+Ai_P1 <= Ao_P2 or not Ao_P9 ;
+Ai_P2 <= ((Ao_P4 and Ao_P7) or not Ao_P1) and not (reset);
+Ai_P4 <= (Ao_P6 or not(Ao_P2 and Ao_Paux)) and not (reset);
+Ai_P6 <= (Ao_Paux or not Ao_P4) and not (reset);
+Ai_P7 <= (Ao_P9 or not(Ao_P2 and Ao_Paux)) and not (reset);
+Ai_P9 <= (Ao_P1 or not Ao_P7) and not (reset);
+Ai_Paux <= ((Ao_P4 and Ao_P7) or not Ao_P6) and not (reset);
 
 ack_set <= not Ro_P7 or not ack_reset;
 ack_reset <= not Ro_P9 and not reset;
