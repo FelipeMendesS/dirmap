@@ -63,6 +63,11 @@ Xilinx/testFile4/*
 !Xilinx/testFile4/*.vhd
 !Xilinx/testFile4/*.xise
 
+!Xilinx/testFile
+Xilinx/testFile/*
+!Xilinx/testFile/*.vhd
+!Xilinx/testFile/*.xise
+
 
 .idea/misc.xml
 .idea/modules.xml
