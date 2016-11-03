@@ -77,8 +77,6 @@ class DirectMapping(object):
         path_stack[initial_place] = 1
         for place in self.graph.stg_graph[initial_place]:
             self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
-        print(len(cycles))
-        print(cycles)
         for cycle in cycles:
             size = 0
             for place in cycle[:-1]:
@@ -105,7 +103,6 @@ class DirectMapping(object):
                     cycle = [key]
                     place_flag = True
             cycle.append(current_place)
-            # cycles.append(cycle)
             if frozenset(cycle) in checker_dict:
                 equal_flag = False
                 for check_cycle in checker_dict[frozenset(cycle)]:

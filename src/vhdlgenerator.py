@@ -5,6 +5,7 @@ from tree import Tree
 import os
 import datetime
 
+
 class VHDLGenerator(object):
     '''
     Class that creates the vhdl file from the directmapping algorithm in the DirectMapping class.
@@ -32,7 +33,7 @@ class VHDLGenerator(object):
         self.file_name = file_name
         self.control_cells = []
         self.number_of_aux_cells = 0
-        self.last_cycle_2_control_cell = []
+        self.last_cycle_2_control_cell = []  # type: List[Node]
         self.outputs = []
         if not os.path.exists(self.PATH_TO_VHDL + file_name):
             os.makedirs(self.PATH_TO_VHDL + file_name)
@@ -60,6 +61,11 @@ class VHDLGenerator(object):
             else:
                 self.__print_ri(self.OTHER_CONTROL_CELLS, control_cell, file)
             file.write(")" + self.ENTER)
+        file.write(self.ENTER)
+        for i in range(self.number_of_aux_cells):
+            file.write("Ri_Paux" + str(i + 1) + " <= not Ro_" + self.last_cycle_2_control_cell[i].name + "_buffer;")
+            file.write(self.ENTER)
+        file.write(self.ENTER)
         return
 
     def __print_ri(self, type_cc: int, control_cell: Node, file):
@@ -177,7 +183,7 @@ class VHDLGenerator(object):
                         found_first = True
                 if not last_node:
                     raise Exception("Size 2 cycle has only one control cell!")
-                self.last_cycle_2_control_cell.append(last_node.name)
+                self.last_cycle_2_control_cell.append(last_node)
                 file.write("signal " + "Ri_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ai_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ro_Paux" + str(index) + ": std_logic;" + self.ENTER)
@@ -200,7 +206,7 @@ class VHDLGenerator(object):
                        place.name + ", Ao_" + place.name + ");" + self.ENTER)
         file.write(self.ENTER)
         for i in range(self.number_of_aux_cells):
-            control_cell_name = self.last_cycle_2_control_cell[i]
+            control_cell_name = self.last_cycle_2_control_cell[i].name
             file.write("Paux" + str(i + 1) + ": control_cell port map (Ri_Paux" + str(i + 1) + ", Ai_Paux" +
                        str(i + 1) + ", Ro_Paux" + str(i + 1) + ", Ao_Paux" + str(i + 1) + ");" + self.ENTER)
             file.write("buffer_" + str(i + 1) + ": buffer_n generic map(N => 8) port map (Ro_" + control_cell_name +
@@ -237,7 +243,7 @@ class VHDLGenerator(object):
         file.write("end component;" + self.ENTER)
         file.write(self.ENTER)
 
-    def __get_signals(self, type: int):
+    def __get_signals(self, type_cc: int):
         output_signals = []
         input_signals = []
         max_len = 0
@@ -248,7 +254,7 @@ class VHDLGenerator(object):
                 output_signals.append(signal)
             else:
                 input_signals.append(signal)
-        if type == ESTGGraph.OUTPUT:
+        if type_cc == ESTGGraph.OUTPUT:
             return output_signals
         else:
             return input_signals
