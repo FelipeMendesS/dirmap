@@ -81,7 +81,7 @@ class DirectMapping(object):
             for place in cycle[:-1]:
                 if place in valid_places_set:
                     size += 1
-            if size <= 3:
+            if size <= 2:
                 self.size_2_cycles.append(cycle)
                 if size == 0:
                     if cycle[-2] in self.cycle_0_final_transition:
