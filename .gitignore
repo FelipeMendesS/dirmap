@@ -58,6 +58,10 @@ Xilinx/FileTest/*
 !Xilinx/FileTest/*.vhd
 !Xilinx/FileTest/*.xise
 src/__pycache__/*
+!Xilinx/testFile4
+Xilinx/testFile4/*
+!Xilinx/testFile4/*.vhd
+!Xilinx/testFile4/*.xise
 
 
 .idea/misc.xml
