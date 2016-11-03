@@ -1,6 +1,5 @@
 from estggraph import ESTGGraph
 from typing import List, Dict, Set, Tuple, Union
-from graphutil import GraphUtil
 from node import Node
 from collections import OrderedDict
 from tree import Tree
@@ -334,6 +333,104 @@ class DirectMapping(object):
                             else:
                                 self.__aux_get_control_cell_graph(current_control_cell, place, visited_places,
                                                                   list(inverse_stack), current_tree_node, a)
+
+    def get_logic_tree(self, current_place: Node, visited_places=set(), current_tree_node: Union[Tree, None]=None, a={},
+                       tree_index=0, tree_root_node: Union[Tree, None]=None):
+        if not current_place.is_place:
+            if len(self.graph.inverted_extended_graph[current_place]) > 1:
+                self.graph.inverted_extended_graph[current_place].sort()
+                tree_root_node = Tree(Tree.OR, size=len(self.graph.inverted_extended_graph[current_place]))
+                current_tree_node = tree_root_node
+                for index, place in enumerate(self.graph.inverted_extended_graph[current_place]):
+                    self.get_logic_tree(place, current_tree_node=current_tree_node, tree_index=index,
+                                        tree_root_node=tree_root_node)
+                return tree_root_node
+            current_place = self.graph.inverted_extended_graph[current_place][0]
+        if current_place not in visited_places or a[current_place] < 0:
+            if current_place in self.set_of_control_cell_places:
+                if current_place in visited_places:
+                    a[current_place] += 1
+                else:
+                    visited_places.add(current_place)
+                    a[current_place] = 0
+                if current_tree_node:
+                    current_tree_node.next[tree_index] = Tree(Tree.PLACE, node=current_place)
+                else:
+                    tree_root_node = Tree(Tree.PLACE, node=current_place)
+                    current_tree_node = tree_root_node
+            else:
+                if current_place in visited_places:
+                    a[current_place] += 1
+                else:
+                    visited_places.add(current_place)
+                    a[current_place] = 0
+                if current_tree_node:
+                    current_tree_flag = False
+                else:
+                    current_tree_flag = True
+                if len(self.graph.inverted_extended_graph[current_place]) > 1:
+                    self.graph.inverted_extended_graph[current_place].sort()
+                    if current_tree_node:
+                        current_tree_node.next[tree_index] = Tree(Tree.AND,
+                                                                  size=len(self.graph.inverted_extended_graph[current_place]))
+                    else:
+                        tree_root_node = Tree(Tree.AND, size=len(self.graph.inverted_extended_graph[current_place]))
+                        current_tree_node = tree_root_node
+                for indext, transition in enumerate(self.graph.inverted_extended_graph[current_place]):
+                    if len(self.graph.inverted_extended_graph[transition]) > 1:
+                        self.graph.inverted_extended_graph[transition].sort()
+                        if current_tree_node:
+                            if len(self.graph.inverted_extended_graph[current_place]) > 1:
+                                if not current_tree_flag:
+                                    current_tree_node.next[tree_index].next[indext] = Tree(Tree.OR,
+                                                                                           size=len(self.graph.inverted_extended_graph[transition]))
+                                else:
+                                    current_tree_node.next[indext] = Tree(Tree.OR,
+                                                                          size=len(self.graph.inverted_extended_graph[transition]))
+                            else:
+                                current_tree_node.next[tree_index] = Tree(Tree.OR,
+                                                                          size=len(self.graph.inverted_extended_graph[transition]))
+                        else:
+                            tree_root_node = Tree(Tree.OR, size=len(self.graph.inverted_extended_graph[transition]))
+                            current_tree_node = tree_root_node
+                    for indexp, place in enumerate(self.graph.inverted_extended_graph[transition]):
+                        if current_tree_flag:
+                            if current_tree_node:
+                                if len(self.graph.inverted_extended_graph[current_place]) > 1:
+                                    if len(self.graph.inverted_extended_graph[transition]) > 1:
+                                        self.get_logic_tree(current_place, visited_places,
+                                                            current_tree_node.next[indext], a, indexp, tree_root_node)
+                                    else:
+                                        self.get_logic_tree(current_place, visited_places, current_tree_node, a, indext,
+                                                            tree_root_node)
+                                elif len(self.graph.inverted_extended_graph[transition]) > 1:
+                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, indexp,
+                                                        tree_root_node)
+                                else:
+                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, tree_index,
+                                                        tree_root_node)
+                            else:
+                                self.get_logic_tree(current_place, visited_places, current_tree_node, a)
+                        else:
+                            if current_tree_node:
+                                if len(self.graph.inverted_extended_graph[current_place]) > 1:
+                                    if len(self.graph.inverted_extended_graph[transition]) > 1:
+                                        self.get_logic_tree(current_place, visited_places,
+                                                            current_tree_node.next[tree_index].next[indext], a, indexp,
+                                                            tree_root_node)
+                                    else:
+                                        self.get_logic_tree(current_place, visited_places,
+                                                            current_tree_node.next[tree_index], a, indext,
+                                                            tree_root_node)
+                                elif len(self.graph.inverted_extended_graph[transition]) > 1:
+                                    self.get_logic_tree(current_place, visited_places,
+                                                        current_tree_node.next[tree_index], a, indexp, tree_root_node)
+                                else:
+                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, tree_index,
+                                                        tree_root_node)
+                            else:
+                                self.get_logic_tree(current_place, visited_places, current_tree_node, a)
+        return tree_root_node
 
     def __add_tree_to_place(self, is_direct_tree: bool, control_cell: Node, tree: Tree):
         if control_cell in self.logic_tree:

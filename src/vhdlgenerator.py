@@ -4,6 +4,7 @@ from node import Node
 from tree import Tree
 import os
 import datetime
+from typing import List, Dict, Tuple
 
 
 class VHDLGenerator(object):
@@ -23,8 +24,9 @@ class VHDLGenerator(object):
     INITIAL_P1 = 1
     OTHER_CONTROL_CELLS = 2
     RI = 3
-    AI = 4
-    OUTPUT = 5
+    AI_DIRECT = 4
+    AI_INVERSE = 5
+    OUTPUT = 6
     AND = " and "
     OR = " or "
 
@@ -35,6 +37,8 @@ class VHDLGenerator(object):
         self.number_of_aux_cells = 0
         self.last_cycle_2_control_cell = []  # type: List[Node]
         self.outputs = []
+        self.output_transitions = {}  # type: Dict[str, Tuple[List[Node], List[Node]]]
+        self.output_transitions_logic_tree = {}  # type: Dict[Node, Tree]
         if not os.path.exists(self.PATH_TO_VHDL + file_name):
             os.makedirs(self.PATH_TO_VHDL + file_name)
         directory = self.PATH_TO_VHDL + file_name + "/"
@@ -46,8 +50,73 @@ class VHDLGenerator(object):
             self.print_signals(f)
             self.print_instantiations(f)
             self.print_ri(f)
-            # self.print_ai(f)
-            # self.print_outputs(f)
+            self.print_ai(f)
+            self.print_outputs(f)
+            f.write("end struct;" + self.ENTER)
+
+    def print_outputs(self, file):
+        for node in self.direct.graph.extended_graph.keys():
+            if node.is_place:
+                continue
+            if node.contains_type(self.direct.graph.signal_map, ESTGGraph.OUTPUT):
+                for signal, transition_type in node.transition:
+                    if transition_type == Node.RISING_EDGE:
+                        index = 1
+                    else:
+                        index = 0
+                    if signal not in self.output_transitions:
+                        self.output_transitions[signal] = ([], [])
+                    self.output_transitions[signal][index].append(node)
+                    if node not in self.output_transitions_logic_tree:
+                        self.output_transitions_logic_tree[node] = self.direct.get_logic_tree(node)
+        for signal in self.outputs:
+            if self.direct.graph.initial_signal_values[signal] == "*":
+                raise Exception("For now, it's necessary to have initial output values for the algorithm to work!")
+            file.write(signal + "_set <= ")
+            if self.direct.graph.initial_signal_values[signal] == 1:
+                file.write("not reset and (not((")
+            else:
+                file.write("(not((")
+            for index, transition in enumerate(self.output_transitions[signal][1]):
+                if index > 0:
+                    file.write(self.OR + "(")
+                self.print_logic_tree(file, self.OUTPUT, self.output_transitions_logic_tree[transition])
+            file.write(") or not " + signal + "_reset);" + self.ENTER)
+            file.write(signal + "_reset <= ")
+            if self.direct.graph.initial_signal_values[signal] == 0:
+                file.write("not reset and (not((")
+            else:
+                file.write("not((")
+            for index, transition in enumerate(self.output_transitions[signal][0]):
+                if index > 0:
+                    file.write(self.OR + "(")
+                self.print_logic_tree(file, self.OUTPUT, self.output_transitions_logic_tree[transition])
+            file.write("));" + self.ENTER)
+            file.write(self.ENTER)
+
+    def print_ai(self, file):
+        initial_places = set(self.direct.graph.initial_places)
+        for control_cell in self.control_cells:
+            file.write("Ai_" + control_cell.name + " <= ")
+            if control_cell in initial_places:
+                file.write("((")
+            else:
+                file.write("not reset and ((")
+            if control_cell in self.last_cycle_2_control_cell:
+                index = self.last_cycle_2_control_cell.index(control_cell)
+                file.write("Ao_Paux" + str(index + 1) + ") or not (")
+            else:
+                self.print_logic_tree(file, self.AI_DIRECT, self.direct.logic_tree[control_cell][0])
+                file.write(" or not (")
+            self.print_logic_tree(file, self.AI_INVERSE, self.direct.logic_tree[control_cell][1])
+            file.write(");" + self.ENTER)
+        file.write(self.ENTER)
+        for index, control_cell in enumerate(self.last_cycle_2_control_cell):
+            file.write("Ai_Paux" + str(index + 1) + " <= ")
+            file.write("not reset and ((")
+            self.print_logic_tree(file, self.AI_DIRECT, self.direct.logic_tree[control_cell][0])
+            file.write(" or not Ao_" + control_cell.name + ");" + self.ENTER)
+        file.write(self.ENTER)
 
     def print_ri(self, file):
         initial_places_not_p1 = self.direct.initial_places_not_P1
@@ -122,17 +191,35 @@ class VHDLGenerator(object):
 
     def print_logic_tree(self, file, type_cc, tree):
         if tree.classification == Tree.PLACE:
-            file.write("Ro_" + tree.node.name + ")")
+            if type_cc == self.RI or type_cc == self.OUTPUT:
+                file.write("Ro_" + tree.node.name + ")")
+            elif type_cc == self.AI_INVERSE or type_cc == self.AI_DIRECT:
+                file.write("Ao_" + tree.node.name + ")")
         else:
-            if tree.classification == Tree.AND:
-                logic = self.OR
+            if type_cc == self.RI or type_cc == self.OUTPUT:
+                if tree.classification == Tree.AND:
+                    logic = self.OR
+                else:
+                    logic = self.AND
+            elif type_cc == self.AI_DIRECT:
+                if tree.classification == Tree.AND:
+                    logic = self.AND
+                else:
+                    logic = self.OR
             else:
                 logic = self.AND
             for index, next_tree in enumerate(tree.next):
                 if index > 0:
                     file.write(logic)
                 if next_tree.classification == Tree.PLACE:
-                    file.write("Ro_" + next_tree.node.name)
+                    if type_cc == self.RI or type_cc == self.OUTPUT:
+                        if next_tree.node in self.last_cycle_2_control_cell:
+                            index = self.last_cycle_2_control_cell.index(next_tree.node)
+                            file.write("Ro_Paux" + str(index + 1))
+                        else:
+                            file.write("Ro_" + next_tree.node.name)
+                    elif type_cc == self.AI_INVERSE or type_cc == self.AI_DIRECT:
+                        file.write("Ao_" + next_tree.node.name)
                 else:
                     file.write("(")
                     self.print_logic_tree(file, type_cc, next_tree)
@@ -173,23 +260,23 @@ class VHDLGenerator(object):
         if len(self.direct.size_2_cycles) > 0:
             self.number_of_aux_cells = len(self.direct.size_2_cycles)
             for index, cycle in enumerate(self.direct.size_2_cycles):
-                last_node = None
+                higher_node = None
                 found_first = False
                 for node in cycle:
                     if found_first and node in self.direct.set_of_control_cell_places:
-                        last_node = node
+                        if higher_node < node:
+                            higher_node = node
                         break
                     if node in self.direct.set_of_control_cell_places:
                         found_first = True
-                if not last_node:
-                    raise Exception("Size 2 cycle has only one control cell!")
-                self.last_cycle_2_control_cell.append(last_node)
+                        higher_node = node
+                self.last_cycle_2_control_cell.append(higher_node)
                 file.write("signal " + "Ri_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ai_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ro_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ao_Paux" + str(index) + ": std_logic;" + self.ENTER)
                 file.write(self.ENTER)
-                file.write("signal " + "Ro_" + last_node.name + "_buffer" + ": std_logic;" + self.ENTER)
+                file.write("signal " + "Ro_" + higher_node.name + "_buffer" + ": std_logic;" + self.ENTER)
                 file.write(self.ENTER)
         output_signals = self.__get_signals(ESTGGraph.OUTPUT)
         for output in output_signals:

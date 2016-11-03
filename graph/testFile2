@@ -48,13 +48,6 @@ strict digraph {
 	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="regout-"]
 		p12 -> transition11 [arrowhead=onormal arrowsize=0.5]
 		transition11 -> p13
-	p14 [fixedsize=true shape=circle width=.5]
-	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="[empty+]ackin-"]
-		p13 -> transition12 [arrowhead=onormal arrowsize=0.5]
-		transition12 -> p14
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="endmaint+"]
-		p14 -> transition14 [arrowhead=onormal arrowsize=0.5]
-		transition14 -> p1
 	p15 [fixedsize=true shape=circle width=.5]
 	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="[empty-]ackin-"]
 		p13 -> transition13 [arrowhead=onormal arrowsize=0.5]
@@ -62,6 +55,13 @@ strict digraph {
 	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="regout+"]
 		p15 -> transition15 [arrowhead=onormal arrowsize=0.5]
 		transition15 -> p11
+	p14 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="[empty+]ackin-"]
+		p13 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> p14
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="endmaint+"]
+		p14 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> p1
 	p25 [fixedsize=true shape=circle width=.5]
 	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="[done-]dtc+"]
 		p7 -> transition16 [arrowhead=onormal arrowsize=0.5]
@@ -86,6 +86,13 @@ strict digraph {
 	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="regout-"]
 		p19 -> transition21 [arrowhead=onormal arrowsize=0.5]
 		transition21 -> p20
+	p24 [fixedsize=true shape=circle width=.5]
+	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="[empty+]dack+ackin-"]
+		p20 -> transition26 [arrowhead=onormal arrowsize=0.5]
+		transition26 -> p24
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="ready+"]
+		p24 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> p7
 	p21 [fixedsize=true shape=circle width=.5]
 	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="[empty-]dack*ackin-"]
 		p20 -> transition22 [arrowhead=onormal arrowsize=0.5]
@@ -101,11 +108,4 @@ strict digraph {
 	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="regout-"]
 		p23 -> transition25 [arrowhead=onormal arrowsize=0.5]
 		transition25 -> p20
-	p24 [fixedsize=true shape=circle width=.5]
-	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="[empty+]dack+ackin-"]
-		p20 -> transition26 [arrowhead=onormal arrowsize=0.5]
-		transition26 -> p24
-	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="ready+"]
-		p24 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> p7
 }
