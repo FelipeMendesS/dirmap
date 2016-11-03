@@ -11,12 +11,12 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = "sbuf-ram-write"
+        self.file = "master-read"
         self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
         self.parse_test.read_file()
         self.estg_graph = ESTGGraph(self.parse_test)
         self.direct = DirectMapping(self.estg_graph)
-        GraphUtil.print_graph(self.estg_graph, self.file, True)
+        GraphUtil.print_graph(self.estg_graph, self.file)
 
 
     # How to make this tests automated? Seems to be something pretty hard to automatically test without using the same
@@ -30,6 +30,7 @@ class TestDirectMapping(TestCase):
         print(self.direct.inverse_control_cells_graph)
         print("Places Trees")
         print(self.direct.logic_tree)
+        print(self.direct.size_2_cycles)
 
 
     def test_check_for_size_2_cycles(self):

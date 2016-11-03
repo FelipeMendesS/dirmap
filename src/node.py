@@ -33,7 +33,7 @@ class Node(object):
 
     def __init__(self, is_place: bool, name: str="", transition_count: int=0, transition_text: str=""):
         self.name = name  # type: str
-        self.is_place = is_place  # type: str
+        self.is_place = is_place  # type: bool
         self.transition = []  # type: List[Tuple[str, int]]
         self.classify = ()  # type: Tuple[int, List[int]]
         if not self.is_place:

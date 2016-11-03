@@ -34,11 +34,13 @@ class DirectMapping(object):
     def __init__(self, graph: ESTGGraph):
         # TODO: Currently not considering initial places when calculating path with only 2 control cells. FIXIT
         self.graph = graph
-        self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()  # type: Set[Node]
+        self.set_of_control_cell_places = set()  # type: Set[Node]
+        self.initial_places_not_P1 = set()  # type: Set[Node]
+        self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()
         self.control_cells_graph = {}  # type: Dict[Node, Set[Node]]
         self.inverse_control_cells_graph = {}  # type: Dict[Node, Set[Node]]
         self.size_2_cycles = []  # type: List[List[Node]]
-        self.cycle_0_final_transition = {}  # type: Dict[str, Set[str]]
+        self.cycle_0_final_transition = {}  # type: Dict[Node, Set[str]]
         self.output_control_cell_relation = {}  # type: Dict[str, Dict[str, int]]
         # First direct logic tree and then inverse logic tree.
         self.logic_tree = {}  # type: Dict[Node, Tuple[Tree, Tree]]
@@ -67,16 +69,19 @@ class DirectMapping(object):
         return set_of_control_cell_places, initial_places_not_p1
 
     def check_for_size_2_cycles(self):
-        cycles = []  # type: List[List[str]]
-        valid_places_set = self.set_of_control_cell_places - self.initial_places_not_P1
+        checker_dict = {}
+        cycles = []  # type: List[List[Node]]
+        valid_places_set = self.set_of_control_cell_places
         path_stack = OrderedDict()
         initial_place = self.graph.initial_places[0]
         path_stack[initial_place] = 1
         for place in self.graph.stg_graph[initial_place]:
-            self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
+            self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
+        print(len(cycles))
+        print(cycles)
         for cycle in cycles:
             size = 0
-            for place in cycle:
+            for place in cycle[:-1]:
                 if place in valid_places_set:
                     size += 1
             if size <= 2:
@@ -88,7 +93,7 @@ class DirectMapping(object):
                         self.cycle_0_final_transition[cycle[-2]] = set()
                         self.cycle_0_final_transition[cycle[-2]].add(cycle[-1])
 
-    def __aux_check_for_size_2_cycles(self, path_stack, cycles, current_place):
+    def __aux_check_for_size_2_cycles(self, path_stack, cycles, current_place, checker_dict):
         if current_place in path_stack:
             cycle = []
             place_flag = False
@@ -97,15 +102,44 @@ class DirectMapping(object):
                     cycle.append(key)
                     continue
                 if key == current_place:
-                    cycle.append(key)
+                    cycle = [key]
                     place_flag = True
             cycle.append(current_place)
-            cycles.append(cycle)
-            return
+            # cycles.append(cycle)
+            if frozenset(cycle) in checker_dict:
+                equal_flag = False
+                for check_cycle in checker_dict[frozenset(cycle)]:
+                    if DirectMapping.compare_cycles(check_cycle, cycle):
+                        equal_flag = True
+                        break
+                if not equal_flag:
+                    cycles.append(cycle)
+                    checker_dict[frozenset(cycle)].append(cycle)
+            else:
+                checker_dict[frozenset(cycle)] = [cycle]
+                cycles.append(cycle)
         else:
             path_stack[current_place] = 1
             for place in self.graph.stg_graph[current_place]:
-                self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place)
+                self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
+
+    @staticmethod
+    def compare_cycles(cycle1: List[Node], cycle2: List[Node]):
+        if len(cycle1) != len(cycle2):
+            return False
+        initial_index = 0
+        for index, node in enumerate(cycle1):
+            if node == cycle2[0]:
+                initial_index = index
+                break
+        for i in range(len(cycle1)):
+            if i + initial_index < len(cycle1) - 1:
+                if cycle2[i] != cycle1[i + initial_index]:
+                    return False
+            else:
+                if cycle2[i] != cycle1[i + initial_index - len(cycle1) + 1]:
+                    return False
+        return True
 
     def get_control_cell_graph(self):
         # Maybe add a map with already sorted nodes. Gain some time with that. Memory is not a problem.

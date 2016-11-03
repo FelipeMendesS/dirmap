@@ -57,6 +57,8 @@ Xilinx/*
 Xilinx/FileTest/*
 !Xilinx/FileTest/*.vhd
 !Xilinx/FileTest/*.xise
+src/__pycache__/*
+
 
 .idea/misc.xml
 .idea/modules.xml

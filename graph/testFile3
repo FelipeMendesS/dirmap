@@ -1,64 +1,64 @@
 strict digraph {
 	1 [fixedsize=true shape=circle width=.5]
 	2 [fixedsize=true shape=circle width=.5]
-	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="c+"]
-		1 -> transition1 [arrowhead=onormal arrowsize=0.5]
-		transition1 -> 2
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="c+"]
+		1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> 2
 	3 [fixedsize=true shape=circle width=.5]
-	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
-		2 -> transition2 [arrowhead=onormal arrowsize=0.5]
-		transition2 -> 3
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
+		2 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> 3
 	5 [fixedsize=true shape=circle width=.5]
-	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
-		3 -> transition3 [arrowhead=onormal arrowsize=0.5]
-		transition3 -> 5
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> 5
 	6 [fixedsize=true shape=circle width=.5]
-	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="x+"]
-		5 -> transition5 [arrowhead=onormal arrowsize=0.5]
-		transition5 -> 6
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="x+"]
+		5 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> 6
 	7 [fixedsize=true shape=circle width=.5]
-	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
-		6 -> transition6 [arrowhead=onormal arrowsize=0.5]
-		transition6 -> 7
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
+		6 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> 7
 	8 [fixedsize=true shape=circle width=.5]
-	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
-		7 -> transition7 [arrowhead=onormal arrowsize=0.5]
-		transition7 -> 8
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
+		7 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> 8
 	9 [fixedsize=true shape=circle width=.5]
-	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
-		8 -> transition8 [arrowhead=onormal arrowsize=0.5]
-		transition8 -> 9
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
+		8 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> 9
 	10 [fixedsize=true shape=circle width=.5]
-	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
-		9 -> transition9 [arrowhead=onormal arrowsize=0.5]
-		transition9 -> 10
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="b+"]
+		9 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> 10
 	12 [fixedsize=true shape=circle width=.5]
-	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
-		10 -> transition10 [arrowhead=onormal arrowsize=0.5]
-		transition10 -> 12
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		10 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> 12
 	13 [fixedsize=true shape=circle width=.5]
-	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
-		12 -> transition12 [arrowhead=onormal arrowsize=0.5]
-		transition12 -> 13
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="x-"]
+		12 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> 13
 	14 [fixedsize=true shape=circle width=.5]
-	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
-		13 -> transition13 [arrowhead=onormal arrowsize=0.5]
-		transition13 -> 14
-	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
-		14 -> transition14 [arrowhead=onormal arrowsize=0.5]
-		transition14 -> 1
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="b-"]
+		13 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> 14
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
+		14 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> 1
 	11 [fixedsize=true shape=circle width=.5]
-	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
-		8 -> transition8 [arrowhead=onormal arrowsize=0.5]
-		transition8 -> 11
-	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="d-"]
-		11 -> transition11 [arrowhead=onormal arrowsize=0.5]
-		transition11 -> 12
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="c-"]
+		8 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> 11
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="d-"]
+		11 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> 12
 	4 [fixedsize=true shape=circle width=.5]
-	transition1 [label="" height=0.001 shape=box width=0.5 xlabel="c+"]
-		1 -> transition1 [arrowhead=onormal arrowsize=0.5]
-		transition1 -> 4
-	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="d+"]
-		4 -> transition4 [arrowhead=onormal arrowsize=0.5]
-		transition4 -> 5
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="c+"]
+		1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> 4
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="d+"]
+		4 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> 5
 }
