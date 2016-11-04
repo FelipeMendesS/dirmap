@@ -34,6 +34,7 @@ class VHDLGenerator(object):
         self.use_ai = use_ai
         self.direct = direct
         self.file_name = file_name
+        self.module_name = file_name.replace("-", "_")
         self.control_cells = []
         self.number_of_aux_cells = 0
         self.last_cycle_2_control_cell = []  # type: List[Node]
@@ -244,7 +245,7 @@ class VHDLGenerator(object):
             file.write(")")
 
     def print_entity(self, file):
-        file.write("entity " + self.file_name + " is" + self.ENTER)
+        file.write("entity " + self.module_name + " is" + self.ENTER)
         input_signals = []
         output_signals = []
         max_len = 0
@@ -265,7 +266,7 @@ class VHDLGenerator(object):
                 file.write(";" + self.ENTER)
             file.write(" " * 5 + signal + ":" + " " * (max_len - len(signal) + 1) + self.OUT + "std_logic")
         file.write(");" + self.ENTER)
-        file.write("end " + self.file_name + ";" + self.ENTER)
+        file.write("end " + self.module_name + ";" + self.ENTER)
         file.write(self.ENTER)
         file.write(self.SEPARATOR + self.ENTER)
         file.write(self.ENTER)
@@ -326,7 +327,7 @@ class VHDLGenerator(object):
         file.write(self.ENTER)
 
     def print_architecture(self, file):
-        file.write("architecture struct of " + self.file_name + " is" + self.ENTER)
+        file.write("architecture struct of " + self.module_name + " is" + self.ENTER)
         file.write(self.ENTER)
         file.write("component control_cell is" + self.ENTER)
         file.write("port(Ri: in    std_logic;" + self.ENTER)
