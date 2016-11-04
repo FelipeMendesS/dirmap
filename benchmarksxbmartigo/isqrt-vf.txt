@@ -1,0 +1,43 @@
+; especificacao ISQRT
+
+input Req	0
+input bt  	0
+input m   	0
+input me  	0
+input eq  	0
+
+output ln 	 	0
+output lb 	 	0
+output lc 	 	0
+output lr 	 	0
+output sa  	 	0
+output sf 	 	0
+output sn 	 	0
+output Ack 	 	0
+output ct    	0
+output clear	1
+
+
+0 1		Req+		|	ln+ lb+ clear- ct+
+1 2 	bt+			|	ln- lb- ct-
+2 3 	[m+] bt-	|	sa+ ct+
+2 6 	[m-] bt- 	|	ct+
+3 4 	bt+			|	lb+ ct-
+4 5 	bt-			|	lb- ct+
+5 2 	bt+			|	sa- ct-
+6 7 	[eq-] bt+	|	lc+ ct-
+6 18 	[eq+] bt+	|	Ack+ ct-
+7 8 	[me+] bt-	|	sf+ lc- ct+
+7 15 	[me-] bt-	|	lr+ lc- ct+
+8 9 	bt+			|	ln+ ct-
+9 10 	bt-			|	sn+ ct+
+10 11 	bt+			|	ln- lc+ lr+ ct-
+11 12 	bt-			|	sa+ lr- lc- ct+
+12 13 	bt+			|	lr+ sn- sf- ct-
+13 14 	bt-			|	lr- ct+
+14 16 	bt+			|	ct-
+15 16 	bt+			|	sa+ lr- ct-
+16 17	bt-			|	lb+ ct+
+17 19 	bt+			|	lb- ct- sa-
+19 6 	bt-			|	ct+
+18 0 	Req- bt-	|	Ack- clear+

@@ -1,0 +1,19 @@
+.name biu-fifo2dma-VF
+.inputs ok 0 fain 0 dackn 1 cntgt1 0
+.outputs dreq 0 frout 0
+.choice cntgt1 0
+p1/p2|ok+
+p2/p3|frout+
+p3/p4|fain+
+p4/p5|dreq+, frout-
+p5/p6|#cntgt1+, fain*, dackn-
+p6/p7|dreq-
+p7/p8|fain-, dackn+
+p8/p9|frout+
+p9/p10|fain+
+p10/p5|dreq+, frout-
+p5/p13|#cntgt1-, fain*, dackn-
+p13/p11|dreq-
+p11/p1|ok-, fain-, dackn+
+.start p1
+.end

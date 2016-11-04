@@ -1,0 +1,16 @@
+.name sbuf-send-pkt2-vf
+.inputs req 0 ackline 0
+.outputs ack 0 sendiline 0
+.choice done 0
+p1/p2|req+
+p2/p3|sendiline+
+p3/p4|#done+, ackline+
+p4/p5|sendiline-, ack+
+p5/p6|req-, ackline-
+p6/p1|ack-
+p3/p9|#done-, ackline+
+p9/p7|sendiline-
+p7/p8|ackline-
+p8/p3|sendiline+
+.start p1
+.end

@@ -38,7 +38,9 @@ class DirectMapping(object):
         self.set_of_control_cell_places, self.initial_places_not_P1 = self.get_set_of_control_cell_places()
         self.control_cells_graph = {}  # type: Dict[Node, Set[Node]]
         self.inverse_control_cells_graph = {}  # type: Dict[Node, Set[Node]]
+        self.size_1_cycles = []  # type: List[List[Node]]
         self.size_2_cycles = []  # type: List[List[Node]]
+        self.size_3_cycles = []  # type: List[List[Node]]
         self.cycle_0_final_transition = {}  # type: Dict[Node, Set[str]]
         self.output_control_cell_relation = {}  # type: Dict[str, Dict[str, int]]
         # First direct logic tree and then inverse logic tree.
@@ -81,9 +83,14 @@ class DirectMapping(object):
             for place in cycle[:-1]:
                 if place in valid_places_set:
                     size += 1
-            if size <= 2:
-                self.size_2_cycles.append(cycle)
-                if size == 0:
+            if size <= 3:
+                if size == 3:
+                    self.size_3_cycles.append(cycle)
+                elif size == 2:
+                    self.size_2_cycles.append(cycle)
+                elif size == 1:
+                    self.size_1_cycles.append(cycle)
+                elif size == 0:
                     if cycle[-2] in self.cycle_0_final_transition:
                         self.cycle_0_final_transition[cycle[-2]].add(cycle[-1])
                     else:

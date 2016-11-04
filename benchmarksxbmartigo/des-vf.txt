@@ -1,0 +1,28 @@
+;Double-Edge Trigger - Differential Equation Solver
+
+input start	0
+input Es0	0
+input Es1	0
+input Es2	0
+input my	0
+
+output done	1
+output MM1	0
+output MA1	0
+output s0	0
+output s1	0
+output s2	0
+output k	0
+
+
+0 1				start+	|	done- s0+
+1 2				Es0+	|	MM1+ s2+
+2 3		[my-]	Es2+	|	s1+ MA1+ k+
+3 4				Es1+	|	s2- MM1-
+4 5				Es2-	|	s1-
+5 2				Es1-	|	s2+ k- MM1+ MA1-
+2 6		[my+]	Es2+	|	s0- s2-
+6 0	start- Es0- Es2-	|	done+ MM1-
+
+    
+ 

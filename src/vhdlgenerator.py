@@ -30,7 +30,8 @@ class VHDLGenerator(object):
     AND = " and "
     OR = " or "
 
-    def __init__(self, direct: DirectMapping, file_name: str):
+    def __init__(self, direct: DirectMapping, file_name: str, use_ai: bool=True):
+        self.use_ai = use_ai
         self.direct = direct
         self.file_name = file_name
         self.control_cells = []
@@ -99,23 +100,40 @@ class VHDLGenerator(object):
         for control_cell in self.control_cells:
             file.write("Ai_" + control_cell.name + " <= ")
             if control_cell in initial_places:
-                file.write("((")
+                if self.use_ai:
+                    file.write("((")
+                else:
+                    file.write("(")
             else:
-                file.write("not reset and ((")
+                if self.use_ai:
+                    file.write("not reset and ((")
+                else:
+                    file.write("not reset and (")
             if control_cell in self.last_cycle_2_control_cell:
                 index = self.last_cycle_2_control_cell.index(control_cell)
-                file.write("Ao_Paux" + str(index + 1) + ") or not (")
+                if self.use_ai:
+                    file.write("Ao_Paux" + str(index + 1) + ") or not (")
+                else:
+                    file.write("Ao_Paux" + str(index + 1) + ")")
             else:
                 self.print_logic_tree(file, self.AI_DIRECT, self.direct.logic_tree[control_cell][0])
-                file.write(" or not (")
-            self.print_logic_tree(file, self.AI_INVERSE, self.direct.logic_tree[control_cell][1])
-            file.write(");" + self.ENTER)
+                if self.use_ai:
+                    file.write(" or not (")
+            if self.use_ai:
+                self.print_logic_tree(file, self.AI_INVERSE, self.direct.logic_tree[control_cell][1])
+            file.write(";" + self.ENTER)
         file.write(self.ENTER)
         for index, control_cell in enumerate(self.last_cycle_2_control_cell):
             file.write("Ai_Paux" + str(index + 1) + " <= ")
-            file.write("not reset and ((")
+            if self.use_ai:
+                file.write("not reset and ((")
+            else:
+                file.write("not reset and (")
             self.print_logic_tree(file, self.AI_DIRECT, self.direct.logic_tree[control_cell][0])
-            file.write(" or not Ao_" + control_cell.name + ");" + self.ENTER)
+            if self.use_ai:
+                file.write(" or not Ao_" + control_cell.name + ");" + self.ENTER)
+            else:
+                file.write(";" + self.ENTER)
         file.write(self.ENTER)
 
     def print_ri(self, file):

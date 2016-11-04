@@ -1,0 +1,52 @@
+.name isqrt-vf
+.inputs Req 0 bt 0
+.outputs ln 0 lb 0 lc 0 lr 0 sa 0 sf 0 sn 0 Ack 0 ct 0 clear 1
+.choice m 0 me 0 eq 0
+p1/p2|Req+
+p2/p3|ln+, lb+, clear-, ct+
+p3/p4|bt+
+p4/p5|ln-, lb-, ct-
+p5/p6|#m+, bt-
+p6/p7|sa+, ct+
+p5/p43|#m-, bt-
+p43/p13|ct+
+p7/p8|bt+
+p8/p9|lb+, ct-
+p9/p10|bt-
+p10/p11|lb-, ct+
+p11/p12|bt+
+p12/p5|sa-, ct-
+p13/p14|#eq-, bt+
+p14/p15|lc+, ct-
+p13/p41|#eq+, bt+
+p41/p37|Ack+, ct-
+p15/p16|#me+, bt-
+p16/p17|sf+, lc-, ct+
+p15/p42|#me-, bt-
+p42/p31|lr+, lc-, ct+
+p17/p18|bt+
+p18/p19|ln+, ct-
+p19/p20|bt-
+p20/p21|sn+, ct+
+p21/p22|bt+
+p22/p23|ln-, lc+, lr+, ct-
+p23/p24|bt-
+p24/p25|sa+, lr-, lc-, ct+
+p25/p26|bt+
+p26/p27|lr+, sn-, sf-, ct-
+p27/p28|bt-
+p28/p29|lr-, ct+
+p29/p30|bt+
+p30/p33|ct-
+p31/p32|bt+
+p32/p33|sa+, lr-, ct-
+p33/p34|bt-
+p34/p35|lb+, ct+
+p35/p36|bt+
+p36/p39|lb-, ct-, sa-
+p39/p40|bt-
+p40/p13|ct+
+p37/p38|Req-, bt-
+p38/p1|Ack-, clear+
+.start p1
+.end

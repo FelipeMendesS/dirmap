@@ -1,0 +1,27 @@
+.name scsi-init-send-vf
+.inputs ok 0 rin 0 fain 0 dsel 1
+.outputs frout 0 aout 0 sel 0
+.choice cntgt1 0
+p1/p2|ok+, rin*, dsel*
+p2/p3|frout+
+p3/p4|rin*, fain+, dsel*
+p4/p5|frout-
+p5/p6|rin+, fain-, dsel*
+p6/p7|aout+
+p7/p8|#cntgt1+, rin-, dsel-
+p8/p9|aout-, sel+
+p7/p19|#cntgt1-, rin-, dsel*
+p19/p17|aout-
+p9/p10|rin+, dsel+
+p10/p11|aout+
+p11/p12|#cntgt1+, rin-
+p12/p13|aout-, frout+, sel-
+p13/p14|rin*, fain+, dsel*
+p14/p15|frout-
+p15/p16|rin+, fain-, dsel*
+p16/p7|aout+
+p11/p20|#cntgt1-, rin-, dsel*
+p20/p17|aout-, sel-
+p17/p1|ok-, rin*, dsel*
+.start p1
+.end

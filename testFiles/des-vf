@@ -1,0 +1,22 @@
+.name des-vf
+.inputs start 0 Es0 0 Es1 0 Es2 0
+.outputs done 1 MM1 0 MA1 0 s0 0 s1 0 s2 0 k 0
+.choice my 0
+p1/p2|start+
+p2/p3|done-, s0+
+p3/p4|Es0+
+p4/p5|MM1+, s2+
+p5/p6|#my-, Es2+
+p6/p7|s1+, MA1+, k+
+p7/p8|Es1+
+p8/p9|s2-, MM1-
+p9/p10|Es2-
+p10/p11|s1-
+p11/p12|Es1-
+p12/p5|s2+, k-, MM1+, MA1-
+p5/p15|#my+, Es2+
+p15/p13|s0-, s2-
+p13/p14|start-, Es0-, Es2-
+p14/p1|done+, MM1-
+.start p1
+.end

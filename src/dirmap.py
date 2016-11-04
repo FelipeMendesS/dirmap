@@ -14,12 +14,18 @@ PATH_TO_IMAGES = "../graph/"
 
 def main():
     file_name = sys.argv[1]
+    view_flag = False
+    if len(sys.argv) > 2:
+        view_flag = True
     parse_file = TextParseESTG(PATH_TO_TESTS + file_name)
     parse_file.read_file()
     estg_graph = ESTGGraph(parse_file)
+    estg_graph.check_consistency()
+    estg_graph.check_output_persistency()
     direct = DirectMapping(estg_graph)
-    # GraphUtil.print_graph(estg_graph, file_name, True, overwrite_graph=True)
-    VHDLGenerator(direct, file_name)
+    GraphUtil.print_graph(estg_graph, file_name, view_flag=view_flag, overwrite_graph=False)
+    generator = VHDLGenerator(direct, file_name, False)
+    print(generator.last_cycle_2_control_cell)
 
 # Parse files and get them to directmapping or something like that. Already showing how the program is supposed to be
 # run

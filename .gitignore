@@ -47,27 +47,13 @@ fabric.properties
 Relatorio/
 theory/
 
-.idea/
+.idea/**
 
 Linux/
 Estagio/
 VHDL/
-Xilinx/*
-!Xilinx/FileTest
-Xilinx/FileTest/*
-!Xilinx/FileTest/*.vhd
-!Xilinx/FileTest/*.xise
-src/__pycache__/*
-!Xilinx/testFile4
-Xilinx/testFile4/*
-!Xilinx/testFile4/*.vhd
-!Xilinx/testFile4/*.xise
+Xilinx/**
+!Xilinx/**/*.vhd
+!Xilinx/**/*.xise
 
-!Xilinx/testFile
-Xilinx/testFile/*
-!Xilinx/testFile/*.vhd
-!Xilinx/testFile/*.xise
-
-
-.idea/misc.xml
-.idea/modules.xml
+src/__pycache__/

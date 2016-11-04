@@ -1,0 +1,72 @@
+strict digraph {
+	p1 [fixedsize=true shape=circle width=.5]
+	p2 [fixedsize=true shape=circle width=.5]
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="ok+frin*"]
+		p1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> p2
+	p3 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="dreq+"]
+		p2 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> p3
+	p16 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="[cntgt1-]frin*dackn-"]
+		p3 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> p16
+	p11 [fixedsize=true shape=circle width=.5]
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="dreq-"]
+		p16 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> p11
+	p12 [fixedsize=true shape=circle width=.5]
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="ok*frin+dackn+"]
+		p11 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> p12
+	p13 [fixedsize=true shape=circle width=.5]
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="faout+"]
+		p12 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> p13
+	p14 [fixedsize=true shape=circle width=.5]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="ok-frin-"]
+		p13 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> p14
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="faout-"]
+		p14 -> transition17 [arrowhead=onormal arrowsize=0.5]
+		transition17 -> p1
+	p4 [fixedsize=true shape=circle width=.5]
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="[cntgt1+]frin*dackn-"]
+		p3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> p4
+	p5 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="dreq-"]
+		p4 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> p5
+	p6 [fixedsize=true shape=circle width=.5]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="frin+dackn+"]
+		p5 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> p6
+	p7 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="faout+"]
+		p6 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> p7
+	p8 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="frin-"]
+		p7 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> p8
+	p9 [fixedsize=true shape=circle width=.5]
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="dreq+faout-"]
+		p8 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> p9
+	p10 [fixedsize=true shape=circle width=.5]
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="[cntgt1+]frin*dackn-"]
+		p9 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> p10
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="dreq-"]
+		p10 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> p5
+	p15 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="[cntgt1-]frin*dackn-"]
+		p9 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> p15
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="dreq-"]
+		p15 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> p11
+}

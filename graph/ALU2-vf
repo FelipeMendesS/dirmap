@@ -1,0 +1,128 @@
+strict digraph {
+	p1 [fixedsize=true shape=circle width=.5]
+	p2 [fixedsize=true shape=circle width=.5]
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="start+"]
+		p1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> p2
+	p3 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-"]
+		p2 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> p3
+	p29 [fixedsize=true shape=circle width=.5]
+	transition26 [label="" height=0.01 shape=box width=0.5 xlabel="[C+]EvDone+"]
+		p3 -> transition26 [arrowhead=onormal arrowsize=0.5]
+		transition26 -> p29
+	p25 [fixedsize=true shape=circle width=.5]
+	transition27 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+"]
+		p29 -> transition27 [arrowhead=onormal arrowsize=0.5]
+		transition27 -> p25
+	p26 [fixedsize=true shape=circle width=.5]
+	transition28 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-"]
+		p25 -> transition28 [arrowhead=onormal arrowsize=0.5]
+		transition28 -> p26
+	p27 [fixedsize=true shape=circle width=.5]
+	transition29 [label="" height=0.01 shape=box width=0.5 xlabel="EndP+"]
+		p26 -> transition29 [arrowhead=onormal arrowsize=0.5]
+		transition29 -> p27
+	p28 [fixedsize=true shape=circle width=.5]
+	transition30 [label="" height=0.01 shape=box width=0.5 xlabel="start-"]
+		p27 -> transition30 [arrowhead=onormal arrowsize=0.5]
+		transition30 -> p28
+	transition31 [label="" height=0.01 shape=box width=0.5 xlabel="EndP-"]
+		p28 -> transition31 [arrowhead=onormal arrowsize=0.5]
+		transition31 -> p1
+	p4 [fixedsize=true shape=circle width=.5]
+	transition2 [label="" height=0.01 shape=box width=0.5 xlabel="[C-]EvDone+"]
+		p3 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> p4
+	p5 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+A2M+seldx+"]
+		p4 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> p5
+	p6 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-M1A*M2A2*"]
+		p5 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> p6
+	p7 [fixedsize=true shape=circle width=.5]
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-"]
+		p6 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> p7
+	p8 [fixedsize=true shape=circle width=.5]
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone+M1A*M2A2*"]
+		p7 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> p8
+	p9 [fixedsize=true shape=circle width=.5]
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+LX+seldx-"]
+		p8 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> p9
+	p10 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-M1A+M2A2+"]
+		p9 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> p10
+	p11 [fixedsize=true shape=circle width=.5]
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-A2M-"]
+		p10 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> p11
+	p30 [fixedsize=true shape=circle width=.5]
+	transition18 [label="" height=0.01 shape=box width=0.5 xlabel="[C+]EvDone+M1A*M2A2*"]
+		p11 -> transition18 [arrowhead=onormal arrowsize=0.5]
+		transition18 -> p30
+	p19 [fixedsize=true shape=circle width=.5]
+	transition19 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+selym2+"]
+		p30 -> transition19 [arrowhead=onormal arrowsize=0.5]
+		transition19 -> p19
+	p20 [fixedsize=true shape=circle width=.5]
+	transition20 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-M1A*M2A2*"]
+		p19 -> transition20 [arrowhead=onormal arrowsize=0.5]
+		transition20 -> p20
+	p21 [fixedsize=true shape=circle width=.5]
+	transition21 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-LX-"]
+		p20 -> transition21 [arrowhead=onormal arrowsize=0.5]
+		transition21 -> p21
+	p22 [fixedsize=true shape=circle width=.5]
+	transition22 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone+M1A-M2A2-"]
+		p21 -> transition22 [arrowhead=onormal arrowsize=0.5]
+		transition22 -> p22
+	p23 [fixedsize=true shape=circle width=.5]
+	transition23 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+LY+selym2-"]
+		p22 -> transition23 [arrowhead=onormal arrowsize=0.5]
+		transition23 -> p23
+	p24 [fixedsize=true shape=circle width=.5]
+	transition24 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-"]
+		p23 -> transition24 [arrowhead=onormal arrowsize=0.5]
+		transition24 -> p24
+	transition25 [label="" height=0.01 shape=box width=0.5 xlabel="LY-EndP+"]
+		p24 -> transition25 [arrowhead=onormal arrowsize=0.5]
+		transition25 -> p27
+	p12 [fixedsize=true shape=circle width=.5]
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="[C-]EvDone+M1A*M2A2*"]
+		p11 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> p12
+	p13 [fixedsize=true shape=circle width=.5]
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+seldx+selym2+"]
+		p12 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> p13
+	p14 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-M1A*M2A2*"]
+		p13 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> p14
+	p15 [fixedsize=true shape=circle width=.5]
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-LX-"]
+		p14 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> p15
+	p16 [fixedsize=true shape=circle width=.5]
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone+M1A-M2A2-"]
+		p15 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> p16
+	p17 [fixedsize=true shape=circle width=.5]
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="Prech+LY+A2M+selym2-"]
+		p16 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> p17
+	p18 [fixedsize=true shape=circle width=.5]
+	transition16 [label="" height=0.01 shape=box width=0.5 xlabel="EvDone-M1A*M2A2*"]
+		p17 -> transition16 [arrowhead=onormal arrowsize=0.5]
+		transition16 -> p18
+	transition17 [label="" height=0.01 shape=box width=0.5 xlabel="Prech-LY-"]
+		p18 -> transition17 [arrowhead=onormal arrowsize=0.5]
+		transition17 -> p7
+}

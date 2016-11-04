@@ -1,0 +1,60 @@
+strict digraph {
+	p1 [fixedsize=true shape=circle width=.5]
+	p2 [fixedsize=true shape=circle width=.5]
+	transition0 [label="" height=0.001 shape=box width=0.5 xlabel="[sel+]r+"]
+		p1 -> transition0 [arrowhead=onormal arrowsize=0.5]
+		transition0 -> p2
+	p9 [fixedsize=true shape=circle width=.5]
+	transition1 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
+		p2 -> transition1 [arrowhead=onormal arrowsize=0.5]
+		transition1 -> p9
+	transition6 [label="" height=0.01 shape=box width=0.5 xlabel="[sel-]r-"]
+		p9 -> transition6 [arrowhead=onormal arrowsize=0.5]
+		transition6 -> p9
+	p10 [fixedsize=true shape=circle width=.5]
+	transition4 [label="" height=0.01 shape=box width=0.5 xlabel="[sel+]r-"]
+		p9 -> transition4 [arrowhead=onormal arrowsize=0.5]
+		transition4 -> p10
+	p5 [fixedsize=true shape=circle width=.5]
+	transition3 [label="" height=0.01 shape=box width=0.5 xlabel="s2+"]
+		p10 -> transition3 [arrowhead=onormal arrowsize=0.5]
+		transition3 -> p5
+	p6 [fixedsize=true shape=circle width=.5]
+	transition10 [label="" height=0.01 shape=box width=0.5 xlabel="[sel+]r-"]
+		p5 -> transition10 [arrowhead=onormal arrowsize=0.5]
+		transition10 -> p6
+	p13 [fixedsize=true shape=circle width=.5]
+	transition11 [label="" height=0.01 shape=box width=0.5 xlabel="a+"]
+		p6 -> transition11 [arrowhead=onormal arrowsize=0.5]
+		transition11 -> p13
+	p14 [fixedsize=true shape=circle width=.5]
+	transition8 [label="" height=0.01 shape=box width=0.5 xlabel="[sel+]r+"]
+		p13 -> transition8 [arrowhead=onormal arrowsize=0.5]
+		transition8 -> p14
+	transition9 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		p14 -> transition9 [arrowhead=onormal arrowsize=0.5]
+		transition9 -> p5
+	p11 [fixedsize=true shape=circle width=.5]
+	transition12 [label="" height=0.01 shape=box width=0.5 xlabel="[sel-]r+"]
+		p13 -> transition12 [arrowhead=onormal arrowsize=0.5]
+		transition12 -> p11
+	transition13 [label="" height=0.01 shape=box width=0.5 xlabel="s2-"]
+		p11 -> transition13 [arrowhead=onormal arrowsize=0.5]
+		transition13 -> p9
+	p12 [fixedsize=true shape=circle width=.5]
+	transition14 [label="" height=0.01 shape=box width=0.5 xlabel="[sel-]r-"]
+		p5 -> transition14 [arrowhead=onormal arrowsize=0.5]
+		transition14 -> p12
+	transition15 [label="" height=0.01 shape=box width=0.5 xlabel="s2-"]
+		p12 -> transition15 [arrowhead=onormal arrowsize=0.5]
+		transition15 -> p1
+	transition5 [label="" height=0.01 shape=box width=0.5 xlabel="a-"]
+		p10 -> transition5 [arrowhead=onormal arrowsize=0.5]
+		transition5 -> p1
+	transition7 [label="" height=0.01 shape=box width=0.5 xlabel="s2+"]
+		p9 -> transition7 [arrowhead=onormal arrowsize=0.5]
+		transition7 -> p13
+	transition2 [label="" height=0.001 shape=box width=0.5 xlabel="[sel-]r+"]
+		p1 -> transition2 [arrowhead=onormal arrowsize=0.5]
+		transition2 -> p10
+}

@@ -1,0 +1,38 @@
+.name ALU2-vf
+.inputs start 0 EvDone 0 M1A 0 M2A2 0 
+.outputs Prech 1 LX 0 LY 0 A2M 0 EndP 0 seldx 0 selym2 0
+.choice C 0 
+p1/p2|start+
+p2/p3|Prech-
+p3/p4|#C-, EvDone+
+p4/p5|Prech+, A2M+, seldx+
+p5/p6|EvDone-, M1A*, M2A2*
+p6/p7|Prech-
+p7/p8|EvDone+, M1A*, M2A2*
+p8/p9|Prech+, LX+, seldx-
+p9/p10|EvDone-, M1A+, M2A2+
+p10/p11|Prech-, A2M-
+p11/p12|#C-, EvDone+, M1A*, M2A2*
+p12/p13|Prech+, seldx+, selym2+
+p13/p14|EvDone-, M1A*, M2A2*
+p14/p15|Prech-, LX-
+p15/p16|EvDone+, M1A-, M2A2-
+p16/p17|Prech+, LY+, A2M+, selym2-
+p17/p18|EvDone-, M1A*, M2A2*
+p18/p7|Prech-, LY-
+p11/p30|#C+, EvDone+, M1A*, M2A2*
+p30/p19|Prech+, selym2+
+p19/p20|EvDone-, M1A*, M2A2*
+p20/p21|Prech-, LX-
+p21/p22|EvDone+, M1A-, M2A2-
+p22/p23|Prech+, LY+, selym2-
+p23/p24|EvDone-
+p24/p27|LY-, EndP+
+p3/p29|#C+, EvDone+
+p29/p25|Prech+
+p25/p26|EvDone-
+p26/p27|EndP+
+p27/p28|start-
+p28/p1|EndP-
+.start p1
+.end

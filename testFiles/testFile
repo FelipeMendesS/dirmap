@@ -1,4 +1,4 @@
-.name not_sure_what_this_is
+.name sbuf-send
 .inputs  req 0 ackline 0
 .outputs ack 0 sendline 0
 .choice done 0

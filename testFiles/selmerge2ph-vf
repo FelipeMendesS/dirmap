@@ -1,0 +1,30 @@
+.name selmerge2ph-vf
+.inputs r 0 r2 0
+.outputs a 0 s2 0
+.choice sel 0
+p1/p2|#sel-, r+
+p2/p3|s2+
+p3/p4|r2+
+p4/p5|a+
+p5/p6|#sel-, r-
+p6/p7|s2-
+p7/p8|r2-
+p8/p1|a-
+p1/p20|#sel+, r+
+p20/p9|a+
+p9/p10|#sel+, r-
+p10/p1|a-
+p9/p17|#sel-, r-
+p17/p11|s2+
+p11/p12|r2+
+p12/p13|a-
+p13/p14|#sel+, r+
+p14/p5|a+
+p5/p19|#sel+, r-
+p19/p13|a-
+p13/p18|#sel-, r+
+p18/p15|s2-
+p15/p16|r2-
+p16/p9|a+
+.start p1
+.end
