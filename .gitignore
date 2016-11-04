@@ -52,8 +52,9 @@ theory/
 Linux/
 Estagio/
 VHDL/
-Xilinx/**
-!Xilinx/**/*.vhd
-!Xilinx/**/*.xise
+
+
+
+
 
 src/__pycache__/
