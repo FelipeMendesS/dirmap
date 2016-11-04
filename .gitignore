@@ -53,7 +53,9 @@ Linux/
 Estagio/
 VHDL/
 
-
+Xilinx/**
+!Xilinx/**/*.vhd
+!Xilinx/**/*.xise
 
 
 
