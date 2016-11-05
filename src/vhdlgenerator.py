@@ -84,7 +84,7 @@ class VHDLGenerator(object):
                 if index > 0:
                     file.write(self.OR + "(")
                 self.print_logic_tree(file, self.OUTPUT_SET, self.output_transitions_logic_tree[transition])
-            file.write(") or not " + signal + "_reset);" + self.ENTER)
+            file.write(") or not " + signal + "_reset;" + self.ENTER)
             file.write(signal + "_reset <= ")
             if self.direct.graph.initial_signal_values[signal] == 0:
                 file.write("not reset and (not((")
@@ -145,6 +145,7 @@ class VHDLGenerator(object):
             file.write("Ri_" + control_cell.name + " <= ")
             if control_cell in initial_places_not_p1:
                 self.__print_ri(self.INITIAL_NOT_P1, control_cell, file)
+                file.write(")")
             elif control_cell in initial_places_p1:
                 self.__print_ri(self.INITIAL_P1, control_cell, file)
             else:
@@ -217,11 +218,11 @@ class VHDLGenerator(object):
             if type_cc == self.RI or type_cc == self.OUTPUT_SET:
                 if tree.node in self.last_cycle_2_control_cell:
                     index = self.last_cycle_2_control_cell.index(tree.node)
-                    file.write("Ro_Paux" + str(index + 1))
+                    file.write("Ro_Paux" + str(index + 1) + ')')
                 else:
-                    file.write("Ro_" + tree.node.name)
+                    file.write("Ro_" + tree.node.name + ')')
             elif type_cc == self.OUTPUT_RESET:
-                file.write("Ro_" + tree.node.name)
+                file.write("Ro_" + tree.node.name + ')')
             elif type_cc == self.AI_INVERSE or type_cc == self.AI_DIRECT:
                 file.write("Ao_" + tree.node.name + ")")
         else:
