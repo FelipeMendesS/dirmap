@@ -79,7 +79,7 @@ class VHDLGenerator(object):
             if self.direct.graph.initial_signal_values[signal] == 1:
                 file.write("not reset and (not((")
             else:
-                file.write("(not((")
+                file.write("not((")
             for index, transition in enumerate(self.output_transitions[signal][1]):
                 if index > 0:
                     file.write(self.OR + "(")
