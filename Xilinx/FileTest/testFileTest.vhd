@@ -39,7 +39,7 @@ ARCHITECTURE behavior OF testFileTest IS
  
     -- Component Declaration for the Unit Under Test (UUT)
  
-    COMPONENT FileTest
+    COMPONENT testFile
     PORT(
          reset : IN  std_logic;
          req : IN  std_logic;
@@ -68,7 +68,7 @@ ARCHITECTURE behavior OF testFileTest IS
 BEGIN
  
 	-- Instantiate the Unit Under Test (UUT)
-   uut: FileTest PORT MAP (
+   uut: testFile PORT MAP (
           reset => reset,
           req => req,
           ackline => ackline,
