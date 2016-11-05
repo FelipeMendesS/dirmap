@@ -12,6 +12,7 @@ class TextParseXBM(object):
     def __init__(self, file_name):
         self.graph = {}  # type: Dict[str, List[str]]
         self.index_counter = {}
+        self.choice = {}
         with open(self.PATH_TO_XBM + file_name, 'r') as f:
             file_lines = f.read().splitlines()
         with open(self.PATH_TO_FILES + file_name[:-4], 'w+') as f:
@@ -19,17 +20,21 @@ class TextParseXBM(object):
             f.write(".inputs")
             output_flag = False
             transition_lines = []
+            input_lines = []
+            output_lines = []
             for line in file_lines:
                 if re.match(r"\s*input\s*\w+\s*\w\s*", line):
-                    aux = line.strip().split()
-                    f.write(" " + aux[1] + " " + aux[2])
+                    input_lines.append(line)
+                    # aux = line.strip().split()
+                    # f.write(" " + aux[1] + " " + aux[2])
                 elif re.match(r"\s*output\s*\w+\s*\w\s*", line):
-                    if not output_flag:
-                        f.write(self.ENTER)
-                        f.write(".outputs")
-                        output_flag = True
-                    aux = line.strip().split()
-                    f.write(" " + aux[1] + " " + aux[2])
+                    # if not output_flag:
+                    #     f.write(self.ENTER)
+                    #     f.write(".outputs")
+                    #     output_flag = True
+                    output_lines.append(line)
+                    # aux = line.strip().split()
+                    # f.write(" " + aux[1] + " " + aux[2])
                 elif re.match(r"\s*\w+\s*\w+\s*[\[?\w\s*+\-\]?]+\|[\w\s*+\-]?", line):
                     transition_lines.append(line)
                     aux = line.strip().split()
@@ -37,6 +42,31 @@ class TextParseXBM(object):
                         self.graph[aux[0]].append(aux[1])
                     else:
                         self.graph[aux[0]] = [aux[1]]
+                    for string in aux:
+                        if string == "|":
+                            break
+                        elif re.match(r"\[\w+[*\-+]\]", string):
+                            self.choice[string.strip("[-+]")] = 0
+            for line in input_lines:
+                aux = line.strip().split()
+                if aux[1] in self.choice:
+                    self.choice[aux[1]] = aux[2]
+                else:
+                    f.write(" " + aux[1] + " " + aux[2])
+            for line in output_lines:
+                if not output_flag:
+                    f.write(self.ENTER)
+                    f.write(".outputs")
+                    output_flag = True
+                aux = line.strip().split()
+                f.write(" " + aux[1] + " " + aux[2])
+            choice_flag = False
+            for choice in self.choice.keys():
+                if not choice_flag:
+                    f.write(self.ENTER)
+                    f.write(".choice")
+                    choice_flag = True
+                f.write(" " + choice + " " + self.choice[choice])
             f.write(self.ENTER)
             number_of_nodes = 0
             for integer in self.graph.keys():

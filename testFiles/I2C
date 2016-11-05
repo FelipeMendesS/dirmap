@@ -1,0 +1,28 @@
+.name I2C-bus
+.inputs CLK 0 aux 0
+.outputs a 0 b 0
+.choice SDA 0
+p1/p2|#SDA+,CLK+
+p2/p3|aux+
+p2/p4|CLK-
+p3/p5|CLK-
+p5/p6|a+
+p6/p7|CLK+
+p7/p8|CLK-, aux-
+p8/p1|a-
+p4/p9|CLK+
+p9/p1|CLK-
+p1/p10|#SDA-, CLK+
+p10/p11|aux+
+p10/p12|CLK-
+p12/p13|a+, b+
+p13/p14|CLK+
+p14/p15|CLK-
+p15/p1|a-,b-
+p11/p16|CLK-
+p16/p17|b+
+p17/p18|CLK+
+p18/p19|CLK-, aux-
+p19/p1|b-
+.start p1
+.end

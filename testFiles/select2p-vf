@@ -1,21 +1,22 @@
 .name select2p-vf
-.inputs r 0 sel 0
+.inputs r 0
 .outputs a 0 s2 0
+.choice sel 0
 p1/p2|#sel+, r+
 p2/p9|a+
-p1/p18|#sel-, r+
-p18/p5|s2+
+p1/p16|#sel-, r+
+p16/p5|s2+
 p9/p10|#sel+, r-
 p10/p1|a-
-p9/p17|#sel-, r-
-p17/p13|s2+
+p9/p15|#sel-, r-
+p15/p13|s2+
 p13/p14|#sel+, r+
 p14/p5|a-
 p5/p6|#sel+, r-
 p6/p13|a+
-p13/p15|#sel-, r+
-p15/p9|s2-
-p5/p16|#sel-, r-
-p16/p1|s2-
+p13/p18|#sel-, r+
+p18/p9|s2-
+p5/p17|#sel-, r-
+p17/p1|s2-
 .start p1
 .end

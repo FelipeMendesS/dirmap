@@ -16,16 +16,25 @@ class TestTextParse(TestCase):
 
     def test_read_file1(self):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF",
-                "des-vf", "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf",
-                "selmerge2ph-vf"]
+                "des-vf", "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf",
+                "selmerge2ph-vf", "I2C"]
         for f in file:
             print(f)
             parse_test = TextParseESTG(self.PATH_TO_TESTS + f)
             parse_test.read_file()
             estg_graph = ESTGGraph(parse_test)
-            GraphUtil.print_graph(estg_graph, f, view_flag=False, overwrite_graph=True)
+            # GraphUtil.print_graph(estg_graph, f, view_flag=False, overwrite_graph=False)
             estg_graph.check_consistency()
             estg_graph.check_output_persistency()
+            number_of_places = 0
+            number_of_transitions = 0
+            for node in estg_graph.extended_graph:
+                if node.is_place:
+                    number_of_places += 1
+                else:
+                    number_of_transitions += 1
+            print(str(number_of_places) + " Places")
+            print(str(number_of_transitions) + " Transitions")
             # self.assertEqual(parse_test.regular_inputs, ["req", "ackline"])
             # self.assertEqual(parse_test.outputs, ["ack", "sendline"])
         # print(parse_test.graph.stg_graph)

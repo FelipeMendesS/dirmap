@@ -10,20 +10,20 @@ p5/p6|#sel-, r-
 p6/p7|s2-
 p7/p8|r2-
 p8/p1|a-
-p1/p20|#sel+, r+
-p20/p9|a+
+p1/p17|#sel+, r+
+p17/p9|a+
 p9/p10|#sel+, r-
 p10/p1|a-
-p9/p17|#sel-, r-
-p17/p11|s2+
+p9/p20|#sel-, r-
+p20/p11|s2+
 p11/p12|r2+
 p12/p13|a-
 p13/p14|#sel+, r+
 p14/p5|a+
-p5/p19|#sel+, r-
-p19/p13|a-
-p13/p18|#sel-, r+
-p18/p15|s2-
+p5/p18|#sel+, r-
+p18/p13|a-
+p13/p19|#sel-, r+
+p19/p15|s2-
 p15/p16|r2-
 p16/p9|a+
 .start p1

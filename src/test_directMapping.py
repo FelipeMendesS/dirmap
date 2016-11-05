@@ -12,14 +12,16 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = "testFile4"
-        self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
-        self.parse_test.read_file()
-        self.estg_graph = ESTGGraph(self.parse_test)
-        self.direct = DirectMapping(self.estg_graph)
-        self.generator = VHDLGenerator(self.direct, self.file, False)
+        self.file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
+                     "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
+        for file in self.file:
+            self.parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
+            self.parse_test.read_file()
+            self.estg_graph = ESTGGraph(self.parse_test)
+            self.direct = DirectMapping(self.estg_graph)
+            self.generator = VHDLGenerator(self.direct, file, False)
 
-        GraphUtil.print_graph(self.estg_graph, self.file)
+        # GraphUtil.print_graph(self.estg_graph, file)
 
 
     # How to make this tests automated? Seems to be something pretty hard to automatically test without using the same

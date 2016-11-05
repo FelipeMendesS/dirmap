@@ -71,7 +71,7 @@ class VHDLGenerator(object):
                         self.output_transitions[signal] = ([], [])
                     self.output_transitions[signal][index].append(node)
                     if node not in self.output_transitions_logic_tree:
-                        self.output_transitions_logic_tree[node] = self.direct.get_logic_tree(node)
+                        self.output_transitions_logic_tree[node] = self.direct.get_logic_tree(node, visited_places=set(), a ={})
         for signal in self.outputs:
             if self.direct.graph.initial_signal_values[signal] == "*":
                 raise Exception("For now, it's necessary to have initial output values for the algorithm to work!")

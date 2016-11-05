@@ -1,7 +1,7 @@
 .name ALU2-vf
-.inputs start 0 EvDone 0 M1A 0 M2A2 0 
+.inputs start 0 EvDone 0 M1A 0 M2A2 0
 .outputs Prech 1 LX 0 LY 0 A2M 0 EndP 0 seldx 0 selym2 0
-.choice C 0 
+.choice C 0
 p1/p2|start+
 p2/p3|Prech-
 p3/p4|#C-, EvDone+

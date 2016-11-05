@@ -103,7 +103,7 @@ class ESTGGraph (object):
         for place in current_place:
             visited_graph_map[place] = self.get_current_signal_values(current_signal_values, order_of_signal_list)
             self.aux_check_consistency(visited_graph_map, current_signal_values, place, order_of_signal_list)
-        print("STG is consistent")
+        # print("STG is consistent")
 
     # Will redo completey algorithm
     def aux_check_consistency(self, visited_graph_map, current_signal_values, current_place, order_of_signal_list):
@@ -139,7 +139,7 @@ class ESTGGraph (object):
                         raise Exception("In the decision coming from place " + node.name +
                                         ", one of the transitions contain an output signal. "
                                         "Thus this ESTG is not output persistent.")
-        print("ESTG is output-persistent!")
+        # print("ESTG is output-persistent!")
         return
 
     def __check_variables_use(self):

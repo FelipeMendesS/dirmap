@@ -1,7 +1,7 @@
 .name scsi-targ-send-vf
 .inputs ackin 0 dack 0 dtc 0 startdmasend 0
 .outputs dreq 0 enddmaint 1 ready 0 reqout 0
-.choice done 0 empty 0
+.choice empty 0 done 0
 p1/p2|startdmasend+
 p2/p9|enddmaint-
 p9/p10|startdmasend-
@@ -16,18 +16,18 @@ p25/p26|ackin+
 p26/p27|reqout-
 p27/p28|#empty-, ackin-
 p28/p25|reqout+
-p27/p29|#empty+, ackin-
-p29/p1|enddmaint+
-p13/p30|#done-, dtc+
-p30/p15|ready-
+p27/p30|#empty+, ackin-
+p30/p1|enddmaint+
+p13/p31|#done-, dtc+
+p31/p15|ready-
 p15/p16|dack-, dtc-
 p16/p17|reqout+
 p17/p18|dack*, ackin+
 p18/p19|reqout-
 p19/p20|#empty+, dack+, ackin-
 p20/p13|ready+
-p19/p31|#empty-, dack*, ackin-
-p31/p21|reqout+
+p19/p29|#empty-, dack*, ackin-
+p29/p21|reqout+
 p21/p22|dack*, ackin+
 p22/p19|reqout-
 .start p1

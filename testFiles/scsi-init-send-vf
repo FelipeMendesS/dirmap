@@ -10,8 +10,8 @@ p5/p6|rin+, fain-, dsel*
 p6/p7|aout+
 p7/p8|#cntgt1+, rin-, dsel-
 p8/p9|aout-, sel+
-p7/p19|#cntgt1-, rin-, dsel*
-p19/p17|aout-
+p7/p20|#cntgt1-, rin-, dsel*
+p20/p17|aout-
 p9/p10|rin+, dsel+
 p10/p11|aout+
 p11/p12|#cntgt1+, rin-
@@ -20,8 +20,8 @@ p13/p14|rin*, fain+, dsel*
 p14/p15|frout-
 p15/p16|rin+, fain-, dsel*
 p16/p7|aout+
-p11/p20|#cntgt1-, rin-, dsel*
-p20/p17|aout-, sel-
+p11/p19|#cntgt1-, rin-, dsel*
+p19/p17|aout-, sel-
 p17/p1|ok-, rin*, dsel*
 .start p1
 .end
