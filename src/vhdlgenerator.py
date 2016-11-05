@@ -26,7 +26,8 @@ class VHDLGenerator(object):
     RI = 3
     AI_DIRECT = 4
     AI_INVERSE = 5
-    OUTPUT = 6
+    OUTPUT_SET = 6
+    OUTPUT_RESET = 7
     AND = " and "
     OR = " or "
 
@@ -82,7 +83,7 @@ class VHDLGenerator(object):
             for index, transition in enumerate(self.output_transitions[signal][1]):
                 if index > 0:
                     file.write(self.OR + "(")
-                self.print_logic_tree(file, self.OUTPUT, self.output_transitions_logic_tree[transition])
+                self.print_logic_tree(file, self.OUTPUT_SET, self.output_transitions_logic_tree[transition])
             file.write(") or not " + signal + "_reset);" + self.ENTER)
             file.write(signal + "_reset <= ")
             if self.direct.graph.initial_signal_values[signal] == 0:
@@ -92,7 +93,7 @@ class VHDLGenerator(object):
             for index, transition in enumerate(self.output_transitions[signal][0]):
                 if index > 0:
                     file.write(self.OR + "(")
-                self.print_logic_tree(file, self.OUTPUT, self.output_transitions_logic_tree[transition])
+                self.print_logic_tree(file, self.OUTPUT_RESET, self.output_transitions_logic_tree[transition])
             file.write("));" + self.ENTER)
             file.write(self.ENTER)
 
@@ -151,15 +152,18 @@ class VHDLGenerator(object):
             file.write(");" + self.ENTER)
         file.write(self.ENTER)
         for i in range(self.number_of_aux_cells):
-            file.write("Ri_Paux" + str(i + 1) + " <= not Ro_" + self.last_cycle_2_control_cell[i].name + "_buffer;")
+            file.write("Ri_Paux" + str(i + 1) + " <= not (Ro_" + self.last_cycle_2_control_cell[i].name +
+                       " and Ai_Paux" + str(i + 1) + ");")
             file.write(self.ENTER)
         file.write(self.ENTER)
         return
 
     def __print_ri(self, type_cc: int, control_cell: Node, file):
-        if type_cc == self.INITIAL_NOT_P1 or type_cc == self.INITIAL_P1:
+        if type_cc == self.INITIAL_P1:
             file.write("not (reset or (")
-        if type_cc == self.OTHER_CONTROL_CELLS:
+        elif type_cc == self.INITIAL_NOT_P1:
+            file.write("not (reset or (Ai_" + control_cell.name + " and (")
+        elif type_cc == self.OTHER_CONTROL_CELLS:
             file.write("not (")
         input_flag = True
         multiple_transitions_flag = False
@@ -210,12 +214,18 @@ class VHDLGenerator(object):
 
     def print_logic_tree(self, file, type_cc, tree):
         if tree.classification == Tree.PLACE:
-            if type_cc == self.RI or type_cc == self.OUTPUT:
-                file.write("Ro_" + tree.node.name + ")")
+            if type_cc == self.RI or type_cc == self.OUTPUT_SET:
+                if tree.node in self.last_cycle_2_control_cell:
+                    index = self.last_cycle_2_control_cell.index(tree.node)
+                    file.write("Ro_Paux" + str(index + 1))
+                else:
+                    file.write("Ro_" + tree.node.name)
+            elif type_cc == self.OUTPUT_RESET:
+                file.write("Ro_" + tree.node.name)
             elif type_cc == self.AI_INVERSE or type_cc == self.AI_DIRECT:
                 file.write("Ao_" + tree.node.name + ")")
         else:
-            if type_cc == self.RI or type_cc == self.OUTPUT:
+            if type_cc == self.RI or type_cc == self.OUTPUT_SET or type_cc == self.OUTPUT_RESET:
                 if tree.classification == Tree.AND:
                     logic = self.OR
                 else:
@@ -231,12 +241,14 @@ class VHDLGenerator(object):
                 if index > 0:
                     file.write(logic)
                 if next_tree.classification == Tree.PLACE:
-                    if type_cc == self.RI or type_cc == self.OUTPUT:
+                    if type_cc == self.RI or type_cc == self.OUTPUT_SET:
                         if next_tree.node in self.last_cycle_2_control_cell:
                             index = self.last_cycle_2_control_cell.index(next_tree.node)
                             file.write("Ro_Paux" + str(index + 1))
                         else:
                             file.write("Ro_" + next_tree.node.name)
+                    elif type_cc == self.OUTPUT_RESET:
+                        file.write("Ro_" + next_tree.node.name)
                     elif type_cc == self.AI_INVERSE or type_cc == self.AI_DIRECT:
                         file.write("Ao_" + next_tree.node.name)
                 else:
@@ -298,8 +310,8 @@ class VHDLGenerator(object):
                 file.write("signal " + "Ro_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
                 file.write("signal " + "Ao_Paux" + str(index + 1) + ": std_logic;" + self.ENTER)
                 file.write(self.ENTER)
-                file.write("signal " + "Ro_" + higher_node.name + "_buffer" + ": std_logic;" + self.ENTER)
-                file.write(self.ENTER)
+                # file.write("signal " + "Ro_" + higher_node.name + "_buffer" + ": std_logic;" + self.ENTER)
+                # file.write(self.ENTER)
         output_signals = self.__get_signals(ESTGGraph.OUTPUT)
         for output in output_signals:
             self.outputs.append(output)
@@ -315,11 +327,11 @@ class VHDLGenerator(object):
                        place.name + ", Ao_" + place.name + ");" + self.ENTER)
         file.write(self.ENTER)
         for i in range(self.number_of_aux_cells):
-            control_cell_name = self.last_cycle_2_control_cell[i].name
+            # control_cell_name = self.last_cycle_2_control_cell[i].name
             file.write("Paux" + str(i + 1) + ": control_cell port map (Ri_Paux" + str(i + 1) + ", Ai_Paux" +
                        str(i + 1) + ", Ro_Paux" + str(i + 1) + ", Ao_Paux" + str(i + 1) + ");" + self.ENTER)
-            file.write("buffer_" + str(i + 1) + ": buffer_n generic map(N => 8) port map (Ro_" + control_cell_name +
-                       ", Ro_" + control_cell_name + "_buffer);" + self.ENTER)
+            # file.write("buffer_" + str(i + 1) + ": buffer_n generic map(N => 8) port map (Ro_" + control_cell_name +
+            #            ", Ro_" + control_cell_name + "_buffer);" + self.ENTER)
             file.write(self.ENTER)
         for output in self.outputs:
             file.write(output + "_cell: output_cell port map (" + output + "_set, " + output + "_reset, " + output +
@@ -337,13 +349,13 @@ class VHDLGenerator(object):
         file.write(");" + self.ENTER)
         file.write("end component;" + self.ENTER)
         file.write(self.ENTER)
-        file.write("component buffer_n is" + self.ENTER)
-        file.write("generic(N: integer);" + self.ENTER)
-        file.write("port(a: in  std_logic;" + self.ENTER)
-        file.write("     b: out std_logic" + self.ENTER)
-        file.write(");" + self.ENTER)
-        file.write("end component;" + self.ENTER)
-        file.write(self.ENTER)
+        # file.write("component buffer_n is" + self.ENTER)
+        # file.write("generic(N: integer);" + self.ENTER)
+        # file.write("port(a: in  std_logic;" + self.ENTER)
+        # file.write("     b: out std_logic" + self.ENTER)
+        # file.write(");" + self.ENTER)
+        # file.write("end component;" + self.ENTER)
+        # file.write(self.ENTER)
         file.write("component output_cell is" + self.ENTER)
         file.write("port(set:    in  std_logic;" + self.ENTER)
         file.write("     reset:  in  std_logic;" + self.ENTER)

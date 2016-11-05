@@ -3,6 +3,7 @@ from directmapping import DirectMapping
 from textparseestg import TextParseESTG
 from estggraph import ESTGGraph
 from graphutil import GraphUtil
+from vhdlgenerator import VHDLGenerator
 
 
 class TestDirectMapping(TestCase):
@@ -11,13 +12,14 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = "testFile5"
+        self.file = "testFile4"
         self.parse_test = TextParseESTG(self.PATH_TO_TESTS + self.file)
         self.parse_test.read_file()
         self.estg_graph = ESTGGraph(self.parse_test)
         self.direct = DirectMapping(self.estg_graph)
+        self.generator = VHDLGenerator(self.direct, self.file, False)
 
-        GraphUtil.print_graph(self.estg_graph, self.file, True)
+        GraphUtil.print_graph(self.estg_graph, self.file)
 
 
     # How to make this tests automated? Seems to be something pretty hard to automatically test without using the same
