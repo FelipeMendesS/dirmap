@@ -185,9 +185,17 @@ class VHDLGenerator(object):
                     file.write(self.OR)
         elif not input_flag:
             self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
+        elif type_cc == self.INITIAL_P1:
+            for index, transition in enumerate(self.direct.graph.inverted_extended_graph[control_cell]):
+                if index > 0:
+                    file.write(" or (")
+                if self.__print_input_conditions(self.direct.graph.inverted_extended_graph[control_cell][index], file):
+                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1].next[index])
+                elif type_cc == self.INITIAL_P1:
+                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1].next[index])
         else:
             if self.__print_input_conditions(self.direct.graph.inverted_extended_graph[control_cell][0], file):
-                self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
+                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
 
     def number_of_incoming_input_transitions(self, place: Node):
         result = 0

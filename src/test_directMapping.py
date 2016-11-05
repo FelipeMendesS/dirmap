@@ -12,8 +12,7 @@ class TestDirectMapping(TestCase):
     PATH_TO_IMAGES = "../graph/"
 
     def setUp(self):
-        self.file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
-                     "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
+        self.file = ["I2C"]
         for file in self.file:
             self.parse_test = TextParseESTG(self.PATH_TO_TESTS + file)
             self.parse_test.read_file()
