@@ -30,6 +30,16 @@ class VHDLGenerator(object):
     OUTPUT_RESET = 7
     AND = " and "
     OR = " or "
+    NAME_TYPE = {
+        0: "Initial not P1",
+        1: "Initial P1",
+        2: "Other control cells",
+        3: "Ri",
+        4: "Ai direct",
+        5: "Ai inverse",
+        6: "Output set",
+        7: "Output reset"
+    }
 
     def __init__(self, direct: DirectMapping, file_name: str, use_ai: bool=True):
         self.use_ai = use_ai
@@ -185,17 +195,9 @@ class VHDLGenerator(object):
                     file.write(self.OR)
         elif not input_flag:
             self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
-        elif type_cc == self.INITIAL_P1:
-            for index, transition in enumerate(self.direct.graph.inverted_extended_graph[control_cell]):
-                if index > 0:
-                    file.write(" or (")
-                if self.__print_input_conditions(self.direct.graph.inverted_extended_graph[control_cell][index], file):
-                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1].next[index])
-                elif type_cc == self.INITIAL_P1:
-                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1].next[index])
         else:
             if self.__print_input_conditions(self.direct.graph.inverted_extended_graph[control_cell][0], file):
-                    self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
+                self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
 
     def number_of_incoming_input_transitions(self, place: Node):
         result = 0
@@ -222,6 +224,9 @@ class VHDLGenerator(object):
         return True
 
     def print_logic_tree(self, file, type_cc, tree):
+        if not tree:
+            raise Exception("Wrong generation of logic tree of type " + self.NAME_TYPE[type_cc] +
+                            ". None found in root!")
         if tree.classification == Tree.PLACE:
             if type_cc == self.RI or type_cc == self.OUTPUT_SET:
                 if tree.node in self.last_cycle_2_control_cell:
@@ -249,7 +254,12 @@ class VHDLGenerator(object):
             for index, next_tree in enumerate(tree.next):
                 if index > 0:
                     file.write(logic)
-                if next_tree.classification == Tree.PLACE:
+                if not next_tree:
+                    if logic == self.OR:
+                        file.write('\'0\'')
+                    else:
+                        file.write('\'1\'')
+                elif next_tree.classification == Tree.PLACE:
                     if type_cc == self.RI or type_cc == self.OUTPUT_SET:
                         if next_tree.node in self.last_cycle_2_control_cell:
                             index = self.last_cycle_2_control_cell.index(next_tree.node)

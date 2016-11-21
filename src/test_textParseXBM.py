@@ -37,3 +37,17 @@ class TestTextParseXBM(TestCase):
                 b = time.clock()
                 averager += (b-a)
             print("Time elapsed: " + str(averager/1000))
+
+    def test_gaga2(self):
+        file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
+                "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
+        file = ["ram-read-sbuf"]
+        for f in file:
+            print(f)
+            parse_test = TextParseESTG(self.PATH_TO_TESTS + f)
+            parse_test.read_file()
+            estg_graph = ESTGGraph(parse_test)
+            # estg_graph.check_consistency()
+            estg_graph.check_output_persistency()
+            direct = DirectMapping(estg_graph)
+            generator = VHDLGenerator(direct, f, False)

@@ -26,6 +26,8 @@ def main():
     GraphUtil.print_graph(estg_graph, file_name, view_flag=view_flag, overwrite_graph=False)
     generator = VHDLGenerator(direct, file_name, False)
     print(generator.last_cycle_2_control_cell)
+    print(direct.size_1_cycles)
+    print(direct.size_2_cycles)
 
 # Parse files and get them to directmapping or something like that. Already showing how the program is supposed to be
 # run

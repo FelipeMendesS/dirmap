@@ -349,7 +349,7 @@ class DirectMapping(object):
                 tree_root_node = Tree(Tree.OR, size=len(self.graph.inverted_extended_graph[current_place]))
                 current_tree_node = tree_root_node
                 for index, place in enumerate(self.graph.inverted_extended_graph[current_place]):
-                    self.get_logic_tree(place, current_tree_node=current_tree_node, tree_index=index,
+                    self.get_logic_tree(place, visited_places, current_tree_node=current_tree_node, tree_index=index,
                                         tree_root_node=tree_root_node)
                 return tree_root_node
             current_place = self.graph.inverted_extended_graph[current_place][0]
@@ -405,38 +405,38 @@ class DirectMapping(object):
                             if current_tree_node:
                                 if len(self.graph.inverted_extended_graph[current_place]) > 1:
                                     if len(self.graph.inverted_extended_graph[transition]) > 1:
-                                        self.get_logic_tree(current_place, visited_places,
+                                        self.get_logic_tree(place, visited_places,
                                                             current_tree_node.next[indext], a, indexp, tree_root_node)
                                     else:
-                                        self.get_logic_tree(current_place, visited_places, current_tree_node, a, indext,
+                                        self.get_logic_tree(place, visited_places, current_tree_node, a, indext,
                                                             tree_root_node)
                                 elif len(self.graph.inverted_extended_graph[transition]) > 1:
-                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, indexp,
+                                    self.get_logic_tree(place, visited_places, current_tree_node, a, indexp,
                                                         tree_root_node)
                                 else:
-                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, tree_index,
+                                    self.get_logic_tree(place, visited_places, current_tree_node, a, tree_index,
                                                         tree_root_node)
                             else:
-                                self.get_logic_tree(current_place, visited_places, current_tree_node, a)
+                                tree_root_node = self.get_logic_tree(place, visited_places, current_tree_node, a)
                         else:
                             if current_tree_node:
                                 if len(self.graph.inverted_extended_graph[current_place]) > 1:
                                     if len(self.graph.inverted_extended_graph[transition]) > 1:
-                                        self.get_logic_tree(current_place, visited_places,
+                                        self.get_logic_tree(place, visited_places,
                                                             current_tree_node.next[tree_index].next[indext], a, indexp,
                                                             tree_root_node)
                                     else:
-                                        self.get_logic_tree(current_place, visited_places,
+                                        self.get_logic_tree(place, visited_places,
                                                             current_tree_node.next[tree_index], a, indext,
                                                             tree_root_node)
                                 elif len(self.graph.inverted_extended_graph[transition]) > 1:
-                                    self.get_logic_tree(current_place, visited_places,
+                                    self.get_logic_tree(place, visited_places,
                                                         current_tree_node.next[tree_index], a, indexp, tree_root_node)
                                 else:
-                                    self.get_logic_tree(current_place, visited_places, current_tree_node, a, tree_index,
+                                    self.get_logic_tree(place, visited_places, current_tree_node, a, tree_index,
                                                         tree_root_node)
                             else:
-                                self.get_logic_tree(current_place, visited_places, current_tree_node, a)
+                                tree_root_node = self.get_logic_tree(place, visited_places, current_tree_node, a)
         return tree_root_node
 
     def __add_tree_to_place(self, is_direct_tree: bool, control_cell: Node, tree: Tree):
