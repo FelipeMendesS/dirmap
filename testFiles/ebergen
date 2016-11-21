@@ -1,6 +1,6 @@
 .name ebergen
 .inputs  a * d *
-.outputs  b * c * x *
+.outputs  b 0 c 1 x 0
 PL1/PL3|b+
 PL3/PL4|a-
 PL5/PL6|b-

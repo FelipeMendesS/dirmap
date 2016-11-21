@@ -1,6 +1,6 @@
 .name atod
 .inputs  la * da * za *
-.outputs  lr * dr * zr * x *
+.outputs  lr 1 dr 0 zr 0 x 0
 PL1/PL2,PL14|dr+
 PL2/PL3|da+
 PL4/PL5|za+

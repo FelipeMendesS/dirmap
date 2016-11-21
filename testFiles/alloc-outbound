@@ -1,6 +1,6 @@
 .name alloc-outbound
 .inputs  req * ackctl * ackbus * nakbus *
-.outputs  ack * busctl * reqbus * y1_allocoutbound * y0_allocoutbound *
+.outputs  ack 0 busctl 0 reqbus 0 y1_allocoutbound 0 y0_allocoutbound 0
 PL1/PL2|req+
 PL2/PL3|busctl+
 PL3/PL4|ackctl+

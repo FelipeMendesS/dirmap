@@ -1,6 +1,6 @@
 .name ram-read-sbuf
 .inputs  req * precharged * prnotin * wenin * wsldin *
-.outputs  ack * wsen * prnot * wen * wsld * y0_ramreadsbuf *
+.outputs  ack 0 wsen 1 prnot 0 wen 0 wsld 0 y0_ramreadsbuf 0
 PL3/PL4|prnotin+
 PL4/PL5,PL27|wen+
 PL5/PL6|precharged-

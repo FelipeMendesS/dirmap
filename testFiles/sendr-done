@@ -1,6 +1,6 @@
 .name sendr-done
-.inputs  w8 * reqsend *
-.outputs  dones * y0_sendrdone *
+.inputs  w8 0 reqsend 0
+.outputs  dones 0 y0_sendrdone 0
 PL1/PL3|w8+
 PL4/PL5|w8-
 PL5/PL6|dones+

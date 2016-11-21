@@ -1,6 +1,6 @@
 .name sbuf-ram-write
 .inputs  req * precharged * done * wenin * wsldin *
-.outputs  ack * prbar * wsen * wen * wsld * y1_sbuframwrite * y0_sbuframwrite *
+.outputs  ack 0 prbar 0 wsen 1 wen 0 wsld 0 y1_sbuframwrite 1 y0_sbuframwrite 1 
 PL1/PL28|done-
 PL5/PL6|prbar+
 PL6/PL7|precharged-

@@ -1,6 +1,6 @@
 .name RLM_module
 .inputs  Sr * La * Cr *
-.outputs  Sa * Lr * Ca *
+.outputs  Sa 0 Lr 1 Ca 0 
 PL1/PL10|Sr+
 PL10/PL11|Sa+
 PL11/PL12|Sr-

@@ -1,6 +1,6 @@
 .name master_read
 .inputs  ari * pri * bprn * xack * di * pack *
-.outputs  aro * pro * breq * busy * mrdc * do * pdo * x *
+.outputs  aro 1 pro 1 breq 0 busy 0 mrdc 0 do 0 pdo 1 x 0
 PL1/PL37|ari+
 PL22/PL23|aro-
 PL23/PL24|ari-
