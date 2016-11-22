@@ -18,13 +18,14 @@ class TestTextParse(TestCase):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF",
                 "des-vf", "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf",
                 "selmerge2ph-vf", "I2C"]
+        file = ["tg"]
         for f in file:
             print(f)
             parse_test = TextParseESTG(self.PATH_TO_TESTS + f)
             parse_test.read_file()
             estg_graph = ESTGGraph(parse_test)
-            # GraphUtil.print_graph(estg_graph, f, view_flag=False, overwrite_graph=False)
-            estg_graph.check_consistency()
+            GraphUtil.print_graph(estg_graph, f, view_flag=True, overwrite_graph=False)
+            # estg_graph.check_consistency()
             estg_graph.check_output_persistency()
             number_of_places = 0
             number_of_transitions = 0

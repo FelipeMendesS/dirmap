@@ -94,7 +94,10 @@ class VHDLGenerator(object):
                 if index > 0:
                     file.write(self.OR + "(")
                 self.print_logic_tree(file, self.OUTPUT_SET, self.output_transitions_logic_tree[transition])
-            file.write(") or not " + signal + "_reset;" + self.ENTER)
+            if self.direct.graph.initial_signal_values[signal] == 0:
+                file.write(") or not " + signal + "_reset;" + self.ENTER)
+            else:
+                file.write(") or not " + signal + "_reset);" + self.ENTER)
             file.write(signal + "_reset <= ")
             if self.direct.graph.initial_signal_values[signal] == 0:
                 file.write("not reset and (not((")
@@ -104,7 +107,10 @@ class VHDLGenerator(object):
                 if index > 0:
                     file.write(self.OR + "(")
                 self.print_logic_tree(file, self.OUTPUT_RESET, self.output_transitions_logic_tree[transition])
-            file.write("));" + self.ENTER)
+            if self.direct.graph.initial_signal_values[signal] == 0:
+                file.write("));" + self.ENTER)
+            else:
+                file.write(");" + self.ENTER)
             file.write(self.ENTER)
 
     def print_ai(self, file):
@@ -187,12 +193,14 @@ class VHDLGenerator(object):
             if self.direct.logic_tree[control_cell][1].classification != Tree.AND:
                 raise Exception("Expected root AND given the multiple incoming input transitions to control cell!")
             for index, transition in enumerate(self.direct.graph.inverted_extended_graph[control_cell]):
+                if index > 0:
+                    file.write(self.OR)
                 if transition.contains_type(self.direct.graph.signal_map, ESTGGraph.INPUT):
                     file.write("(")
                 if self.__print_input_conditions(transition, file):
                     tree_traverse = self.direct.logic_tree[control_cell][1].next[index]
                     self.print_logic_tree(file, self.RI, tree_traverse)
-                    file.write(self.OR)
+                    file.write(')')
         elif not input_flag:
             self.print_logic_tree(file, self.RI, self.direct.logic_tree[control_cell][1])
         else:

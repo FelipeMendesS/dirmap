@@ -1,0 +1,25 @@
+.inputs a 0 b 0 d 1
+.choice c 0
+.outputs x 0 y 0 z 0 w 0
+p1/p2|#c+,b+
+p2/p3|x+,y+
+p3/p4|b-,a+
+p4/p5|x-
+p5/p6|a-
+p6/p1|y-
+p1/p7|#c-,b+
+p7/p8,p10|z+,x+,y+
+p8/p9|d-
+p10/p11,p13|w+,x-
+p11/p12|z-
+p13/p14|#c+,b-,a+
+p12,p14/p15|a-
+p9,p15/p16|y-,z+
+p16/p17|d+
+p17/p1|z-
+p13/p18|#c-,b-,a+
+p18/p19|w-
+p19/p20|b+,a-
+p20/p10|x+
+.start p1
+.end

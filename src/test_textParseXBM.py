@@ -22,6 +22,8 @@ class TestTextParseXBM(TestCase):
     def test_gaga(self):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
                 "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
+        file = ["alloc-outbound", "chu172", "atod", "ebergen", "master-read", "ram-read-sbuf", "sbuf-ram-write",
+                "sendr-done"]
         for f in file:
             averager = 0
             print(f)
@@ -30,18 +32,34 @@ class TestTextParseXBM(TestCase):
                 parse_test = TextParseESTG(self.PATH_TO_TESTS + f)
                 parse_test.read_file()
                 estg_graph = ESTGGraph(parse_test)
-                estg_graph.check_consistency()
+                # estg_graph.check_consistency()
                 estg_graph.check_output_persistency()
                 direct = DirectMapping(estg_graph)
                 generator = VHDLGenerator(direct, f, False)
                 b = time.clock()
                 averager += (b-a)
             print("Time elapsed: " + str(averager/1000))
+            tran = 0
+            place = 0
+            for node in estg_graph.extended_graph.keys():
+                if node.is_place:
+                    place += 1
+                else:
+                    tran += 1
+            print("Places/Tran: " + str(place) + "/" + str(tran))
+            output = 0
+            inputy = 0
+            for signal in estg_graph.signal_map.keys():
+                if estg_graph.signal_map[signal] == ESTGGraph.OUTPUT:
+                    output += 1
+                else:
+                    inputy += 1
+            print("Input/Output: " + str(inputy) + "/" + str(output))
 
     def test_gaga2(self):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
                 "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
-        file = ["ram-read-sbuf"]
+        file = ["chu172"]
         for f in file:
             print(f)
             parse_test = TextParseESTG(self.PATH_TO_TESTS + f)

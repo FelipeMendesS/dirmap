@@ -3,6 +3,7 @@ from typing import List, Dict, Set, Tuple, Union
 from node import Node
 from collections import OrderedDict
 from tree import Tree
+import time
 Transition = List[Tuple[str, int]]
 
 
