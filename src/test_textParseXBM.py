@@ -15,19 +15,23 @@ class TestTextParseXBM(TestCase):
         file_name = ["sbuf-send-pkt2-vf.txt", "ALU2-vf.txt", "biu-dma2fifo-VF.txt",
                      "biu-fifo2dma-VF.txt", "des-vf.txt", "isqrt-vf.txt", "scsi-init-send-vf.txt",
                      "scsi-targ-send-vf.txt", "select2p-vf.txt", "selmerge2ph-vf.txt"]
-        # file_name = ["select2p-vf.txt"]
+        file_name = ["scsi", "pscsi", "chu150", "hp-ir", "nowick", "pe-rcv-ifc", "rf-contr", "sc-con2", "sdcont2",
+                     "stet1"]
+        is_BM = True
         for f in file_name:
-            text_parse = TextParseXBM(f)
+            text_parse = TextParseXBM(f, is_BM)
 
     def test_gaga(self):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
                 "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
-        # file = ["alloc-outbound", "chu172", "atod", "ebergen", "master-read", "ram-read-sbuf", "sbuf-ram-write",
-        #         "sendr-done"]
+        file = ["alloc-outbound", "chu172", "atod", "ebergen", "master-read", "ram-read-sbuf", "sbuf-ram-write",
+                "sendr-done"]
+        file = ["scsi", "pscsi", "chu150", "nowick", "pe-rcv-ifc"]
+        # file = ["master-read"]
         for f in file:
             averager = 0
             print(f)
-            for i in range(1000):
+            for i in range(100):
                 a = time.clock()
                 parse_test = TextParseESTG(self.PATH_TO_TESTS + f)
                 parse_test.read_file()
@@ -38,7 +42,10 @@ class TestTextParseXBM(TestCase):
                 generator = VHDLGenerator(direct, f, False)
                 b = time.clock()
                 averager += (b-a)
-            print("Time elapsed: " + str(averager/1000))
+            print("Time elapsed: " + str(averager/100))
+            # if f == "master-read":
+            #     print(direct.size_2_cycles)
+            #     print(direct.set_of_control_cell_places)
             tran = 0
             place = 0
             for node in estg_graph.extended_graph.keys():

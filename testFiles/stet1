@@ -1,0 +1,89 @@
+.name stet1
+.inputs SCEventReq 0 SCEoTSReq 0 IT12ResetAck 1 IT12CalStart 0 IT2CalAck 0 IT1EventStart 0 IT1EventStop 0 IT2EventStop 0 CtrE0SPAck 0 CtrTcbeAck 0 CtrSet00xxAck 0 CtrSet0011Ack 1 TsTimeout 0
+.outputs SCEventCount 0 SCEventEoSP 0 SCEoTSAck 0 SCError 0 IT12SoftResetReq 1 IT12CalReq 0 IT1IntReq 0 IT2IntReq 0 CtrSet00xxReq 0 CtrSet0011Req 1 AwaitingTS 0 ComeOnBlock 1 RXReceiving 0 ControlResetAck 1
+p1/p2|SCEventReq+
+p2/p3|IT12SoftResetReq-, CtrSet0011Req-
+p3/p4|IT12ResetAck-, CtrSet0011Ack-
+p4/p5|IT12CalReq+, ComeOnBlock-, ControlResetAck-
+p5/p6|IT12CalStart+
+p6/p7|RXReceiving+
+p7/p8|IT2CalAck+
+p8/p9|IT12CalReq-
+p9/p10|IT12CalStart-, IT2CalAck-
+p10/p11|IT1IntReq+, AwaitingTS+
+p11/p12|TsTimeout+
+p12/p13|SCError+, RXReceiving-
+p11/p69|IT1EventStart+
+p69/p59|IT2IntReq+, AwaitingTS-
+p59/p60|CtrE0SPAck+
+p60/p61|IT1IntReq-
+p61/p62|CtrE0SPAck-
+p62/p15|IT1IntReq+
+p15/p16|CtrE0SPAck+
+p16/p17|SCEventEoSP+, IT1IntReq-
+p17/p18|SCEventReq-, CtrE0SPAck-
+p18/p19|SCEventEoSP-
+p19/p20|SCEventReq+
+p20/p15|IT1IntReq+
+p15/p71|IT1EventStop+
+p71/p21|SCEventCount+, IT1IntReq-
+p59/p68|IT1EventStop+
+p68/p21|SCEventCount+, IT1IntReq-
+p21/p22|SCEventReq-, IT1EventStop-
+p22/p23|SCEventCount-
+p23/p24|SCEventReq+
+p24/p25|CtrSet00xxReq+
+p25/p26|CtrSet00xxAck+
+p26/p63|CtrSet00xxReq-
+p63/p64|CtrSet00xxAck-
+p64/p27|IT1IntReq+
+p27/p28|CtrE0SPAck+
+p28/p29|SCEventEoSP+, IT2IntReq-
+p29/p30|SCEventReq-, CtrE0SPAck-
+p30/p31|SCEventEoSP-
+p31/p32|SCEventReq+
+p32/p27|IT2IntReq+
+p27/p73|IT2EventStop+
+p73/p33|SCEventCount+, IT2IntReq-
+p33/p34|SCEventReq-, IT2EventStop-
+p34/p35|SCEventCount-
+p35/p36|SCEventReq+
+p36/p37|CtrSet00xxReq+
+p37/p38|CtrSet00xxAck+
+p38/p65|CtrSet00xxReq-
+p65/p66|CtrSet00xxAck-
+p66/p15|IT2IntReq+
+p19/p67|SCEoTSReq+
+p67/p39|IT1IntReq+, ComeOnBlock+
+p39/p40|IT1EventStop+
+p40/p41|SCError+, RXReceiving-
+p39/p70|CtrTcbeAck+
+p70/p43|SCEoTSAck+, IT1IntReq-
+p43/p44|SCEoTSReq-, CtrTcbeAck-
+p44/p51|IT12SoftResetReq+, IT2IntReq-, CtrSet0011Req+, SCEoTSAck-
+p31/p74|SCEoTSReq+
+p74/p45|IT2IntReq+, ComeOnBlock+
+p45/p46|IT2EventStop+
+p46/p47|SCError+, RXReceiving-
+p45/p75|CtrTcbeAck+
+p75/p49|SCEoTSAck+, IT2IntReq-
+p49/p50|SCEoTSReq-, CtrTcbeAck-
+p50/p51|IT12SoftResetReq+, IT1IntReq-, CtrSet0011Req+, SCEoTSAck-
+p51/p52|SCEventReq+, IT12ResetAck+, IT1EventStart-, CtrSet0011Ack+
+p52/p53|IT12SoftResetReq-, CtrSet0011Req-
+p53/p54|IT12ResetAck-, CtrSet0011Ack-
+p54/p55|IT12CalReq+, AwaitingTS+, ComeOnBlock-
+p55/p56|TsTimeout+
+p56/p57|SCError+, RXReceiving-
+p55/p72|IT12CalStart+
+p72/p7|AwaitingTS-
+p13/p14|TsTimeout-
+p14/p11|SCError-, RXReceiving+
+p41/p42|IT1EventStop-
+p42/p39|SCError-, RXReceiving+
+p47/p48|IT2EventStop-
+p48/p45|SCError-, RXReceiving+
+p57/p58|TsTimeout-
+p58/p55|SCError-, RXReceiving+
+.start p1
+.end

@@ -1,0 +1,185 @@
+.name scsi
+.inputs BurstMode 1 TargetMode 1 StartDMASend 0 StartDMARcv 0 DAckNormN 1 DAckLastN 1 DTCN 1 ReqInN 1 AckInN 1
+.outputs DReqN 1 ReadyN 1 ReqOutN 1 AckOutN 1 EndDMAInt 1
+p1/p3|TargetMode-
+p3/p1|TargetMode+
+p1/p5|BurstMode-
+p5/p1|BurstMode+
+p5/p7|TargetMode-
+p7/p5|TargetMode+
+p1/p2|StartDMASend+
+p2/p9|EndDMAInt-
+p9/p10|StartDMASend-
+p10/p11|DReqN-
+p11/p12|DAckNormN-
+p12/p13|ReadyN-
+p11/p147|DAckLastN-
+p147/p23|ReadyN-, DReqN+
+p13/p14|DTCN-
+p14/p15|ReadyN+
+p15/p16|DAckNormN+, DTCN+
+p16/p17|ReqOutN-
+p17/p18|DAckNormN-, AckInN-
+p18/p19|ReqOutN+
+p19/p20|AckInN+
+p20/p13|ReadyN-
+p17/p146|DAckLastN-, AckInN-
+p146/p21|ReqOutN+, DReqN+
+p21/p22|AckInN+
+p22/p23|ReadyN-
+p23/p24|DTCN-
+p24/p25|ReadyN+, ReqOutN-
+p25/p26|DAckLastN+, DTCN+, AckInN-
+p26/p27|ReqOutN+
+p27/p28|AckInN+
+p28/p1|EndDMAInt+
+p1/p143|StartDMARcv+
+p143/p29|EndDMAInt-
+p29/p30|StartDMARcv-
+p30/p31|ReqOutN-, DReqN-
+p31/p32|DAckNormN-, AckInN-
+p32/p33|ReadyN-
+p31/p154|DAckLastN-, AckInN-
+p154/p43|ReadyN-, DReqN+
+p33/p34|DTCN-
+p34/p35|ReadyN+
+p35/p36|DAckNormN+, DTCN+
+p36/p37|ReqOutN+
+p37/p38|DAckNormN-, AckInN+
+p38/p39|ReqOutN-
+p39/p40|AckInN-
+p40/p33|ReadyN-
+p37/p160|DAckLastN-, AckInN+
+p160/p41|ReqOutN-, DReqN+
+p41/p42|AckInN-
+p42/p43|ReadyN-
+p43/p44|DTCN-
+p44/p45|ReadyN+, ReqOutN+
+p45/p46|DAckLastN+, DTCN+, AckInN+
+p46/p1|EndDMAInt+
+p3/p4|StartDMASend+
+p4/p47|EndDMAInt-
+p47/p48|StartDMASend-
+p48/p49|DReqN-
+p49/p50|DAckNormN-, ReqInN-
+p50/p51|ReadyN-
+p49/p164|DAckLastN-, ReqInN-
+p164/p61|ReadyN-, DReqN+
+p51/p52|DTCN-
+p52/p53|ReadyN+
+p53/p54|DAckNormN+, DTCN+
+p54/p55|AckOutN-
+p55/p56|DAckNormN-, ReqInN+
+p56/p57|AckOutN+
+p57/p58|ReqInN-
+p58/p51|ReadyN-
+p55/p150|DAckLastN-, ReqInN+
+p150/p59|AckOutN+, DReqN+
+p59/p60|ReqInN-
+p60/p61|ReadyN-
+p61/p62|DTCN-
+p62/p63|ReadyN+, AckOutN-
+p63/p64|DAckLastN+, DTCN+, ReqInN+
+p64/p3|AckOutN+, EndDMAInt+
+p3/p155|StartDMARcv+
+p155/p65|EndDMAInt-
+p65/p66|StartDMARcv-
+p66/p67|DReqN-
+p67/p68|DAckNormN-, ReqInN-
+p68/p69|ReadyN-
+p67/p161|DAckLastN-, ReqInN-
+p161/p79|ReadyN-, DReqN+
+p69/p70|DTCN-
+p70/p71|ReadyN+
+p71/p72|DAckNormN+, DTCN+
+p72/p73|AckOutN-
+p73/p74|DAckNormN-, ReqInN+
+p74/p75|AckOutN+
+p75/p76|ReqInN-
+p76/p69|ReadyN-
+p73/p158|DAckLastN-, ReqInN+
+p158/p77|AckOutN+, DReqN+
+p77/p78|ReqInN-
+p78/p79|ReadyN-
+p79/p80|DTCN-
+p80/p81|ReadyN+, AckOutN-
+p81/p82|DAckLastN+, DTCN+, ReqInN+
+p82/p3|AckOutN+, EndDMAInt+
+p5/p6|StartDMASend+
+p6/p83|EndDMAInt-
+p83/p84|StartDMASend-
+p84/p85|DReqN-
+p85/p86|DAckNormN-
+p86/p87|ReadyN-, DReqN+
+p87/p88|DTCN-
+p88/p89|ReadyN+
+p89/p90|DAckNormN+, DTCN+
+p90/p91|ReqOutN-
+p91/p92|AckInN-
+p92/p93|ReqOutN+
+p93/p94|AckInN+
+p94/p85|DReqN-
+p85/p157|DAckLastN-
+p157/p95|ReadyN-, DReqN+
+p95/p96|DTCN-
+p96/p97|ReadyN+, ReqOutN-
+p97/p98|DAckLastN+, DTCN+, AckInN-
+p98/p99|ReqOutN+
+p99/p100|AckInN+
+p100/p5|EndDMAInt+
+p5/p151|StartDMARcv+
+p151/p101|EndDMAInt-
+p101/p102|StartDMARcv-
+p102/p103|ReqOutN-, DReqN-
+p103/p104|DAckNormN-, AckInN-
+p104/p105|ReadyN-, DReqN+
+p105/p106|DTCN-
+p106/p107|ReadyN+
+p107/p108|DAckNormN+, DTCN+
+p108/p109|ReqOutN+
+p109/p110|AckInN+
+p110/p103|ReqOutN-, DReqN-
+p103/p159|DAckLastN-, AckInN-
+p159/p111|ReadyN-, DReqN+
+p111/p112|DTCN-
+p112/p113|ReadyN+, ReqOutN+
+p113/p114|DAckLastN+, DTCN+, AckInN+
+p114/p5|EndDMAInt+
+p7/p8|StartDMASend+
+p8/p115|EndDMAInt-
+p115/p116|StartDMASend-
+p116/p117|DReqN-
+p117/p118|DAckNormN-, ReqInN-
+p118/p119|ReadyN-, DReqN+
+p119/p120|DTCN-
+p120/p121|ReadyN+
+p121/p122|DAckNormN+, DTCN+
+p122/p123|AckOutN-
+p123/p124|ReqInN+
+p124/p117|AckOutN+, DReqN-
+p117/p148|DAckLastN-, ReqInN-
+p148/p125|ReadyN-, DReqN+
+p125/p126|DTCN-
+p126/p127|ReadyN+, AckOutN-
+p127/p128|DAckLastN+, DTCN+, ReqInN+
+p128/p7|AckOutN+, EndDMAInt+
+p7/p162|StartDMARcv+
+p162/p129|EndDMAInt-
+p129/p130|StartDMARcv-
+p130/p131|DReqN-
+p131/p132|DAckNormN-, ReqInN-
+p132/p133|ReadyN-, DReqN+
+p133/p134|DTCN-
+p134/p135|ReadyN+
+p135/p136|DAckNormN+, DTCN+
+p136/p137|AckOutN-
+p137/p138|ReqInN+
+p138/p131|AckOutN+, DReqN-
+p131/p149|DAckLastN-, ReqInN-
+p149/p139|ReadyN-, DReqN+
+p139/p140|DTCN-
+p140/p141|ReadyN+, AckOutN-
+p141/p142|DAckLastN+, DTCN+, ReqInN+
+p142/p7|AckOutN+, EndDMAInt+
+.start p1
+.end

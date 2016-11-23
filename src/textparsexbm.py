@@ -5,18 +5,27 @@ import re
 class TextParseXBM(object):
 
     PATH_TO_XBM = "../benchmarksxbmartigo/"
+    PATH_TO_BM = "../BM/"
     PATH_TO_FILES = "../testFiles/"
     ENTER = "\n"
     PLACE = "p"
+    BM_EXTENSION = ".bms"
 
-    def __init__(self, file_name):
+    def __init__(self, file_name, is_BM=False):
         self.graph = {}  # type: Dict[str, List[str]]
         self.index_counter = {}
         self.choice = {}
-        with open(self.PATH_TO_XBM + file_name, 'r') as f:
-            file_lines = f.read().splitlines()
-        with open(self.PATH_TO_FILES + file_name[:-4], 'w+') as f:
-            f.write(".name " + file_name[:-4] + self.ENTER)
+        if not is_BM:
+            with open(self.PATH_TO_XBM + file_name, 'r') as f:
+                file_lines = f.read().splitlines()
+        else:
+            with open(self.PATH_TO_BM + file_name + "/" + file_name + self.BM_EXTENSION, 'r') as f:
+                file_lines = f.read().splitlines()
+        used_file_name = file_name
+        if not is_BM:
+            used_file_name = file_name[:-4]
+        with open(self.PATH_TO_FILES + used_file_name, 'w+') as f:
+            f.write(".name " + used_file_name + self.ENTER)
             f.write(".inputs")
             output_flag = False
             transition_lines = []

@@ -1,0 +1,124 @@
+.name pscsi
+.inputs BlockMode 0 TargetMode 0 StartDMASend 0 StartDMARcv 0 DWAckLastN 1 DWAckNormN 1 ReqInN 1 DRAckNormN 1 DRAckLastN 1 AckInN 1
+.outputs EndDMAInt 1 DRQ 0 ReqOutN 1 AckOutN 1 Ready 0
+p1/p3|TargetMode+
+p3/p1|TargetMode-
+p3/p5|BlockMode+
+p5/p3|BlockMode-
+p1/p2|StartDMASend+
+p2/p7|EndDMAInt-
+p7/p8|StartDMASend-
+p8/p9|DRQ+
+p9/p10|DWAckNormN-, ReqInN-
+p10/p11|DRQ-
+p11/p12|DWAckNormN+
+p12/p13|AckOutN-, DRQ+
+p13/p14|DWAckNormN-, ReqInN+
+p14/p15|AckOutN+, DRQ-
+p15/p16|DWAckNormN+, ReqInN-
+p16/p13|AckOutN-, DRQ+
+p13/p95|DWAckLastN-, ReqInN+
+p95/p17|AckOutN+, DRQ-
+p17/p18|DWAckLastN+, ReqInN-
+p18/p19|AckOutN-
+p9/p103|DWAckLastN-, ReqInN-
+p103/p21|DRQ-
+p21/p22|DWAckLastN+
+p22/p19|AckOutN-
+p19/p20|ReqInN+
+p20/p1|AckOutN+, EndDMAInt+
+p1/p92|StartDMARcv+
+p92/p23|EndDMAInt-
+p23/p25|StartDMARcv-
+p25/p26|ReqInN-
+p26/p27|DRQ+, AckOutN-
+p27/p28|DRAckNormN-, ReqInN+
+p28/p29|AckOutN+, DRQ-
+p29/p30|DRAckNormN+, ReqInN-
+p30/p27|AckOutN-, DRQ+
+p27/p107|DRAckLastN-, ReqInN+
+p107/p31|AckOutN+, DRQ-
+p31/p32|DRAckLastN+
+p32/p1|EndDMAInt+
+p3/p4|StartDMASend+
+p4/p33|EndDMAInt-
+p33/p34|StartDMASend-
+p34/p35|DRQ+
+p35/p36|DWAckNormN-
+p36/p37|DRQ-
+p37/p38|DWAckNormN+
+p38/p39|ReqOutN-, DRQ+
+p39/p40|DWAckNormN-, AckInN-
+p40/p41|ReqOutN+, DRQ-
+p41/p42|DWAckNormN+, AckInN+
+p42/p39|ReqOutN-, DRQ+
+p39/p94|DWAckLastN-, AckInN-
+p94/p43|ReqOutN+, DRQ-
+p43/p44|DWAckLastN+, AckInN+
+p44/p45|ReqOutN-
+p35/p91|DWAckLastN-
+p91/p47|DRQ-
+p47/p48|DWAckLastN+
+p48/p45|ReqOutN-
+p45/p46|AckInN-
+p46/p49|ReqOutN+
+p49/p50|AckInN+
+p50/p3|EndDMAInt+
+p3/p99|StartDMARcv+
+p99/p51|EndDMAInt-
+p51/p52|StartDMARcv-
+p52/p53|ReqOutN-
+p53/p54|AckInN-
+p54/p55|DRQ+, ReqOutN+
+p55/p56|DRAckNormN-, AckInN+
+p56/p57|ReqOutN-, DRQ-
+p57/p58|DRAckNormN+, AckInN-
+p58/p55|ReqOutN+, DRQ+
+p55/p96|DRAckLastN-, AckInN+
+p96/p59|DRQ-
+p59/p60|DRAckLastN+
+p60/p3|EndDMAInt+
+p5/p6|StartDMASend+
+p6/p61|EndDMAInt-
+p61/p62|StartDMASend-
+p62/p63|DRQ+
+p63/p64|DWAckNormN-
+p64/p65|Ready+, DRQ-
+p65/p66|DWAckNormN+
+p66/p67|ReqOutN-, Ready-
+p67/p68|DWAckNormN-, AckInN-
+p68/p69|ReqOutN+, Ready+
+p69/p70|DWAckNormN+, AckInN+
+p70/p67|ReqOutN-, Ready-
+p67/p105|DWAckLastN-, AckInN-
+p105/p71|ReqOutN+, Ready+
+p71/p72|DWAckLastN+, AckInN+
+p72/p73|ReqOutN-, Ready-
+p63/p106|DWAckLastN-
+p106/p75|Ready+, DRQ-
+p75/p76|DWAckLastN+
+p76/p73|ReqOutN-, Ready-
+p73/p74|AckInN-
+p74/p77|ReqOutN+
+p77/p78|AckInN+
+p78/p5|EndDMAInt+
+p5/p97|StartDMARcv+
+p97/p79|EndDMAInt-
+p79/p80|StartDMARcv-
+p80/p81|ReqOutN-
+p81/p82|AckInN-
+p82/p83|DRQ+
+p83/p84|DRAckNormN-
+p84/p85|Ready+, DRQ-, ReqOutN+
+p85/p86|DRAckNormN+, AckInN+
+p86/p87|ReqOutN-, Ready-
+p87/p88|DRAckNormN-, AckInN-
+p88/p85|ReqOutN+, Ready+
+p87/p102|DRAckLastN-, AckInN-
+p102/p89|ReqOutN+, Ready+
+p83/p104|DRAckLastN-
+p104/p89|Ready+, DRQ-, ReqOutN+
+p89/p90|DRAckLastN+, AckInN+
+p90/p5|Ready-, EndDMAInt+
+.start p1
+.end

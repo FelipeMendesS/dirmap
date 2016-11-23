@@ -1,0 +1,35 @@
+.name pe-rcv-ifc
+.inputs Woq 0 Smsg 0 Tack 0 Ackrcuhs 0
+.outputs Peak 0 Treq 0 Enrcv 0 Resreqrev 0
+p1/p2|Woq+
+p2/p3|Treq+
+p3/p4|Tack+
+p4/p5|Peak+
+p5/p6|Woq-, Tack-
+p6/p7|Peak-
+p7/p8|Woq+, Tack+
+p8/p9|Treq-
+p9/p10|Tack-
+p10/p11|Peak+
+p11/p12|Woq-
+p12/p13|Peak-
+p13/p14|Woq+
+p14/p3|Treq+
+p13/p25|Smsg+
+p25/p15|Peak+
+p15/p16|Smsg-
+p16/p19|Peak-, Treq+, Enrcv+
+p7/p26|Woq+, Ackrcuhs+
+p26/p17|Peak+
+p17/p18|Ackrcuhs-, Woq-
+p18/p19|Peak-, Enrcv+
+p19/p20|Woq+, Tack+
+p20/p21|Enrcv-, Treq-
+p21/p22|Woq-, Tack-
+p22/p19|Enrcv+, Treq+
+p21/p27|Woq-, Ackrcuhs+
+p27/p23|Enrcv+, Resreqrev+
+p23/p24|Tack-, Ackrcuhs-
+p24/p1|Enrcv-, Resreqrev-
+.start p1
+.end

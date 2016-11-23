@@ -1,0 +1,21 @@
+.name hp-ir
+.inputs In 0 Ie 0 Ct 0
+.outputs It 0 Cr 0
+p1/p2|In+
+p2/p3|It+
+p3/p4|In-
+p4/p5|It-
+p5/p6|In+
+p6/p3|It+
+p3/p13|Ie+
+p13/p7|Cr+, It-
+p7/p8|Ie-, Ct+
+p8/p9|Cr-
+p7/p14|Ie-, In-
+p14/p11|Cr-
+p9/p10|Ct-
+p10/p3|It+
+p11/p12|In+
+p12/p3|It+
+.start p1
+.end

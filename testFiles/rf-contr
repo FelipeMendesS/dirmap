@@ -1,0 +1,31 @@
+.name rf-contr
+.inputs RFFrameReq 0 SOFEventoK 0 EOFEventoK 0 CtrEoTSAck 0 SCEoTSAck 0 HIFCommitAck 0
+.outputs ControlResetAck 1 RFFrameAck 0 IntSDReq 0 SCEoTSReq 0 HIFCommitReq 0
+p1/p2|RFFrameReq+
+p2/p3|IntSDReq+, ControlResetAck-
+p3/p4|SOFEventoK+
+p4/p5|IntSDReq-
+p5/p6|SOFEventoK-
+p6/p7|IntSDReq+
+p7/p8|EOFEventoK+
+p8/p9|HIFCommitReq+, IntSDReq-
+p9/p10|EOFEventoK-, HIFCommitAck+
+p10/p11|HIFCommitReq-, SCEoTSReq+
+p11/p12|SCEoTSAck+, HIFCommitAck-
+p12/p13|SCEoTSReq-
+p13/p14|SCEoTSAck-
+p14/p15|RFFrameAck+
+p15/p16|RFFrameReq-
+p16/p17|RFFrameAck-
+p17/p18|RFFrameReq+
+p18/p3|IntSDReq+
+p7/p25|CtrEoTSAck+
+p25/p19|IntSDReq-
+p19/p20|CtrEoTSAck-
+p20/p21|SCEoTSReq+
+p21/p22|SCEoTSAck+
+p22/p23|SCEoTSReq-
+p23/p24|SCEoTSAck-
+p24/p7|IntSDReq+
+.start p1
+.end

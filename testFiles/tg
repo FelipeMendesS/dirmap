@@ -1,4 +1,4 @@
-.inputs a 0 b 0 d 1
+.inputs a 0 b 0 d 0
 .choice c 0
 .outputs x 0 y 0 z 0 w 0
 p1/p2|#c+,b+
@@ -7,19 +7,19 @@ p3/p4|b-,a+
 p4/p5|x-
 p5/p6|a-
 p6/p1|y-
-p1/p7|#c-,b+
-p7/p8,p10|z+,x+,y+
+p1/p20|#c-,b+
+p20/p21|z+,x+
+p21/p7|d+
+p7/p8,p10|y+
 p8/p9|d-
 p10/p11,p13|w+,x-
 p11/p12|z-
 p13/p14|#c+,b-,a+
 p12,p14/p15|a-
-p9,p15/p16|y-,z+
-p16/p17|d+
-p17/p1|z-
-p13/p18|#c-,b-,a+
-p18/p19|w-
-p19/p20|b+,a-
-p20/p10|x+
+p9,p15/p1|y-,z+
+p13/p17|#c-,b-,a+
+p17/p18|w+
+p18/p19|b+,a-
+p19/p13|w-
 .start p1
 .end

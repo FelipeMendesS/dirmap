@@ -50,6 +50,8 @@ class DirectMapping(object):
         # Assuming choices can only happen with inputs (Which makes sense) and there are no more than 1 choice close
         # Between two adjacent control cells. (IMPORTANT ASSUMPTION)
         # TODO: Doesn't work for the case when there is concurrency before choice. They are all being anded together.
+        if len(self.tarjan()) > 2:
+            raise Exception("XSTG not Live!")
         self.check_for_size_2_cycles()
         self.get_control_cell_graph()
         # self.get_output_control_cell_relation()
@@ -117,15 +119,28 @@ class DirectMapping(object):
         for node in place_list:
             for place in place_list:
                 blocked[place] = False
-                B[place] = []
-            self.find_cycles(node, node, cycles, stack, stack_set, blocked, B)
+                B[place] = set()
+            graph = self.limited_graph(node)
+            if len(graph[node]) == 0:
+                break
+            self.find_cycles(node, node, cycles, stack, stack_set, blocked, B, graph)
         return cycles
 
-    def find_cycles(self, current_node, initial_node, cycles, stack, stack_set, blocked, B):
+    def limited_graph(self, minimum_node):
+        graph = {}
+        for node in self.graph.stg_graph.keys():
+            if node >= minimum_node:
+                graph[node] = []
+                for place in self.graph.stg_graph[node]:
+                    if place >= minimum_node:
+                        graph[node].append(place)
+        return graph
+
+    def find_cycles(self, current_node, initial_node, cycles, stack, stack_set, blocked, B, graph):
         f = False
         stack.append(current_node)
         blocked[current_node] = True
-        for node in self.graph.stg_graph[current_node]:
+        for node in graph[current_node]:
             if node < initial_node:
                 continue
             if node == initial_node:
@@ -135,16 +150,16 @@ class DirectMapping(object):
                 # print(cycles)
                 f = True
             elif not blocked[node]:
-                if self.find_cycles(node, initial_node, cycles, stack, stack_set, blocked, B):
+                if self.find_cycles(node, initial_node, cycles, stack, stack_set, blocked, B, graph):
                     f = True
         if f:
-            self.unblock(node, B, blocked)
+            self.unblock(current_node, B, blocked)
         else:
-            for node in self.graph.stg_graph[current_node]:
+            for node in graph[current_node]:
                 if node < initial_node:
                     continue
                 if current_node not in B[node]:
-                    B[node].append(current_node)
+                    B[node].add(current_node)
         stack.pop()
         return f
 
@@ -153,6 +168,7 @@ class DirectMapping(object):
         for place in B[node]:
             if blocked[place]:
                 self.unblock(place, B, blocked)
+        B[node] = set()
         return
 
     def check_for_size_2_cycles(self):
@@ -165,9 +181,14 @@ class DirectMapping(object):
         # for place in self.graph.stg_graph[initial_place]:
         #     self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
         cycles = self.johnson()
+        johnson = True
         for cycle in cycles:
             size = 0
-            for place in cycle[:-1]:
+            if not johnson:
+                used_cycle = cycle[:-1]
+            else:
+                used_cycle = cycle
+            for place in used_cycle:
                 if place in valid_places_set:
                     size += 1
             if size <= 3:
