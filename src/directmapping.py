@@ -70,15 +70,101 @@ class DirectMapping(object):
                         initial_places_not_p1.remove(place)
         return set_of_control_cell_places, initial_places_not_p1
 
+    def tarjan(self):
+        counter = 0
+        stack = []
+        stack_set = set()
+        scc_list = []
+        ident_dict = {}
+        for node in self.graph.stg_graph.keys():
+            if node not in ident_dict:
+                counter = self.scc(counter, ident_dict, node, stack, stack_set, scc_list)
+        return scc_list
+
+    def scc(self, counter, ident_dict, current_node, stack, stack_set, scc_list):
+        ident_dict[current_node] = [counter, counter]
+        counter += 1
+        stack.append(current_node)
+        stack_set.add(current_node)
+        for node in self.graph.stg_graph[current_node]:
+            if node not in ident_dict:
+                counter = self.scc(counter, ident_dict, node, stack, stack_set, scc_list)
+                if ident_dict[node][1] < ident_dict[current_node][1]:
+                    ident_dict[current_node][1] = ident_dict[node][1]
+            elif node in stack_set:
+                if ident_dict[node][0] < ident_dict[current_node][1]:
+                    ident_dict[current_node][1] = ident_dict[node][0]
+        if ident_dict[current_node][0] == ident_dict[current_node][1]:
+            scc = []
+            aux = stack.pop()
+            scc.append(aux)
+            stack_set.remove(aux)
+            while aux != current_node:
+                aux = stack.pop()
+                scc.append(aux)
+                stack_set.remove(aux)
+            scc_list.append(scc)
+        return counter
+
+    def johnson(self):
+        blocked = {}  # type: Dict[bool]
+        B = {}  # type: Dict[List[bool]]
+        cycles = []
+        stack = []
+        stack_set = set()
+        place_list = list(self.graph.stg_graph.keys())
+        place_list.sort()
+        for node in place_list:
+            for place in place_list:
+                blocked[place] = False
+                B[place] = []
+            self.find_cycles(node, node, cycles, stack, stack_set, blocked, B)
+        return cycles
+
+    def find_cycles(self, current_node, initial_node, cycles, stack, stack_set, blocked, B):
+        f = False
+        stack.append(current_node)
+        blocked[current_node] = True
+        for node in self.graph.stg_graph[current_node]:
+            if node < initial_node:
+                continue
+            if node == initial_node:
+                # print(stack)
+                # print(initial_node)
+                cycles.append(list(stack))
+                # print(cycles)
+                f = True
+            elif not blocked[node]:
+                if self.find_cycles(node, initial_node, cycles, stack, stack_set, blocked, B):
+                    f = True
+        if f:
+            self.unblock(node, B, blocked)
+        else:
+            for node in self.graph.stg_graph[current_node]:
+                if node < initial_node:
+                    continue
+                if current_node not in B[node]:
+                    B[node].append(current_node)
+        stack.pop()
+        return f
+
+    def unblock(self, node, B, blocked):
+        blocked[node] = False
+        for place in B[node]:
+            if blocked[place]:
+                self.unblock(place, B, blocked)
+        return
+
     def check_for_size_2_cycles(self):
-        checker_dict = {}
-        cycles = []  # type: List[List[Node]]
+        # checker_dict = {}
+        # cycles = []  # type: List[List[Node]]
         valid_places_set = self.set_of_control_cell_places
-        path_stack = OrderedDict()
-        initial_place = self.graph.initial_places[0]
-        path_stack[initial_place] = 1
-        for place in self.graph.stg_graph[initial_place]:
-            self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
+        # path_stack = OrderedDict()
+        # initial_place = self.graph.initial_places[0]
+        # path_stack[initial_place] = 1
+        # for place in self.graph.stg_graph[initial_place]:
+        #     self.__aux_check_for_size_2_cycles(OrderedDict(path_stack), cycles, place, checker_dict)
+        cycles = self.johnson()
         for cycle in cycles:
             size = 0
             for place in cycle[:-1]:

@@ -4,6 +4,7 @@ from textparseestg import TextParseESTG
 from estggraph import ESTGGraph
 from graphutil import GraphUtil
 from vhdlgenerator import VHDLGenerator
+import time
 
 
 class TestDirectMapping(TestCase):
@@ -59,3 +60,8 @@ class TestDirectMapping(TestCase):
     def test_output_signal_values(self):
         print("Output value for each cell")
         print(self.direct.output_control_cell_relation)
+
+    def test_scc(self):
+        scc_list = self.direct.johnson()
+        # GraphUtil.print_graph(self.estg_graph, self.file[0], True, True)
+        print(scc_list)

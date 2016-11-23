@@ -22,8 +22,8 @@ class TestTextParseXBM(TestCase):
     def test_gaga(self):
         file = ["testFile", "sbuf-send-pkt2-vf", "ALU2-vf", "biu-dma2fifo-VF", "biu-fifo2dma-VF", "des-vf",
                 "isqrt-vf", "scsi-init-send-vf", "scsi-targ-send-vf", "select2p-vf", "selmerge2ph-vf", "I2C"]
-        file = ["alloc-outbound", "chu172", "atod", "ebergen", "master-read", "ram-read-sbuf", "sbuf-ram-write",
-                "sendr-done"]
+        # file = ["alloc-outbound", "chu172", "atod", "ebergen", "master-read", "ram-read-sbuf", "sbuf-ram-write",
+        #         "sendr-done"]
         for f in file:
             averager = 0
             print(f)
